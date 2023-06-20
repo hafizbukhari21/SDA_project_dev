@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\auth\authController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,6 @@ Route::get('/', function () {
     return view('Pages.auth.login');
 });
 Route::view('/dashboard', 'Pages.general.dashboard');
+Route::view('/auth/register', 'Pages.auth.register');
+
+Route::get("/user/getAllUser",[authController::class, "returnAllUser"]);
