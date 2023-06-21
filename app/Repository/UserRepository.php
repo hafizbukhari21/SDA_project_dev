@@ -1,16 +1,29 @@
 <?php
 
 namespace App\Repository;
-
-use App\Interfaces\UserInterface;
+use App\Interfaces\GeneralInterface;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User;
 
-class UserRepository implements UserInterface{
 
-    public function getAllUser(){
-        return User::all();
+class UserRepository {
+   
+    public User $user;
+    public function __construct(User $user){
+        $this->user = $user;
     }
-    public function getUser($user_id){}
-    public function deleteUser($user_id){}
-    public function updateUser($user_id){}
+
+    public function get($id){
+    }
+    public function getAll(){
+        return $this->user->all();
+    }
+    public function insert(){
+
+    }
+    
+
+
+    
 }

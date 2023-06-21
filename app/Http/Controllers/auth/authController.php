@@ -16,7 +16,7 @@ class authController extends Controller
     }
 
     public function returnAllUser(){
-        return $this->userRepository->getAllUser();
+        return $this->userRepository->getAll();
     }
 
 }
