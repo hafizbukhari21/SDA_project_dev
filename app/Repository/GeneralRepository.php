@@ -12,8 +12,9 @@ class GeneralRepository implements GeneralInterface{
         $this->objectName = $objectName;
     }
     public function get($id){
-        
+       # return $this->objectName->    
     }
+
     public function getAll(){
         return $this->objectName->all();
     }
