@@ -12,7 +12,10 @@ class projectController extends Controller
     public function __construct(ProjectRepository $projectRepository){
         $this->projectRepository = $projectRepository;
     }
-    public function getAllProject(){
-        return $this->projectRepository->generalRepository->getAll();
+    public function login(){
+
+    }
+    public function register(Request $req){
+        
     }
 }

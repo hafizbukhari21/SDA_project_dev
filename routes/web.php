@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\authController;
 use App\Http\Controllers\projectController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,5 +23,8 @@ Route::get('/', function () {
 Route::view('/dashboard', 'Pages.general.dashboard');
 Route::view('/auth/register', 'Pages.auth.register');
 
-Route::get("/user/getAll",[authController::class, "returnAllUser"]);
+Route::get("/user/getAllUser",[userController::class, "getAllUser"]);
+
+Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjectList"]);
+
 Route::get("/project/getAll",[projectController::class,"getAllProject"]);

@@ -24,6 +24,11 @@ class UserRepository {
     }
     
 
+    public function getAllUserAndProject(){
+        return $this->getAll()->load('project');
+    }
+    
+
 
     
 }

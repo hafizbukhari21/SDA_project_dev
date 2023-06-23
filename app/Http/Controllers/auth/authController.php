@@ -19,4 +19,5 @@ class authController extends Controller
         return $this->userRepository->getAll();
     }
 
+
 }
