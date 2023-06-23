@@ -8,7 +8,6 @@ class ProjectRepository{
 
     public GeneralRepository $generalRepository;
     public function __construct(){
-        $project = new project();
-        $this->generalRepository = new GeneralRepository($project);
+        $this->generalRepository = new GeneralRepository(new project());
     }
 }
