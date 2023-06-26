@@ -28,6 +28,9 @@ class UserRepository {
        ]);
     }
     
+    public function getEmail($email){
+        return User::where("email",$email)->get();
+    }
 
     public function getAllUserAndProject(){
         return $this->getAll()->load('project');

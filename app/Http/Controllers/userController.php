@@ -40,7 +40,10 @@ class userController extends Controller
             'role' => 'required',
             'email' => 'required',
         ]);
-         return $this->userRepository->insert($req);
+        $cekEmail=$this->userRepository->getEmail($req->email);
+        if(sizeof($cekEmail) >0 ) return "Email Sudah terdaftar";
+        return $this->userRepository->insert($req);
+        
     }
 
 
