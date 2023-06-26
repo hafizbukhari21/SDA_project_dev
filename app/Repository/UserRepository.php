@@ -5,7 +5,7 @@ use App\Interfaces\GeneralInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User;
-
+use GuzzleHttp\Psr7\Request;
 
 class UserRepository {
    
@@ -19,8 +19,13 @@ class UserRepository {
     public function getAll(){
         return $this->user->all();
     }
-    public function insert(){
-
+    public function insert($request){
+       return User::create([
+            "name"=> $request->name,
+            "email"=> $request->email,
+            "password"=>$request->password,
+            "role"=>$request->role
+       ]);
     }
     
 

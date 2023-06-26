@@ -29,4 +29,18 @@ class userController extends Controller
     }
 
 
+
+    //Ingat Untuk Controller ini csrf nya mati masih dari postman
+    //Ntar jangan lupa pas viewnya dah jadi csrf tokenya hidupin lagi
+    public function registerUser(Request $req){
+        $req->validate([
+            'name' => 'required',
+            'password'  => 'required',
+            'role' => 'required',
+            'email' => 'required',
+        ]);
+         return $this->userRepository->insert($req);
+    }
+
+
 }

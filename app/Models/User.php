@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -46,5 +47,9 @@ class User extends Authenticatable
     public function project(){
         #param object,fk,pk
         return $this->hasMany(project::class,'pic_id',"id");
+    }
+
+    public function setPasswordAttribute($password){
+        $this->attributes['password'] = bcrypt($password);
     }
 }

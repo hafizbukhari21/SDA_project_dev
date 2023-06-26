@@ -23,8 +23,16 @@ Route::get('/', function () {
 Route::view('/dashboard', 'Pages.general.dashboard');
 Route::view('/auth/register', 'Pages.auth.register');
 
+
 Route::get("/user/getAllUser",[userController::class, "getAllUser"]);
 
 Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjectList"]);
 
 Route::get("/project/getAll",[projectController::class,"getAllProject"]);
+
+
+//fixing controller
+Route::post("/user/register",[userController::class,"registerUser"]);
+
+
+
