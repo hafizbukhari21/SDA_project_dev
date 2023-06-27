@@ -22,12 +22,19 @@ class authController extends Controller
 
 
     public function returnLoginApi(Request $req){
-        // $req->validate([
-        //     "email"=>"required",
-        //     "password"=>"required",
-        // ]);
+        $req->validate([
+            "email"=>"required",
+            "password"=>"required",
+        ]);
         return $this->authRepository->LoginJwt($req);
     }
+    public function returnLogoutApi(){
+        auth()->logout();
+    }
+
+    
+
+
 
 
 }
