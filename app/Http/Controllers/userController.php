@@ -25,7 +25,7 @@ class userController extends Controller
       return $this->userRepository->getAll();
     }
 
-    public function returnUserAndProjectList(){
+    public function returnUserAndProjectList(Request $req){
         return $this->userRepository->getAllUserAndProject();
     }
 

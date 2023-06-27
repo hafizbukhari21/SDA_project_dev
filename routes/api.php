@@ -20,8 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
 //
-Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjectList"]);
+Route::group(['middleware'=>'SessionControl'],function(){
+    Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjectList"]);
+});
 
 
 //fixed Route
