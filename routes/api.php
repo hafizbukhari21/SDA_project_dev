@@ -31,4 +31,4 @@ Route::group(['middleware'=>'SessionControl'],function(){
 //fixed Route
 Route::post("/user/register",[userController::class,"registerUser"]);
 Route::post("/auth/login",[authController::class,"returnLoginApi"]);
-Route::post("/auth/logout",[authController::class,"returnLogoutApi"]);
+Route::post("/auth/logout",[authController::class,"returnLogoutApi"]);//wajib attach bearer tokenya
