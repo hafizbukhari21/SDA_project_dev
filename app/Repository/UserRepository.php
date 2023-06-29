@@ -20,12 +20,13 @@ class UserRepository {
         return $this->user->all();
     }
     public function insert($request){
-       return User::create([
-            "name"=> $request->name,
-            "email"=> $request->email,
-            "password"=>$request->password,
-            "role"=>$request->role
-       ]);
+        return User::create($request->all());
+    //    return User::create([
+    //         "name"=> $request->name,
+    //         "email"=> $request->email,
+    //         "password"=>$request->password,
+    //         "role"=>$request->role
+    //    ]);
     }
     
     public function getEmail($email){

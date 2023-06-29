@@ -45,10 +45,7 @@ class userController extends Controller
         
     }
 
-    //For Jwt Only
-    public function returnUserDetail(Request $req){
-        return $req->User();
-    }
+  
 
 
 }

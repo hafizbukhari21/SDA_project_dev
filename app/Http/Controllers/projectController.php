@@ -12,10 +12,15 @@ class projectController extends Controller
     public function __construct(ProjectRepository $projectRepository){
         $this->projectRepository = $projectRepository;
     }
-    public function login(){
-
-    }
-    public function register(Request $req){
+ 
+    public function setMyProject(Request $req){
+        return $this->projectRepository->insert($req);
         
+    }
+
+    public function returnMyProject(Request $req){
+        $payload = $this->projectRepository->myProject($req);
+        return response()->json(compact("payload"));
+
     }
 }
