@@ -31,6 +31,7 @@ Route::group(['middleware'=>'SessionControl'],function(){
     Route::group(["prefix"=>"project"],function(){
         Route::get("myProject",[projectController::class,"returnMyProject_all"]);
         Route::get("myproject/detail/{idProject}",[projectController::class,"returnMyProject"]);
+        //detailproject+timeline per project
         Route::post("myProject",[projectController::class,"setMyProject"]);
 
         Route::group(["prefix"=>"timeline"],function(){

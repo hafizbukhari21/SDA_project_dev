@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\authController;
 use App\Http\Controllers\projectController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\web\authWebController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,8 +32,15 @@ Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjec
 Route::get("/project/getAll",[projectController::class,"getAllProject"]);
 
 
+
 //fixing controller
 Route::post("/user/register",[userController::class,"registerUser"]);
+
+Route::group(["prefix"=>"project"],function(){
+    Route::post("login",[authWebController::class,"loginWeb"]);
+});
+
+
 
 
 
