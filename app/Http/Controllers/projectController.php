@@ -18,9 +18,23 @@ class projectController extends Controller
         
     }
 
-    public function returnMyProject(Request $req){
+    public function returnMyProject_all(Request $req){
         $payload = $this->projectRepository->myProject($req);
         return response()->json(compact("payload"));
 
     }
+
+    public function returnMyProject(Request $req,$idProject){
+        //project Ownership Check
+        
+        if($this->projectRepository->cekProjectOwnerShip($req,$idProject)==null){
+            return response(null,401);
+        }
+        return $this->projectRepository->getProjectDetail($idProject);
+
+    }
+
+    
+
+    
 }

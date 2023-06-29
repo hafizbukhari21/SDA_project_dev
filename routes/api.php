@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\authController;
+use App\Http\Controllers\project_timelineController;
 use App\Http\Controllers\projectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,22 +24,31 @@ use App\Http\Controllers\userController;
 
 
 //
+
+//fixed Route
 Route::group(['middleware'=>'SessionControl'],function(){
     Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjectList"]);
-    Route::get("/project/myProject",[projectController::class,"returnMyProject"]);
+    Route::group(["prefix"=>"project"],function(){
+        Route::get("myProject",[projectController::class,"returnMyProject_all"]);
+        Route::get("myproject/detail/{idProject}",[projectController::class,"returnMyProject"]);
+        Route::post("myProject",[projectController::class,"setMyProject"]);
+
+        Route::group(["prefix"=>"timeline"],function(){
+            Route::post("",[project_timelineController::class,"setTimelineProject"]);
+        });
+    });
     
 });
 
-Route::post("/project/myProject",[projectController::class,"setMyProject"]);
 
-
-
-
-//fixed Route
 Route::post("/user/register",[userController::class,"registerUser"]);
-Route::get("/auth/detail",[authController::class,"returnUserDetail"]);//Get User Detail JWT auth
-Route::post("/auth/login",[authController::class,"returnLoginApi"]);
-Route::post("/auth/logout",[authController::class,"returnLogoutApi"]);//wajib attach bearer tokenya
+
+Route::group(["prefix"=>"auth"],function(){
+    Route::get("detail",[authController::class,"returnUserDetail"]);//Get User Detail JWT auth
+    Route::post("login",[authController::class,"returnLoginApi"]);
+    Route::post("logout",[authController::class,"returnLogoutApi"]);//wajib attach bearer tokenya
+});
+
 
 
 

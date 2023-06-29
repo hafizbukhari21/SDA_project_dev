@@ -22,4 +22,9 @@ class project extends Model
     public function user(){
         return $this->belongsTo(User::class,"id");
     }
+
+    public function projects_timeline(){
+        #param object,fk,pk
+        return $this->hasMany(project_timeline::class,'project_id',"id");
+    }
 }
