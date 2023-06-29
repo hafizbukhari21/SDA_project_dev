@@ -10,6 +10,7 @@ class GeneralRepository implements GeneralInterface{
 
     protected Model $objectName;
     
+    
     public function get($var,$val){
         return $this->objectName->where([$var => $val])->get();    
     }

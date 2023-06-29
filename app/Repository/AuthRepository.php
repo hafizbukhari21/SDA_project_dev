@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthRepository extends UserRepository {
 
@@ -16,8 +17,10 @@ class AuthRepository extends UserRepository {
         return $token;
     }
 
-    public function LoginWeb(){
-     
+    public function LoginWeb(Request $req){
+        if(Auth::guard("api"));
     }
+
+  
 }
 

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('Pages.auth.login');
 });
-Route::view('/dashboard', 'Pages.general.dashboard');
+
 Route::view('/auth/register', 'Pages.auth.register');
 
 
@@ -34,11 +34,29 @@ Route::get("/project/getAll",[projectController::class,"getAllProject"]);
 
 
 //fixing controller
-Route::post("/user/register",[userController::class,"registerUser"]);
-
-Route::group(["prefix"=>"project"],function(){
-    Route::post("login",[authWebController::class,"loginWeb"]);
+Route::group(['middleware'=>'SessionControlWeb'],function(){
+    Route::prefix('user')->group(function () {
+        // Route::post("register",[userController::class,"registerUser"])->name("registerUser");
+    });
+    Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
 });
+
+Route::group(["prefix"=>"auth"],function(){
+    Route::post("login",[authWebController::class,"loginWeb"])->name("loginWeb");
+    Route::get("logout",[authWebController::class,"logoutWeb"])->name("logout");
+});
+
+
+
+
+
+
+
+
+
+//test view
+
+// Route::view('tes/dashboard', 'Pages.general.dashboard');
 
 
 
