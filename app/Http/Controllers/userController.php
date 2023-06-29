@@ -29,8 +29,6 @@ class userController extends Controller
         return $this->userRepository->getAllUserAndProject();
     }
 
-
-
     //Ingat Untuk Controller ini csrf nya mati masih dari postman
     //Ntar jangan lupa pas viewnya dah jadi csrf tokenya hidupin lagi
     //Belum ada fitur Validasi untuk modul ini
@@ -45,6 +43,11 @@ class userController extends Controller
         if(sizeof($cekEmail) >0 ) return "Email Sudah terdaftar";
         return $this->userRepository->insert($req);
         
+    }
+
+    //For Jwt Only
+    public function returnUserDetail(Request $req){
+        return $req->User();
     }
 
 

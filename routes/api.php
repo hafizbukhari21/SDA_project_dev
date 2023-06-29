@@ -16,10 +16,9 @@ use App\Http\Controllers\userController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 //
@@ -30,5 +29,7 @@ Route::group(['middleware'=>'SessionControl'],function(){
 
 //fixed Route
 Route::post("/user/register",[userController::class,"registerUser"]);
+Route::get("/user/detail",[userController::class,"returnUserDetail"]);//Get User Detail JWT auth
 Route::post("/auth/login",[authController::class,"returnLoginApi"]);
 Route::post("/auth/logout",[authController::class,"returnLogoutApi"]);//wajib attach bearer tokenya
+
