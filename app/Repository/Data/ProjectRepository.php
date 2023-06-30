@@ -4,7 +4,7 @@ namespace App\Repository\Data;
 use App\Repository\GeneralRepository;
 use App\Models\project;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class ProjectRepository extends GeneralRepository{
 
@@ -19,14 +19,19 @@ class ProjectRepository extends GeneralRepository{
     }
 
     public function getProjectDetail($project_id){
-        return $this->objectName->get()->load("projects_timeline")
-            ->where("id","=",1);
+        return $this->objectName->get()->load("projects_timeline")->where("id","=",$project_id);
+    }
+
+    public function getProjectWith_PicAndCreator(){
+        return $this->objectName->get()->where("user_creator_id",session()->get("sessionKey")["id"])->load("pic_id","user_creator","category_project");
+
     }
 
     public function cekProjectOwnerShip(Request $req,$project_id){
+        
         $project = $this->objectName
                     ->where([
-                        "pic_id"=>$req->User()->id,
+                        "user_creator_id"=>$req->user()->id,
                         "id"=>$project_id
                     ])->first();
 
@@ -34,6 +39,19 @@ class ProjectRepository extends GeneralRepository{
         else return $project;
 
     }
+    public function cekProjectOwnerShip_Web(Request $req,$project_id){
+        
+        $project = $this->objectName
+                    ->where([
+                        "user_creator_id"=>session()->get("sessionKey")["id"],
+                        "id"=>$project_id
+                    ])->first();
+
+        if($project == null) return null;
+        else return $project;
+
+    }
+
 
 
 

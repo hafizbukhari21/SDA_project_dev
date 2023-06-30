@@ -13,17 +13,21 @@ class project extends Model
     protected $fillable = [
         "project_name",
         "pic_id", 
-        "category", 
+        "category_id", 
+        "user_creator_id",
         "status",
         "time",
         "urgensi"
     ];
    
-    public function user(){
-        return $this->belongsTo(User::class,"id");
+    public function pic_id(){
+        return $this->belongsTo(User::class,"pic_id","id");
+    }
+    public function user_creator(){
+        return $this->belongsTo(User::class,"user_creator_id","id");
     }
     public function category_project(){
-        return $this->belongsTo(category_project::class,"id");
+        return $this->belongsTo(category_project::class,"category_id","id");
     }
 
     public function projects_timeline(){

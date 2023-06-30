@@ -5,6 +5,7 @@ use App\Http\Controllers\projectController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\web\authWebController;
 use App\Http\Controllers\web\categoryProjectController;
+use App\Http\Controllers\web\web_projectController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,11 +39,13 @@ Route::get("/project/getAll",[projectController::class,"getAllProject"]);
 Route::group(['middleware'=>'SessionControlWeb'],function(){
     Route::prefix('user')->group(function () {
         // Route::post("register",[userController::class,"registerUser"])->name("registerUser");
-        Route::get("head",[userController::class,"returnAllHead"])->name("user.head");
+        Route::get("head",[userController::class,"returnAllHead"])->name("user.head");//ajax Route
     });
     Route::prefix('project')->group(function(){
         Route::view("create","Pages.general.project.create")->name("project.create");
-        Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");
+        Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");//ajax Route
+        Route::get("myProject/{idProject}",[web_projectController::class,"getMyProject"])->name("project.myProject");//ajax Route
+        Route::get("myProject/withPicAndCreator/{idProject}",[web_projectController::class,"returnProjectWith_PicAndCreator"])->name("project.picAndCreator.myProject");//ajax Route
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     

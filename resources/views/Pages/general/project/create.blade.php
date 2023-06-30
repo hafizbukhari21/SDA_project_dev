@@ -1,13 +1,13 @@
 @extends('Layouts.mainLayout')
 
 @section('generalContent')
-<div class="">
+<div class="container-fluid">
     <div class="  border-0 ">
         <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-                <div class="col-lg-5 ">
-                    <div class="p-5">
+                <div class="col-lg-4 ">
+                    <div class="p-4">
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Create Project</h1>
                         </div>
@@ -63,8 +63,8 @@
                                         id="exampleRepeatPassword" placeholder="Repeat Password">
                                 </div>
                             </div> --}}
-                            <a href="login.html" class="btn btn-primary  btn-block">
-                                Create Project
+                            <a href="login.html" class="btn btn-primary   btn-block">
+                                Create Project 
                             </a>
                             
                        
@@ -77,8 +77,40 @@
                         </div> --}}
                     </div>
                 </div>
-                <div class="col-lg-7">
-                  
+                <div class="col-lg-8">
+                    <div class="card shadow w-100 h-100">
+                        
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="tableProject" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Project Name</th>
+                                            <th>PIC Name</th>
+                                            <th>Category</th>
+                                            <th>Time</th>
+                                            <th>Urgensi</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Project Name</th>
+                                            <th>PIC Name</th>
+                                            <th>Category</th>
+                                            <th>Time</th>
+                                            <th>Urgensi</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                     
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,6 +121,11 @@
 
 @section("jsScript")
     {{-- <script src="{{ asset('js/Helper/createProject.js') }}"></script> --}}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script>
 
         $(document).ready(function () {
@@ -115,7 +152,55 @@
                     })
                 }
             });
-        });
+
+            let table = $('#tableProject').DataTable({
+                ajax: {
+                    url: `{{route('project.picAndCreator.myProject',['idProject'=>2])}}`,
+                    "dataType": "json",
+                    "dataSrc": "payload",
+                },
+
+                
+                columns: [
+                    {
+                        "data":"project_name",
+                      
+                    },
+                    {
+                        "data":"pic_id.name",
+                    },
+                    {
+                        "data":"category_project.category_name",
+                    },
+                    {
+                        "data":"time",
+                    },
+                    {
+                        "data":"urgensi",
+                    },
+                    {
+                        data: "id",
+                        render: function (data, type, row, meta) {
+                            return `<div class="btn-group text-center">
+                                        <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="detail('${data}')" data-toggle="modal" data-target="#updateModal">
+                                        <i class="fas fa-edit"></i>
+                                        </a>
+                                        <br/>
+                                        <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="delete('${data}')" data-toggle="modal" data-target="#updateModal">
+                                        <i class="fas fa-edit"></i>
+                                        </a>
+                                        <br/>
+                                        <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="update('${data}')" data-toggle="modal" data-target="#updateModal">
+                                        <i class="fas fa-edit"></i>
+                                        </a>
+                                    </div>`
+                        }
+                    }
+                ]
+            });
+
+        })
+
        
     </script>
 @endsection

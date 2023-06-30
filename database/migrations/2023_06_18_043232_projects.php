@@ -21,6 +21,8 @@ return new class extends Migration
 
             $table->foreign('pic_id')->references('id')->on('users')->onDelete("cascade")->onUpdate("cascade");
 
+            $table->foreignId("user_creator_id")->references('id')->on('users')->onDelete("cascade")->onUpdate("cascade");
+
             $table->foreignId("category_id")->references('id')->on('category_project')->onDelete("cascade")->onUpdate("cascade");
 
             $table->text('status');
