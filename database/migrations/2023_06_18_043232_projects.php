@@ -18,9 +18,11 @@ return new class extends Migration
             
             //PIC
             $table->unsignedBigInteger('pic_id');
-            $table->foreign('pic_id')->references('id')->on('users');
 
-            $table->string('category');
+            $table->foreign('pic_id')->references('id')->on('users')->onDelete("cascade")->onUpdate("cascade");
+
+            $table->foreignId("category_id")->references('id')->on('category_project')->onDelete("cascade")->onUpdate("cascade");
+
             $table->text('status');
             $table->float('time');
             $table->integer('urgensi');

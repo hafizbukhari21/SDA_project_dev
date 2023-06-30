@@ -22,6 +22,9 @@ class project extends Model
     public function user(){
         return $this->belongsTo(User::class,"id");
     }
+    public function category_project(){
+        return $this->belongsTo(category_project::class,"id");
+    }
 
     public function projects_timeline(){
         #param object,fk,pk

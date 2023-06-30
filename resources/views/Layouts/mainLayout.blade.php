@@ -429,6 +429,12 @@
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
+    {{-- in public directory bukan di resource --}}
+    <script src="{{ asset('js/CustomLib.js') }}"></script>
+    <script src="{{ asset('js/Helper/createProject.js') }}"></script>
+
+    @yield('jsScript')
+
 </body>
 
 </html>

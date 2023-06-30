@@ -4,6 +4,7 @@ use App\Http\Controllers\auth\authController;
 use App\Http\Controllers\projectController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\web\authWebController;
+use App\Http\Controllers\web\categoryProjectController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,9 +38,11 @@ Route::get("/project/getAll",[projectController::class,"getAllProject"]);
 Route::group(['middleware'=>'SessionControlWeb'],function(){
     Route::prefix('user')->group(function () {
         // Route::post("register",[userController::class,"registerUser"])->name("registerUser");
+        Route::get("head",[userController::class,"returnAllHead"])->name("user.head");
     });
     Route::prefix('project')->group(function(){
         Route::view("create","Pages.general.project.create")->name("project.create");
+        Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     

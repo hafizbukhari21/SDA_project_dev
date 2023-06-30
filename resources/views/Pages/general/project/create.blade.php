@@ -19,12 +19,22 @@
                                
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control " id="exampleFirstName"placeholder="PIC Name">
+                                <select class="form-control" id="project_pic" aria-label="Default select example">
+                                    <!-- <option selected>PIC</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option> -->
+                                  </select>
 
                             </div>
                             <div class="form-group ">
                                 
-                                <input type="text" class="form-control " id="exampleFirstName"placeholder="Category">
+                                <select class="form-control " id="category_project" aria-label="Default select example">
+                                    <!-- <option selected>Category</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option> -->
+                                  </select>
 
                             
                            
@@ -75,4 +85,37 @@
     </div>
 </div>
 
+@endsection
+
+@section("jsScript")
+    {{-- <script src="{{ asset('js/Helper/createProject.js') }}"></script> --}}
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "{{route('project.category.all')}}",
+                success: function (response) {
+                    MappingSelectOption({
+                        default:"Select Category Project",
+                        element:document.querySelector("#category_project"),
+                        data : response.map(e => ({id:e.id, name:e.category_name}))
+                    })
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "{{route('user.head')}}",
+                success: function (response) {
+                    MappingSelectOption({
+                        default:"Select PIC Project",
+                        element:document.querySelector("#project_pic"),
+                        data : response.map(e => ({id:e.id, name:e.name}))
+                    })
+                }
+            });
+        });
+       
+    </script>
 @endsection

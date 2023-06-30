@@ -45,6 +45,12 @@ class userController extends Controller
         
     }
 
+    public function returnAllHead(){
+        return $this->userRepository->getAllHead();
+    }
+
+    
+
   
 
 

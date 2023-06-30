@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('projects_timeline', function (Blueprint $table) {
             $table->id();
             $table->string('task_name');
-            $table->foreignId('project_id')->references('id')->on('projects');
+            $table->foreignId('project_id')->references('id')->on('projects')->onDelete("cascade")->onUpdate("cascade");
             $table->dateTime("from");
             $table->dateTime("to");
             $table->timestamps();

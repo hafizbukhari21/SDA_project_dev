@@ -19,6 +19,10 @@ class UserRepository {
     public function getAll(){
         return $this->user->all();
     }
+
+    public function getAllHead(){
+        return $this->user->where("role","Head")->get();
+    }
     public function insert($request){
         return User::create($request->all());
     //    return User::create([
