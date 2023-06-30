@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\authController;
+use App\Http\Controllers\mailerController;
 use App\Http\Controllers\projectController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\web\authWebController;
@@ -55,6 +56,9 @@ Route::group(["prefix"=>"auth"],function(){
     Route::post("login",[authWebController::class,"loginWeb"])->name("loginWeb");
     Route::get("logout",[authWebController::class,"logoutWeb"])->name("logout");
 });
+
+
+Route::get("mail",[mailerController::class,"index"]);
 
 
 
