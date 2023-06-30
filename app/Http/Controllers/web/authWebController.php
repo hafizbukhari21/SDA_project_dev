@@ -17,7 +17,7 @@ class authWebController extends Controller
         $this->authRepo = $authRepository;
         $this->guard = Auth::setDefaultDriver("web");
     }
-    //
+    
 
     public function loginWeb(Request $req){
 
@@ -34,7 +34,7 @@ class authWebController extends Controller
     public function logoutWeb(Request $request){
         auth()->logout();
         $request->session()->forget('sessionKey');
-
+        return redirect("");
     }
 
 

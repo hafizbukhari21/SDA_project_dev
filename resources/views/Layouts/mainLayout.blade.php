@@ -19,6 +19,11 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        .no-radius{
+    border-radius:0px !important;
+}
+    </style>
 
 </head>
 
@@ -41,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -51,7 +56,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Project
+                Menus
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -59,13 +64,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Create Project</span>
+                    <span>Project</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="scheduler.html">Timeline</a>
-                        <a class="collapse-item" href="cards.html">Assign</a>
+                        <h6 class="collapse-header">Components:</h6>
+                        <a class="collapse-item" href="{{ route('project.create') }}">Create </a>
+                        <a class="collapse-item" href="cards.html">Timeline</a>
                     </div>
                 </div>
             </li>
@@ -80,7 +85,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="utilities-color.html">Create </a>
+                        <a class="collapse-item" href="route">Create </a>
                         <a class="collapse-item" href="utilities-color.html">Approval</a>
                     </div>
                 </div>
@@ -158,9 +163,9 @@
                         <i class="fa fa-bars"></i>
                     </button>
             
-                    <!-- Topbar Search -->
+                    {{-- <!-- Topbar Search -->
                     <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2">
@@ -170,7 +175,11 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
+                    
+                    
+
+                    <span class="mr-2  text-gray-600 small">Role -&nbsp;{{session()->get("sessionKey")["role"]}}</span>
             
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -323,8 +332,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{session()->get("sessionKey")["name"]}}</span>
-                                {{-- <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg"> --}}
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -366,7 +375,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Jalin SDA 2023</span>
                     </div>
                 </div>
             </footer>

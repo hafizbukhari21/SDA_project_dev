@@ -38,7 +38,11 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
     Route::prefix('user')->group(function () {
         // Route::post("register",[userController::class,"registerUser"])->name("registerUser");
     });
+    Route::prefix('project')->group(function(){
+        Route::view("create","Pages.general.project.create")->name("project.create");
+    });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
+    
 });
 
 Route::group(["prefix"=>"auth"],function(){
