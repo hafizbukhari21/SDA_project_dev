@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectRepository extends GeneralRepository{
 
+  
 
     public function __construct(){
         $this->objectName = new project();
@@ -22,7 +23,7 @@ class ProjectRepository extends GeneralRepository{
     }
 
     public function getProjectWith_PicAndCreator(){
-        return $this->objectName->get()->where("user_creator_id",session()->get("sessionKey")["id"])->load("pic_id","user_creator","category_project");
+        return $this->objectName->where("user_creator_id",session()->get("sessionKey")["id"])->get()->load("pic_id","user_creator","category_project");
 
     }
 

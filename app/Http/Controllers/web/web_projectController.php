@@ -20,10 +20,9 @@ class web_projectController extends Controller
         return $this->projectRepo->getProjectDetail($idProject);
     }   
 
-    public function  returnProjectWith_PicAndCreator(){
+    public function  returnGetAllProject(){
     
-        $payload = ["payload"=>$this->projectRepo->getProjectWith_PicAndCreator()];
-        return $payload;
+        return $this->projectRepo->getProjectWith_PicAndCreator();
     }
 
     public function setProject(Request $req){

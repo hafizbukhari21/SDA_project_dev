@@ -46,12 +46,16 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::view("create","Pages.general.project.create")->name("project.create");
         Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");//ajax Route
         Route::get("myProject/{idProject}",[web_projectController::class,"getMyProject"])->name("project.myProject");//ajax Route
-        Route::get("myProject/withPicAndCreator/{idProject}",[web_projectController::class,"returnProjectWith_PicAndCreator"])->name("project.picAndCreator.myProject");//ajax Route
         Route::post("myProject",[web_projectController::class, "setProject"])->name("project.myProject");
+        Route::get("getAll",[web_projectController::class,"returnGetAllProject"])->name("project.picAndCreator.myProject");//ajax Route
+
     });
+
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     
 });
+
+
 
 Route::group(["prefix"=>"auth"],function(){
     Route::post("login",[authWebController::class,"loginWeb"])->name("loginWeb");

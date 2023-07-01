@@ -3,10 +3,10 @@
 @section('generalContent')
 <div class="container-fluid">
     <div class="  border-0 ">
-        <div class="card-body p-0">
+        <div class="card-body p-0 ">
             <!-- Nested Row within Card Body -->
-            <div class="row">
-                <div class="col-lg-4 ">
+            <div class="row"  >
+                <div class="col-lg-4">
                     <div class="p-4">
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Create Project</h1>
@@ -78,29 +78,30 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="card shadow w-100 h-100">
+                    <div class="card shadow w-100 h-100 " >
                         
-                        <div class="card-body">
+                        <div class="card-body" style="height: 100px; overflow:scroll">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="tableProject" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
-                                            <th>Category</th>
+                                            <th>Status</th>
                                             <th>Time</th>
-                                            <th>Urgensi</th>
-                                            <th>Actions</th>
+                                            <th>Action</th>
+                                            
+                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
-                                            <th>Category</th>
+                                            <th>Status</th>
                                             <th>Time</th>
-                                            <th>Urgensi</th>
-                                            <th>Actions</th>
+                                            <th>Action</th>
+                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -177,48 +178,31 @@
 
         function ShowTableProject(){
             let table = $('#tableProject').DataTable({
-                ajax: {
-                    url: `{{route('project.picAndCreator.myProject',['idProject'=>2])}}`,
-                    "dataType": "json",
-                    "dataSrc": "payload",
-                },
-
                 
+            ajax: {
+                url: `{{route('project.picAndCreator.myProject')}}`,
+                "dataType": "json",
+                "dataSrc": "",
+            },
+   
                 columns: [
                     {
                         "data":"project_name",
-                      
                     },
                     {
                         "data":"pic_id.name",
                     },
                     {
-                        "data":"category_project.category_name",
+                        "data":"status",
                     },
                     {
                         "data":"time",
                     },
                     {
-                        "data":"urgensi",
+                        "data":"project_name",
                     },
-                    {
-                        data: "id",
-                        render: function (data, type, row, meta) {
-                            return `<div class="btn-group text-center">
-                                        <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="detail('${data}')" data-toggle="modal" data-target="#updateModal">
-                                        <i class="fas fa-edit"></i>
-                                        </a>
-                                        <br/>
-                                        <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="delete('${data}')" data-toggle="modal" data-target="#updateModal">
-                                        <i class="fas fa-edit"></i>
-                                        </a>
-                                        <br/>
-                                        <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="update('${data}')" data-toggle="modal" data-target="#updateModal">
-                                        <i class="fas fa-edit"></i>
-                                        </a>
-                                    </div>`
-                        }
-                    }
+                  
+                 
                 ]
             });
         }
