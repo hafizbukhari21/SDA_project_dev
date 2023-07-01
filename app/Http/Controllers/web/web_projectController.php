@@ -29,7 +29,7 @@ class web_projectController extends Controller
         return $this->projectRepo->insert($req);
     }
 
-    public function deleteProject ($id){
-        $this->projectRepo->delete($id);
+    public function deleteProject (Request $req){
+        return $this->projectRepo->delete($req);
     }
 }

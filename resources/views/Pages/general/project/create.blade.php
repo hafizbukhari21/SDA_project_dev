@@ -88,6 +88,7 @@
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
                                             <th>Status</th>
+                                            <th>Urgensi</th>
                                             <th>Time</th>
                                             <th>Action</th>
                                             
@@ -99,6 +100,7 @@
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
                                             <th>Status</th>
+                                            <th>Urgensi</th>
                                             <th>Time</th>
                                             <th>Action</th>
                                             
@@ -143,7 +145,7 @@
                     url: "{{route('project.myProject')}}",
                     data: $(this).serialize(),
                     success: function (response) {
-                        table.ajax.reload();
+                        table.ajax.reload()
                         console.log(response)
                     }
                     
@@ -199,10 +201,20 @@
                         "data":"status",
                     },
                     {
+                        "data":"urgensi",
+                    },
+                    {
                         "data":"time",
                     },
                     {
                         "data":"id",
+                        render: function (data, type, row, meta) {
+                    return `<div class="btn-group text-center">
+                                <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteProject('${data}')" data-toggle="modal" data-target="#updateModal">
+                                <i class="fas fa-trash"></i>
+                                </a>
+                            </div>`
+                }
                     },
                   
                  
@@ -210,6 +222,18 @@
             });
 
             return table
+        }
+
+        function DeleteProject(id){
+            
+            $.ajax({
+                type: "get",
+                url: "{{route('project.myProject.delete')}}",
+                data:{id},
+                success: function (response) {
+                    table.ajax.reload()
+                }
+            });
         }
         
         function GetProjectform(){

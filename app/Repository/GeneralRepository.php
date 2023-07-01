@@ -24,10 +24,10 @@ class GeneralRepository implements GeneralInterface{
     }
 
     //SoftDelete
-    public function delete($id){
+    public function delete($req){
 
-        $objectDelete = $this->objectName->find($id);
-        $objectDelete->delete();
+        $objectDelete = $this->objectName->find($req->id);
+        return $objectDelete->delete();
     }
 
     //SoftDelete
