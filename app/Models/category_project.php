@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class category_project extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $table = "category_project";
     protected $fillable = ["category_name"];
+    protected $dates = ['deleted_at'];
 
     public function projects(){
         #param object,fk,pk

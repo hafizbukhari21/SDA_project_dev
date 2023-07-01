@@ -47,6 +47,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");//ajax Route
         Route::get("myProject/{idProject}",[web_projectController::class,"getMyProject"])->name("project.myProject");//ajax Route
         Route::post("myProject",[web_projectController::class, "setProject"])->name("project.myProject");
+        Route::get("myProject/delete/{id}",[web_projectController::class, "deleteProject"])->name("project.myProject.delete");
         Route::get("getAll",[web_projectController::class,"returnGetAllProject"])->name("project.picAndCreator.myProject");//ajax Route
 
     });

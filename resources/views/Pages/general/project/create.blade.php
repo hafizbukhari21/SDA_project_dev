@@ -80,7 +80,7 @@
                 <div class="col-lg-8">
                     <div class="card shadow w-100 h-100 " >
                         
-                        <div class="card-body" style="height: 100px; overflow:scroll">
+                        <div class="card-body" style="height: 80vh; overflow:scroll">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="tableProject" width="100%" cellspacing="0">
                                     <thead>
@@ -129,9 +129,11 @@
     <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script>
 
+        let table =null
+
         $(document).ready(function () {
             getAjax()
-            ShowTableProject()
+            table = ShowTableProject()
         })
 
         $("#addProjectForm").submit(function (e) { 
@@ -141,6 +143,7 @@
                     url: "{{route('project.myProject')}}",
                     data: $(this).serialize(),
                     success: function (response) {
+                        table.ajax.reload();
                         console.log(response)
                     }
                     
@@ -199,12 +202,14 @@
                         "data":"time",
                     },
                     {
-                        "data":"project_name",
+                        "data":"id",
                     },
                   
                  
                 ]
             });
+
+            return table
         }
         
         function GetProjectform(){

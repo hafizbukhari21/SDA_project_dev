@@ -22,9 +22,24 @@ class GeneralRepository implements GeneralInterface{
     public function insert(Request $req){
          return $this->objectName->create($req->all());
     }
+
+    //SoftDelete
     public function delete($id){
 
+        $objectDelete = $this->objectName->find($id);
+        $objectDelete->delete();
     }
+
+    //SoftDelete
+    public function getTrashSoftDelete(){
+        return $this->objectName->onlyTrashed()->get();
+    }
+
+    //SoftDelete
+    public function restoreSoftDelete($pk,$id){
+        return $this->objectName->onlyTrashed()->where($pk,$id)->restore();
+    }
+
     public function update($id){
 
     }
