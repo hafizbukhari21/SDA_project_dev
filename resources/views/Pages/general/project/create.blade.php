@@ -11,15 +11,16 @@
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Create Project</h1>
                         </div>
-                        <form class="user">
+                        <form class="user" id="addProjectForm">
+                            @csrf
                             <div class="form-group ">
                                 
-                                    <input type="text" class="form-control " id="exampleFirstName"placeholder="Project Name">
+                                    <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Project Name">
                                 
                                
                             </div>
                             <div class="form-group">
-                                <select class="form-control" id="project_pic" aria-label="Default select example">
+                                <select class="form-control" id="project_pic_id" name="pic_id" aria-label="Default select example">
                                     <!-- <option selected>PIC</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -29,29 +30,28 @@
                             </div>
                             <div class="form-group ">
                                 
-                                <select class="form-control " id="category_project" aria-label="Default select example">
+                                <select class="form-control " id="category_project" name="category_id" aria-label="Default select example">
                                     <!-- <option selected>Category</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option> -->
                                   </select>
-
-                            
-                           
                             </div>
                             <div class="form-group">
-                                <textarea type="text" class="form-control " id="exampleFirstName"placeholder="Status"></textarea>
+                                <textarea type="text" class="form-control " id="exampleFirstName" name= "status" placeholder="Status"></textarea>
 
                             </div>
                             <div class="form-group ">
-                                <input type="text" class="form-control " id="exampleFirstName"placeholder="Time">
+                                <input type="number" class="form-control " id="exampleFirstName"placeholder="Time" name="time">
 
                             </div>
                             <div class="form-group">
                                 
                                 <label for="customRange2" class="form-label">Urgensi - <span>10</span></label><br>
-                                <input type="range" class="form-control" min="0" max="5" id="customRange2">
+                                <input type="range" class="form-control" min="0" max="5" name="urgensi" id="customRange2">
                             </div>
+                            <input type="hidden" name="user_creator_id" value="{{session()->get("sessionKey")["id"]}}">
+                            
                                 
                             {{-- <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -63,9 +63,9 @@
                                         id="exampleRepeatPassword" placeholder="Repeat Password">
                                 </div>
                             </div> --}}
-                            <a href="login.html" class="btn btn-primary   btn-block">
+                            <button type="submit" class="btn btn-primary   btn-block">
                                 Create Project 
-                            </a>
+                            </button>
                             
                        
                         </form>
@@ -129,6 +129,27 @@
     <script>
 
         $(document).ready(function () {
+            getAjax()
+            ShowTableProject()
+        })
+
+        $("#addProjectForm").submit(function (e) { 
+                e.preventDefault()
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('project.myProject')}}",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        console.log(response)
+                    }
+                    
+                });
+            });
+
+
+
+
+        function getAjax(){
             $.ajax({
                 type: "GET",
                 url: "{{route('project.category.all')}}",
@@ -147,12 +168,14 @@
                 success: function (response) {
                     MappingSelectOption({
                         default:"Select PIC Project",
-                        element:document.querySelector("#project_pic"),
+                        element:document.querySelector("#project_pic_id"),
                         data : response.map(e => ({id:e.id, name:e.name}))
                     })
                 }
             });
+        }
 
+        function ShowTableProject(){
             let table = $('#tableProject').DataTable({
                 ajax: {
                     url: `{{route('project.picAndCreator.myProject',['idProject'=>2])}}`,
@@ -198,9 +221,20 @@
                     }
                 ]
             });
-
-        })
-
+        }
+        
+        function GetProjectform(){
+            // let payload = {
+            //     pic_id:"",
+            //     category_id:"",
+            //     status:"",
+            //     time:"",
+            //     urgensi:"",
+            //     user_creator_id:"",
+            //     _token:
+            // }
+           
+        }
        
     </script>
 @endsection

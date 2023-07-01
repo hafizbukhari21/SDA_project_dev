@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectRepository extends GeneralRepository{
 
-  
 
     public function __construct(){
         $this->objectName = new project();

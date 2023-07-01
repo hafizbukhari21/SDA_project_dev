@@ -25,4 +25,8 @@ class web_projectController extends Controller
         $payload = ["payload"=>$this->projectRepo->getProjectWith_PicAndCreator()];
         return $payload;
     }
+
+    public function setProject(Request $req){
+        return $this->projectRepo->insert($req);
+    }
 }

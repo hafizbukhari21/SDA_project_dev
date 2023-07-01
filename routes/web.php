@@ -47,6 +47,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");//ajax Route
         Route::get("myProject/{idProject}",[web_projectController::class,"getMyProject"])->name("project.myProject");//ajax Route
         Route::get("myProject/withPicAndCreator/{idProject}",[web_projectController::class,"returnProjectWith_PicAndCreator"])->name("project.picAndCreator.myProject");//ajax Route
+        Route::post("myProject",[web_projectController::class, "setProject"])->name("project.myProject");
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     
