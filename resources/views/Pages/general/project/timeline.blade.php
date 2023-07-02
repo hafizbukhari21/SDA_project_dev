@@ -141,6 +141,7 @@
     let projectId = urlArr[urlArr.length-1]
     let timelineChart_parse = null
     let items = []
+    let timelineChart = null
 
     const options = {
         
@@ -211,36 +212,10 @@
     };
     
     // Create a timeline chart
-    let timelineChart = new vis.Timeline(document.getElementById('timelineChart'), items, options);
 
-    timelineChart.on('itemover', function (properties) {
-        const item = items.get(properties.item);
-        if (item.tooltip) {
-            const tooltipElement = document.createElement('div');
-            tooltipElement.className = 'custom-tooltip';
-            tooltipElement.innerHTML = item.tooltip;
-            document.body.appendChild(tooltipElement);
-        
-            // Position the tooltip near the mouse cursor
-            const { pageX, pageY } = properties.event;
-            tooltipElement.style.left = pageX + 'px';
-            tooltipElement.style.top = pageY + 'px';
-        }
-    });
-    
-    timelineChart.on('itemout', function () {
-        const tooltips = document.getElementsByClassName('custom-tooltip');
-        for (let i = 0; i < tooltips.length; i++) {
-            tooltips[i].parentNode.removeChild(tooltips[i]);
-        }
-    });
-    
-    timelineChart.on('itemout', function () {
-        const tooltips = document.getElementsByClassName('custom-tooltip');
-        for (let i = 0; i < tooltips.length; i++) {
-            tooltips[i].parentNode.removeChild(tooltips[i]);
-        }
-    });
+   
+
+   
 
    
     
@@ -252,6 +227,8 @@
         let timelineDataParse =[]
         
 
+    
+    
         
         $.ajax({
             type: "get",
@@ -270,12 +247,43 @@
                         start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
                         end:moment.utc(e.to).local().format('YYYY-MM-DD'), tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`}
                 })
-                timelineChart.setItems(timelineDataParse)
+
+                items = new vis.DataSet(timelineDataParse)
+                // timelineChart.setItems(timelineDataParse)
+                timelineChart = new vis.Timeline(document.getElementById('timelineChart'), items, options);
+
+                timelineChart.on('itemover', function (properties) {
+            const item = items.get(properties.item);
+            if (item.tooltip) {
+                const tooltipElement = document.createElement('div');
+                tooltipElement.className = 'custom-tooltip';
+                tooltipElement.innerHTML = item.tooltip;
+                document.body.appendChild(tooltipElement);
+
+                // Position the tooltip near the mouse cursor
+                const { pageX, pageY } = properties.event;
+                tooltipElement.style.left = pageX + 'px';
+                tooltipElement.style.top = pageY + 'px';
+            }
+        });
+
+        timelineChart.on('itemout', function () {
+            const tooltips = document.getElementsByClassName('custom-tooltip');
+            for (let i = 0; i < tooltips.length; i++) {
+                tooltips[i].parentNode.removeChild(tooltips[i]);
+            }
+        });
+
             
             }
         });
     });
       // Sample data for the timeline
+
+// Add tooltips to the timeline items
+
+
+
 
 function GetDataFromTimeline(){
     $.ajax({
@@ -346,17 +354,6 @@ function DeleteTask(item){
 }
 
 
-function ConfigTimelineChart(timelineData){
-
-    // Create a DataSet with the timeline data
-    
-    // Set up the timeline options
-   
-    
-    // Add tooltips to the timeline items
-   
-    return timelineChart
-}
 
 
      

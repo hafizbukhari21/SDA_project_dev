@@ -23,11 +23,20 @@
     <link href="https://unpkg.com/vis-timeline/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
     <script src="https://unpkg.com/vis-timeline/standalone/umd/vis-timeline-graph2d.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
 
     <style>
         .no-radius{
-    border-radius:0px !important;
-}
+            border-radius:0px !important;
+        }
+        .swal2-modal {
+          width: 600px !important; /* Set the desired width */
+        }
+
+        .swal2-title {
+          font-size: 24px !important; /* Set the desired font size */
+        }
     </style>
 
     @yield('css')
