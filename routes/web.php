@@ -55,6 +55,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
     });
     Route::prefix('timeline')->group(function(){
+        Route::post("",[web_timeLineController::class,"updateTImeLine"])->name("update.timeline");
     });
 
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");

@@ -9,7 +9,7 @@ interface GeneralInterface{
     public function getAll();
     public function insert(Request $req);
     public function delete($id);
-    public function update($id);
+    public function update($var,$val,Request $req);
 
 }
 

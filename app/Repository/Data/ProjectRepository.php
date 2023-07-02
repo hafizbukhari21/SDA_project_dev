@@ -49,7 +49,6 @@ class ProjectRepository extends GeneralRepository{
 
         if($project == null) return null;
         else return $project;
-
     }
 
 

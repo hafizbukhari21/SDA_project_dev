@@ -16,7 +16,8 @@ class project_timeline extends Model
         "task_name",
         "project_id",
         "from",
-        "to"
+        "to",
+        "id"
     ];
 
     public function project(){

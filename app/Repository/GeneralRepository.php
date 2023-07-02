@@ -40,8 +40,10 @@ class GeneralRepository implements GeneralInterface{
         return $this->objectName->onlyTrashed()->where($pk,$id)->restore();
     }
 
-    public function update($id){
+    public function update($var,$val,Request $req){
+         $var=$this->objectName->where("id",$req->id)->update($req->all());
 
+        return $var->save();
     }
 
 }
