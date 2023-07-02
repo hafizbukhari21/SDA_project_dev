@@ -15,3 +15,15 @@ function PreAjax(){
         }
     });
 }
+
+function SweetAlertSimple(param){
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title:param.title,
+        showConfirmButton: false,
+        timer:param.timer
+      })
+}
+
+

@@ -22,8 +22,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-xl-5 col-lg-7">
-                <div class="card shadow mb-4">
+            <div class="col-xl-5 mb-4" >
+                <div class="card shadow mb-4 h-100">
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -46,8 +46,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-7 col-lg-7">
-                <div class="card shadow mb-4">
+            <div class="col-xl-7 mb-4">
+                <div class="card shadow mb-4 h-100">
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -59,9 +59,7 @@
                         <div class="row">
                             <div class="col-xl-6" id="summary">sd</div>
                             
-                            <div class="col-xl-6">sd
-                                
-                            </div>
+                            <div class="col-xl-6"></div>
                         </div>
                     </div>
                 </div>
@@ -90,6 +88,9 @@
 
 </div>
 
+
+
+<!-- Add Task Modal -->
 <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -215,7 +216,14 @@
 
    
 
-   
+   function tooltipTemplate(param){
+        return `<div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">${param.task_name}</h5>
+                <p class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format('DD-MM-YYYY')} - ${moment.utc(param.end).local().format('DD-MM-YYYY')}</p>
+              </div>
+            </div>`
+   }
 
    
     
@@ -245,14 +253,21 @@
                         id:e.id, 
                         content:e.task_name, 
                         start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
-                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`}
+                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
+                        // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
+                        tooltip:tooltipTemplate({
+                            task_name:e.task_name,
+                            start:e.from,
+                            end:e.to
+                        })
+                    }
                 })
 
                 items = new vis.DataSet(timelineDataParse)
                 // timelineChart.setItems(timelineDataParse)
                 timelineChart = new vis.Timeline(document.getElementById('timelineChart'), items, options);
 
-                timelineChart.on('itemover', function (properties) {
+                  timelineChart.on('itemover', function (properties) {
             const item = items.get(properties.item);
             if (item.tooltip) {
                 const tooltipElement = document.createElement('div');
@@ -267,20 +282,22 @@
             }
         });
 
-        timelineChart.on('itemout', function () {
-            const tooltips = document.getElementsByClassName('custom-tooltip');
-            for (let i = 0; i < tooltips.length; i++) {
-                tooltips[i].parentNode.removeChild(tooltips[i]);
-            }
-        });
-
+            timelineChart.on('itemout', function () {
+                console.log("out")
+                const tooltips = document.querySelectorAll('.custom-tooltip');
+                tooltips.forEach(box => {
+                    box.remove();
+                });
+            });
             
             }
         });
+      
     });
       // Sample data for the timeline
 
 // Add tooltips to the timeline items
+
 
 
 
@@ -295,14 +312,27 @@ function GetDataFromTimeline(){
                         id:e.id, 
                         content:e.task_name, 
                         start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
-                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`}
+                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
+                        // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
+                        toolbar: tooltipTemplate({
+                            task_name:e.task_name,
+                            start:e.from,
+                            end:e.to
+                        })
+                    }
                 })
+                items = new vis.DataSet(timelineDataParse)
+
                 timelineChart.setItems(timelineDataParse)
                 timelineChart.redraw()
+         
             
             }
         });
 }
+
+
+
 
       
 function UpdateTask(item){
@@ -327,7 +357,13 @@ function UpdateTask(item){
         url: "{{route('update.timeline')}}",
         data:payload,
         success: function (response) {
-            console.log(response)
+            if (response==1){
+                SweetAlertSimple({
+                    timer:1000,
+                    title:"Berhasil Update Task"
+                })
+            }
+            // console.log(response)
         },
         error:function(err){
             console.log(err.responseJSON)
@@ -345,7 +381,10 @@ function DeleteTask(item){
         url: "{{route('delete.timeline')}}",
         data: {id:item.id},
         success: function (response) {
-            console.log(response)
+            SweetAlertSimple({
+                    timer:1000,
+                    title:"Berhasil Menghapus Task"
+                })
         },
         error:function(err){
             console.log(err.responseJSON)
@@ -366,6 +405,10 @@ $("#addTaskForm").submit(function (e) {
             data: $(this).serialize(),
             success: function (response) {
                 console.log(response)
+                SweetAlertSimple({
+                    timer:1000,
+                    title:"Berhasil Menambahkan Task"
+                })
                 GetDataFromTimeline()
             },
             error:function(error){
@@ -385,16 +428,9 @@ $("#addTaskForm").submit(function (e) {
 <style>
     .custom-tooltip {
             position: absolute;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border: 1px solid #ccc;
-            font-size: 14px;
+            
             z-index: 9999;
-            color: black;
         }
-    .custom-tooltip>h3{
-       
-        font-size: 20px;
-    }
+    
 </style>
 @endsection
