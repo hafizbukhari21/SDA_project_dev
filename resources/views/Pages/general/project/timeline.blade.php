@@ -268,7 +268,9 @@
                 timelineChart = new vis.Timeline(document.getElementById('timelineChart'), items, options);
 
                   timelineChart.on('itemover', function (properties) {
+                    // console.log("hover")
             const item = items.get(properties.item);
+            console.log(item.tooltip)
             if (item.tooltip) {
                 const tooltipElement = document.createElement('div');
                 tooltipElement.className = 'custom-tooltip';
@@ -284,10 +286,23 @@
 
             timelineChart.on('itemout', function () {
                 console.log("out")
-                const tooltips = document.querySelectorAll('.custom-tooltip');
-                tooltips.forEach(box => {
-                    box.remove();
+                
+
+                const tooltip = document.querySelector(".custom-tooltip")
+                
+                if($(".custom-tooltip:hover").length === 0){
+                    const tooltips = document.querySelectorAll('.custom-tooltip');
+                    tooltips.forEach(box => {
+                        box.remove();
+                    });
+                } 
+                tooltip.addEventListener("mouseleave", function(){
+                    const tooltips = document.querySelectorAll('.custom-tooltip');
+                    tooltips.forEach(box => {
+                        box.remove();
+                    });
                 });
+            
             });
             
             }
@@ -303,11 +318,12 @@
 
 
 function GetDataFromTimeline(){
+    let timelineDataParse_Update
     $.ajax({
             type: "get",
             url: "/project/myProject/"+projectId,
             success: function (response) {
-                timelineDataParse = response.projects_timeline.map(e=>{
+                timelineDataParse_Update = response.projects_timeline.map(e=>{
                     return {
                         id:e.id, 
                         content:e.task_name, 
@@ -321,14 +337,13 @@ function GetDataFromTimeline(){
                         })
                     }
                 })
-                items = new vis.DataSet(timelineDataParse)
-
-                timelineChart.setItems(timelineDataParse)
+                timelineChart.setItems(timelineDataParse_Update)
                 timelineChart.redraw()
          
             
             }
         });
+        console.log(items)
 }
 
 
@@ -410,6 +425,22 @@ $("#addTaskForm").submit(function (e) {
                     title:"Berhasil Menambahkan Task"
                 })
                 GetDataFromTimeline()
+
+                console.log($(this).serialize())
+                
+                items.add({
+                        id:response.id, 
+                        content:response.task_name, 
+                        start: moment.utc(response.from).local().format('YYYY-MM-DD') , 
+                        end:moment.utc(response.to).local().format('YYYY-MM-DD'), 
+                        // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
+                        tooltip:tooltipTemplate({
+                            task_name:response.task_name,
+                            start:response.from,
+                            end:response.to
+                        })
+                })
+
             },
             error:function(error){
             console.log(error.responseJSON)
