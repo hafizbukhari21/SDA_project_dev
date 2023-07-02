@@ -17,4 +17,12 @@ class web_TimelineController extends Controller
     public function updateTimeline(Request $req){
         return $this->timelineRepo->UpdateTimeline_from_and_to_only($req);
     }
+
+    public function deleteTimeLine(Request $req){
+        return $this->timelineRepo->delete($req);
+    }
+
+    public function createTimeLine(Request $req){
+        return $this->timelineRepo->insert($req);
+    }
 }

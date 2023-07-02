@@ -100,11 +100,36 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body"></div>
+                <div class="modal-body">
+                    <form class="user" id="addTaskForm">
+                        @csrf
+                        <div class="form-group ">
+
+                                <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Project Name">
+                        </div>
+                        <div class="form-group ">
+                            <label for="">Start Date</label>
+                            <input type="date" class="form-control " name="from" id="project_name"placeholder="Start Date">
+                        </div>
+                        <div class="form-group ">
+                            <label for="">End Date</label>
+                            <input type="date" class="form-control " name="to" id="project_name"placeholder="End Date">
+                        </div>
+                       
+                        <input type="hidden" name="project_id" value="" id="project_id">
+                        
+                        <!-- <button type="submit" class="btn btn-primary   btn-block">
+                            Create Task
+                        </button> -->
+                        
+                   
+                    
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="">Add</a>
+                    <button class="btn btn-primary" href="">Create</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -114,12 +139,16 @@
 <script>
     let urlArr= window.location.pathname.split('/');
     let projectId = urlArr[urlArr.length-1]
+    let timelineChart_parse = null
+   
     
     $(document).ready(function () {
         let project_name = document.querySelector("#project_name")
         let pic_name = document.querySelector("#pic_name")
         let summary = document.querySelector("#summary")
+        let project_id_new_task_form =document.querySelector("#project_id") 
         let timelineDataParse =[]
+        
 
         
         $.ajax({
@@ -131,6 +160,7 @@
                 project_name.innerHTML = response.project_name
                 pic_name.innerHTML = response.pic_id.name
                 summary.innerHTML = response.status
+                project_id_new_task_form.value = response.id
                 timelineDataParse = response.projects_timeline.map(e=>{
                     return {
                         id:e.id, 
@@ -138,7 +168,7 @@
                         start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
                         end:moment.utc(e.to).local().format('YYYY-MM-DD'), tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`}
                 })
-                ConfigTimelineChart(timelineDataParse)
+                timelineChart_parse= ConfigTimelineChart(timelineDataParse)
             
             }
         });
@@ -165,8 +195,26 @@ function UpdateTask(item){
     PreAjax()
     $.ajax({
         type: "post",
-        url: "/timeline",
+        url: "{{route('update.timeline')}}",
         data:payload,
+        success: function (response) {
+            console.log(response)
+        },
+        error:function(err){
+            console.log(err.responseJSON)
+            
+        }
+    });
+    
+}
+
+function DeleteTask(item){
+    console.log('Node with ID ' + item.id + ' is being removed.');
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: "{{route('delete.timeline')}}",
+        data: {id:item.id},
         success: function (response) {
             console.log(response)
         },
@@ -174,7 +222,6 @@ function UpdateTask(item){
             console.log(err.responseJSON)
         }
     });
-    
 }
 
 
@@ -194,7 +241,7 @@ function ConfigTimelineChart(timelineData){
         editable: true,
         zoomMin: 1000 * 60 * 60 * 24 * 7, // Minimum zoom level: 1 week (7 days)
         zoomMax: 1000 * 60 * 60 * 24 * 360, // Minimum zoom level: 1 week (7 days)
-
+        selectable :true,
         format: {
             minorLabels: {
                 week: 'MMM D'
@@ -206,6 +253,11 @@ function ConfigTimelineChart(timelineData){
         tooltip: {
             followMouse: true
         },
+
+        onUpdate:function(item,callback){
+            UpdateTask(item)
+            callback(item)
+        },
         onMove: function (item, callback) {
            
             UpdateTask(item)
@@ -215,13 +267,13 @@ function ConfigTimelineChart(timelineData){
             callback(item); // Required to apply the changes to the timeline
         },
         onRemove: function (item, callback) {
-            console.log('Node with ID ' + item.id + ' is being removed.');
             // Perform any desired logic when a node is removed
+            DeleteTask(item)
             callback(item); // Call the callback to remove the item
         },
         editable: {
             updateTime: true,
-            updateGroup: false,
+            updateGroup: true,
             overrideItems: false,
             remove:true,
         },
@@ -279,10 +331,29 @@ function ConfigTimelineChart(timelineData){
             tooltips[i].parentNode.removeChild(tooltips[i]);
         }
     });
+
+    return timelineChart
 }
+
+
      
 
- 
+$("#addTaskForm").submit(function (e) { 
+        e.preventDefault()
+        $.ajax({
+            type: "post",
+            url: "{{route('create.timeline')}}",
+            data: $(this).serialize(),
+            success: function (response) {
+                console.log(response)
+                timelineChart_parse.redraw()
+            },
+            error:function(error){
+            console.log(error.responseJSON)
+        }
+        });
+        
+    });
   
 
     
