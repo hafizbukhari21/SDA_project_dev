@@ -7,6 +7,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\web\authWebController;
 use App\Http\Controllers\web\categoryProjectController;
 use App\Http\Controllers\web\web_projectController;
+use App\Http\Controllers\web\web_timeLineController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,7 +50,11 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::post("myProject",[web_projectController::class, "setProject"])->name("project.myProject");
         Route::get("delete",[web_projectController::class, "deleteProject"])->name("project.myProject.delete");//ajax route disable csrf
         Route::get("getAll",[web_projectController::class,"returnGetAllProject"])->name("project.picAndCreator.myProject");//ajax Route
+        Route::view('detail/{id}', "Pages.general.project.timeline")->name("project.timeline");
 
+
+    });
+    Route::prefix('timeline')->group(function(){
     });
 
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
@@ -76,7 +81,7 @@ Route::get("mail",[mailerController::class,"index"]);
 
 //test view
 
-// Route::view('tes/dashboard', 'Pages.general.dashboard');
+ 
 
 
 

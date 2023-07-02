@@ -14,9 +14,9 @@ class web_projectController extends Controller
     }
 
     public function getMyProject(Request $req, $idProject){
-        if($this->projectRepo->cekProjectOwnerShip_web($req,$idProject)==null){
-            return response(null,401);
-        }
+        // if($this->projectRepo->cekProjectOwnerShip_web($req,$idProject)==null){
+        //     return response(null,401);
+        // }
         return $this->projectRepo->getProjectDetail($idProject);
     }   
 
@@ -32,4 +32,7 @@ class web_projectController extends Controller
     public function deleteProject (Request $req){
         return $this->projectRepo->delete($req);
     }
+
+    
+
 }

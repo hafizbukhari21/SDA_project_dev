@@ -19,7 +19,7 @@ class ProjectRepository extends GeneralRepository{
     }
 
     public function getProjectDetail($project_id){
-        return $this->objectName->get()->load("projects_timeline")->where("id","=",$project_id);
+        return $this->objectName->where("id","=",$project_id)->get()->load("projects_timeline","pic_id","category_project")->first();
     }
 
     public function getProjectWith_PicAndCreator(){

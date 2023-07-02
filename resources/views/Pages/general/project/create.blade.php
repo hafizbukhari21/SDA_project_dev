@@ -31,10 +31,7 @@
                             <div class="form-group ">
                                 
                                 <select class="form-control " id="category_project" name="category_id" aria-label="Default select example">
-                                    <!-- <option selected>Category</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
+                                   
                                   </select>
                             </div>
                             <div class="form-group">
@@ -209,9 +206,13 @@
                     {
                         "data":"id",
                         render: function (data, type, row, meta) {
-                    return `<div class="btn-group text-center">
+                    return `<div class="btn-group ">
                                 <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteProject('${data}')" data-toggle="modal" data-target="#updateModal">
                                 <i class="fas fa-trash"></i>
+                                </a>
+                                <br>
+                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" href="/project/detail/${data}">
+                                <i class="fa fa-info-circle"></i>
                                 </a>
                             </div>`
                 }
@@ -224,6 +225,7 @@
             return table
         }
 
+      
         function DeleteProject(id){
             
             $.ajax({

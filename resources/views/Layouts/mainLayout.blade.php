@@ -430,6 +430,9 @@
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
     {{-- in public directory bukan di resource --}}
     <script src="{{ asset('js/CustomLib.js') }}"></script>
     <script src="{{ asset('js/Helper/createProject.js') }}"></script>
