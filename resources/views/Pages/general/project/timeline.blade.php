@@ -140,97 +140,8 @@
     let urlArr= window.location.pathname.split('/');
     let projectId = urlArr[urlArr.length-1]
     let timelineChart_parse = null
-   
-    
-    $(document).ready(function () {
-        let project_name = document.querySelector("#project_name")
-        let pic_name = document.querySelector("#pic_name")
-        let summary = document.querySelector("#summary")
-        let project_id_new_task_form =document.querySelector("#project_id") 
-        let timelineDataParse =[]
-        
+    let items = []
 
-        
-        $.ajax({
-            type: "get",
-            url: "/project/myProject/"+projectId,
-            
-            success: function (response) {
-                console.log(response)
-                project_name.innerHTML = response.project_name
-                pic_name.innerHTML = response.pic_id.name
-                summary.innerHTML = response.status
-                project_id_new_task_form.value = response.id
-                timelineDataParse = response.projects_timeline.map(e=>{
-                    return {
-                        id:e.id, 
-                        content:e.task_name, 
-                        start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
-                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`}
-                })
-                timelineChart_parse= ConfigTimelineChart(timelineDataParse)
-            
-            }
-        });
-    });
-      // Sample data for the timeline
-
-      
-function UpdateTask(item){
-    // let StartDate = new Date(item.start)
-    // let EndDate = new Date(item.end)
-    // console.log()
-    // // console.log('Item ID:', item.id);
-    // // console.log('Start:', StartDate.toISOString().split('T')[0]);
-    // // console.log('End:', EndDate.toISOString().split('T')[0]);
-    // // console.log('New Position:', item.left);
-
-    let payload = {
-        id:item.id,
-        from:moment(item.start).format("YYYY-MM-DD"),
-        to:moment(item.end).format("YYYY-MM-DD"),
-    }
-    
-    
-    PreAjax()
-    $.ajax({
-        type: "post",
-        url: "{{route('update.timeline')}}",
-        data:payload,
-        success: function (response) {
-            console.log(response)
-        },
-        error:function(err){
-            console.log(err.responseJSON)
-            
-        }
-    });
-    
-}
-
-function DeleteTask(item){
-    console.log('Node with ID ' + item.id + ' is being removed.');
-    PreAjax()
-    $.ajax({
-        type: "post",
-        url: "{{route('delete.timeline')}}",
-        data: {id:item.id},
-        success: function (response) {
-            console.log(response)
-        },
-        error:function(err){
-            console.log(err.responseJSON)
-        }
-    });
-}
-
-
-function ConfigTimelineChart(timelineData){
-
-    // Create a DataSet with the timeline data
-    const items = new vis.DataSet(timelineData);
-    
-    // Set up the timeline options
     const options = {
         
         width: '100%',
@@ -300,9 +211,8 @@ function ConfigTimelineChart(timelineData){
     };
     
     // Create a timeline chart
-    const timelineChart = new vis.Timeline(document.getElementById('timelineChart'), items, options);
-    
-    // Add tooltips to the timeline items
+    let timelineChart = new vis.Timeline(document.getElementById('timelineChart'), items, options);
+
     timelineChart.on('itemover', function (properties) {
         const item = items.get(properties.item);
         if (item.tooltip) {
@@ -332,6 +242,119 @@ function ConfigTimelineChart(timelineData){
         }
     });
 
+   
+    
+    $(document).ready(function () {
+        let project_name = document.querySelector("#project_name")
+        let pic_name = document.querySelector("#pic_name")
+        let summary = document.querySelector("#summary")
+        let project_id_new_task_form =document.querySelector("#project_id") 
+        let timelineDataParse =[]
+        
+
+        
+        $.ajax({
+            type: "get",
+            url: "/project/myProject/"+projectId,
+            
+            success: function (response) {
+                console.log(response)
+                project_name.innerHTML = response.project_name
+                pic_name.innerHTML = response.pic_id.name
+                summary.innerHTML = response.status
+                project_id_new_task_form.value = response.id
+                timelineDataParse = response.projects_timeline.map(e=>{
+                    return {
+                        id:e.id, 
+                        content:e.task_name, 
+                        start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
+                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`}
+                })
+                timelineChart.setItems(timelineDataParse)
+            
+            }
+        });
+    });
+      // Sample data for the timeline
+
+function GetDataFromTimeline(){
+    $.ajax({
+            type: "get",
+            url: "/project/myProject/"+projectId,
+            success: function (response) {
+                timelineDataParse = response.projects_timeline.map(e=>{
+                    return {
+                        id:e.id, 
+                        content:e.task_name, 
+                        start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
+                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`}
+                })
+                timelineChart.setItems(timelineDataParse)
+                timelineChart.redraw()
+            
+            }
+        });
+}
+
+      
+function UpdateTask(item){
+    // let StartDate = new Date(item.start)
+    // let EndDate = new Date(item.end)
+    // console.log()
+    // // console.log('Item ID:', item.id);
+    // // console.log('Start:', StartDate.toISOString().split('T')[0]);
+    // // console.log('End:', EndDate.toISOString().split('T')[0]);
+    // // console.log('New Position:', item.left);
+
+    let payload = {
+        id:item.id,
+        from:moment(item.start).format("YYYY-MM-DD"),
+        to:moment(item.end).format("YYYY-MM-DD"),
+    }
+    
+    
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: "{{route('update.timeline')}}",
+        data:payload,
+        success: function (response) {
+            console.log(response)
+        },
+        error:function(err){
+            console.log(err.responseJSON)
+            
+        }
+    });
+    
+}
+
+function DeleteTask(item){
+    console.log('Node with ID ' + item.id + ' is being removed.');
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: "{{route('delete.timeline')}}",
+        data: {id:item.id},
+        success: function (response) {
+            console.log(response)
+        },
+        error:function(err){
+            console.log(err.responseJSON)
+        }
+    });
+}
+
+
+function ConfigTimelineChart(timelineData){
+
+    // Create a DataSet with the timeline data
+    
+    // Set up the timeline options
+   
+    
+    // Add tooltips to the timeline items
+   
     return timelineChart
 }
 
@@ -346,7 +369,7 @@ $("#addTaskForm").submit(function (e) {
             data: $(this).serialize(),
             success: function (response) {
                 console.log(response)
-                timelineChart_parse.redraw()
+                GetDataFromTimeline()
             },
             error:function(error){
             console.log(error.responseJSON)
