@@ -147,7 +147,7 @@
     const options = {
         
         width: '100%',
-        height: '400px',
+        
         stack: true,
         start: new Date('2023-01-01'), // Set the start date to the beginning of the week
         end: new Date('2023-12-31'), // Set the end date to the end of the week
@@ -228,7 +228,18 @@
             </div>`
    }
 
-   
+function CustomNodeTask(input){
+    return `
+    <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+    `
+} 
     
     $(document).ready(function () {
         let project_name = document.querySelector("#project_name")
@@ -237,9 +248,7 @@
         let project_id_new_task_form =document.querySelector("#project_id") 
         let timelineDataParse =[]
         
-
-    
-    
+   
         
         $.ajax({
             type: "get",
@@ -431,6 +440,7 @@ $("#addTaskForm").submit(function (e) {
 
                 console.log($(this).serialize())
                 
+                //Add Dataset Vis Js after adding task 
                 items.add({
                         id:response.id, 
                         content:response.task_name, 
