@@ -15,7 +15,8 @@
    <link href="{{ asset('js/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
    <link
        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-       rel="stylesheet">
+       rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
 
    <!-- Custom styles for this template-->
    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -35,13 +36,15 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
+                            <div class="col-lg-6 d-none d-lg-block" style="position: relative;">
+                                <img src="{{ asset('img/jalin-logo.png') }}" alt="" srcset="" style="height: 40%; position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+                            </div>
+                            <div class="col-lg-6 ">
+                                <div class="p-5 bg-gray-200">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-primary mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" action="{{ route('loginWeb') }}" method="POST">
+                                    <form class="user" id="loginForm" >
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
@@ -54,14 +57,14 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                {{-- <input type="checkbox" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                    Me</label> --}}
                                             </div>
                                         </div>
                                         <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
                                             
-                                        <hr>
+                                       
                                        
                                     </form>
                                     <hr>
@@ -90,6 +93,52 @@
  
      <!-- Custom scripts for all pages-->
      <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+     <script>
+        $("#loginForm").submit(function (e) { 
+              Swal.fire({
+        title: 'Please Wait !!!',
+        html: `<div class="spinner-grow text-primary" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-secondary" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-success" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-danger" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-warning" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>`,
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+        showConfirmButton: false,
+    });
+            e.preventDefault();
+            $.ajax({
+                type: "post",
+                url: "{{ route('loginWeb') }}",
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response=="Gagal Login"){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kesalahan Username dan Password',
+                        text: response,
+                    })
+                    }
+                    else{
+                        window.location.href ="{{route('dashboard')}}"
+                    }
+                }
+            });
+        });
+     </script>
 </body>
 
 </html>

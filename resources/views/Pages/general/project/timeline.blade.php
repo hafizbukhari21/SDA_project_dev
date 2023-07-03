@@ -219,8 +219,11 @@
    function tooltipTemplate(param){
         return `<div class="card" style="width: 18rem;">
               <div class="card-body">
-                <h5 class="card-title">${param.task_name}</h5>
+                <h5 class="card-title text-dark">${param.task_name}</h5>
                 <p class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format('DD-MM-YYYY')} - ${moment.utc(param.end).local().format('DD-MM-YYYY')}</p>
+              </div>
+              <div class="card-footer d-flex flex-row-reverse">
+                <button type="button" class="btn btn-warning">Update Task</button>
               </div>
             </div>`
    }
