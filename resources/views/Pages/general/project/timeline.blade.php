@@ -71,13 +71,22 @@
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Timeline </h6>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
-                        class="fa fa-plus fa-sm text-white-50"></i> New Task</a>
+                    <div class="d-sm-inline-block">
+                        <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
+                            class="fa fa-plus fa-sm text-white-50"></i> New Task
+                        </a>
+                        <a href="#" class="  btn btn-sm btn-warning shadow-sm" onclick="captureTimeline()"><i
+                            class="fa fa-camera fa-sm text-white-50"></i> Capture
+                        </a>
+                    </div>
+                    
+                    
                 </div>
                 <!-- Card Body -->
                 <div class="card-body ">
                 <div id="overflow-auto">
                     <div id="timelineChart"></div>
+                    
                 </div>
                 </div>
             </div>
@@ -143,6 +152,7 @@
     let timelineChart_parse = null
     let items = []
     let timelineChart = null
+    let timelineChartElement =document.getElementById('timelineChart')
 
     const options = {
         
@@ -216,30 +226,7 @@
 
    
 
-   function tooltipTemplate(param){
-        return `<div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title text-dark">${param.task_name}</h5>
-                <p class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format('DD-MM-YYYY')} - ${moment.utc(param.end).local().format('DD-MM-YYYY')}</p>
-              </div>
-              <div class="card-footer d-flex flex-row-reverse">
-                <button type="button" class="btn btn-warning">Update Task</button>
-              </div>
-            </div>`
-   }
 
-function CustomNodeTask(input){
-    return `
-    <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-    `
-} 
     
     $(document).ready(function () {
         let project_name = document.querySelector("#project_name")
@@ -255,51 +242,34 @@ function CustomNodeTask(input){
             url: "/project/myProject/"+projectId,
             
             success: function (response) {
-                console.log(response)
                 project_name.innerHTML = response.project_name
                 pic_name.innerHTML = response.pic_id.name
                 summary.innerHTML = response.status
                 project_id_new_task_form.value = response.id
-                timelineDataParse = response.projects_timeline.map(e=>{
-                    return {
-                        id:e.id, 
-                        content:e.task_name, 
-                        start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
-                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
-                        // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
-                        tooltip:tooltipTemplate({
-                            task_name:e.task_name,
-                            start:e.from,
-                            end:e.to
-                        })
-                    }
-                })
+                timelineDataParse = TimelineDataParser(response)
 
                 items = new vis.DataSet(timelineDataParse)
                 // timelineChart.setItems(timelineDataParse)
-                timelineChart = new vis.Timeline(document.getElementById('timelineChart'), items, options);
+                timelineChart = new vis.Timeline(timelineChartElement, items, options);
 
                   timelineChart.on('itemover', function (properties) {
                     // console.log("hover")
-            const item = items.get(properties.item);
-            console.log(item.tooltip)
-            if (item.tooltip) {
-                const tooltipElement = document.createElement('div');
-                tooltipElement.className = 'custom-tooltip';
-                tooltipElement.innerHTML = item.tooltip;
-                document.body.appendChild(tooltipElement);
+                const item = items.get(properties.item);
+                if (item.tooltip) {
+                    const tooltipElement = document.createElement('div');
+                    tooltipElement.className = 'custom-tooltip';
+                    tooltipElement.innerHTML = item.tooltip;
+                    document.body.appendChild(tooltipElement);
 
-                // Position the tooltip near the mouse cursor
-                const { pageX, pageY } = properties.event;
-                tooltipElement.style.left = pageX + 'px';
-                tooltipElement.style.top = pageY + 'px';
-            }
+                    // Position the tooltip near the mouse cursor
+                    const { pageX, pageY } = properties.event;
+                    tooltipElement.style.left = pageX + 'px';
+                    tooltipElement.style.top = pageY + 'px';
+                }
         });
 
             timelineChart.on('itemout', function () {
-                console.log("out")
                 
-
                 const tooltip = document.querySelector(".custom-tooltip")
                 
                 if($(".custom-tooltip:hover").length === 0){
@@ -325,51 +295,84 @@ function CustomNodeTask(input){
 
 // Add tooltips to the timeline items
 
+//Template tooltip node
+function tooltipTemplate(param){
+        return `<div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title text-dark">${param.task_name}</h5>
+                <p class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format('DD-MM-YYYY')} - ${moment.utc(param.end).local().format('DD-MM-YYYY')}</p>
+              </div>
+              <div class="card-footer d-flex flex-row-reverse">
+                <button type="button" class="btn btn-warning">Update Task</button>
+              </div>
+            </div>`
+   }
 
+//Template For Every Nodes  In timeline
+function CustomNodeTask(input){
+    return `
+    <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+    `
+} 
 
+//Capture Timeline to Image
+function captureTimeline(){
+    html2canvas(timelineChartElement).then(canvas => {
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL(); // Set the image data as the link URL
+    link.download = 'timeline.png'; // Set the image filename
+    
+    // Simulate a click on the link to download the image
+    link.click();
+  });
+}
 
+//convert Response From API To Used in DataSet and Main Data Vis JS
+function TimelineDataParser(response){
+    return response.projects_timeline.map(e=>{
+        return {
+            id:e.id, 
+            content:e.task_name, 
+            start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
+            end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
+            // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
+            tooltip: tooltipTemplate({
+                task_name:e.task_name,
+                start:e.from,
+                end:e.to
+            })
+        }
+    }
+    )
+}
 
+//Re Get Data After Insert New Task
 function GetDataFromTimeline(){
     let timelineDataParse_Update
     $.ajax({
             type: "get",
             url: "/project/myProject/"+projectId,
             success: function (response) {
-                timelineDataParse_Update = response.projects_timeline.map(e=>{
-                    return {
-                        id:e.id, 
-                        content:e.task_name, 
-                        start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
-                        end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
-                        // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
-                        toolbar: tooltipTemplate({
-                            task_name:e.task_name,
-                            start:e.from,
-                            end:e.to
-                        })
-                    }
-                })
+                timelineDataParse_Update = TimelineDataParser(response)
                 timelineChart.setItems(timelineDataParse_Update)
-                timelineChart.redraw()
-         
+                timelineChart.redraw() 
             
             }
         });
         console.log(items)
 }
 
-
-
-
-      
+//UpdateTask Callback From Vis Js Timeline    
 function UpdateTask(item){
-    // let StartDate = new Date(item.start)
-    // let EndDate = new Date(item.end)
-    // console.log()
-    // // console.log('Item ID:', item.id);
-    // // console.log('Start:', StartDate.toISOString().split('T')[0]);
-    // // console.log('End:', EndDate.toISOString().split('T')[0]);
-    // // console.log('New Position:', item.left);
+  
 
     let payload = {
         id:item.id,
@@ -400,6 +403,7 @@ function UpdateTask(item){
     
 }
 
+//Delete Task Callback From Vis Js Timeline
 function DeleteTask(item){
     console.log('Node with ID ' + item.id + ' is being removed.');
     PreAjax()
@@ -418,12 +422,8 @@ function DeleteTask(item){
         }
     });
 }
-
-
-
-
-     
-
+    
+//Menabahkan Task Baru
 $("#addTaskForm").submit(function (e) { 
         e.preventDefault()
         $.ajax({
@@ -462,10 +462,8 @@ $("#addTaskForm").submit(function (e) {
         
     });
   
-
     
-    
-    </script>
+</script>
 @endsection
 
 @section('css')
