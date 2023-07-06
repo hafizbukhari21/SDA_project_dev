@@ -7,7 +7,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\web\authWebController;
 use App\Http\Controllers\web\categoryProjectController;
 use App\Http\Controllers\web\web_projectController;
-use App\Http\Controllers\web\web_timeLineController;
+use App\Http\Controllers\web\web_TimelineController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,9 +55,9 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
     });
     Route::prefix('timeline')->group(function(){
-        Route::post("create",[web_timeLineController::class,"createTimeLine"])->name("create.timeline");
-        Route::post("update",[web_timeLineController::class,"updateTImeLine"])->name("update.timeline");
-        Route::post("delete",[web_timeLineController::class,"deleteTimeLine"])->name("delete.timeline");
+        Route::post("create",[web_TimelineController::class,"createTimeLine"])->name("create.timeline");
+        Route::post("update",[web_TimelineController::class,"updateTImeLine"])->name("update.timeline");
+        Route::post("delete",[web_TimelineController::class,"deleteTimeLine"])->name("delete.timeline");
     });
 
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
