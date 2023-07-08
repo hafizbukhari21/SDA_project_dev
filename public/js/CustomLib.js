@@ -26,4 +26,8 @@ function SweetAlertSimple(param){
       })
 }
 
+function ParseRoute_SingleVar(route,Variable, variableName){
+    return route.replace(variableName,Variable).replace("?","/")
+}
+
 

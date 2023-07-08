@@ -235,11 +235,11 @@
         let project_id_new_task_form =document.querySelector("#project_id") 
         let timelineDataParse =[]
         
-   
+      
         
         $.ajax({
             type: "get",
-            url: "/project/myProject/"+projectId,
+            url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
             
             success: function (response) {
                 project_name.innerHTML = response.project_name
@@ -359,7 +359,7 @@ function GetDataFromTimeline(){
     let timelineDataParse_Update
     $.ajax({
             type: "get",
-            url: "/project/myProject/"+projectId,
+            url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
             success: function (response) {
                 timelineDataParse_Update = TimelineDataParser(response)
                 timelineChart.setItems(timelineDataParse_Update)
