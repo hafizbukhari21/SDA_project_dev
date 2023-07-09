@@ -57,6 +57,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::post("create",[web_TimelineController::class,"createTimeLine"])->name("create.timeline");
         Route::post("update",[web_TimelineController::class,"updateTImeLine"])->name("update.timeline");
         Route::post("delete",[web_TimelineController::class,"deleteTimeLine"])->name("delete.timeline");
+        Route::get("group",[web_TimelineController::class,"getGroupTimeline"])->name("group.timeline");
     });
 
     Route::prefix('timesheet')->group(function(){

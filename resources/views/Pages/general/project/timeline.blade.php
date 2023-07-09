@@ -242,6 +242,7 @@
             url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
             
             success: function (response) {
+                console.log(response)
                 project_name.innerHTML = response.project_name
                 pic_name.innerHTML = response.pic_id.name
                 summary.innerHTML = response.status

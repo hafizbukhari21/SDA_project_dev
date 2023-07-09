@@ -17,10 +17,14 @@ class project_timeline extends Model
         "project_id",
         "from",
         "to",
-        "id"
+        "id",
+        "idGroup"
     ];
 
     public function project(){
         return $this->belongsTo(project::class,"id");
+    }
+    public function group(){
+        return $this->belongsTo(group_timeline::class,"idGroup","id");
     }
 }
