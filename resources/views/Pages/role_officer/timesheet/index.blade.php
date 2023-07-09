@@ -143,8 +143,12 @@
             url: "{{route('create.timesheet')}}",
             data: $(this).serialize(),
             success: function (response) {
-                console.log(response)
+               
                 tableTimesheet.ajax.reload()
+                SweetAlertSimple({
+                    title:"Berhasil Menambahkan Timehseet",
+                    timer:1000
+                })
             }
         });
     });
@@ -203,6 +207,18 @@
             });
 
             return table
+        }
+
+
+        function DeleteProject(id){
+            $.ajax({
+                type: "method",
+                url: "url",
+                data: "data",
+                success: function (response) {
+                    
+                }
+            });
         }
 
 
