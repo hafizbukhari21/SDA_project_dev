@@ -234,7 +234,9 @@
         let summary = document.querySelector("#summary")
         let project_id_new_task_form =document.querySelector("#project_id") 
         let timelineDataParse =[]
+        let groupTimeline = []
         
+       
       
         
         $.ajax({
@@ -252,22 +254,23 @@
                 items = new vis.DataSet(timelineDataParse)
                 // timelineChart.setItems(timelineDataParse)
                 timelineChart = new vis.Timeline(timelineChartElement, items, options);
-
-                  timelineChart.on('itemover', function (properties) {
+                //attach group to timeline
+                GetGroupAjax()
+                timelineChart.on('itemover', function (properties) {
                     // console.log("hover")
-                const item = items.get(properties.item);
-                if (item.tooltip) {
-                    const tooltipElement = document.createElement('div');
-                    tooltipElement.className = 'custom-tooltip';
-                    tooltipElement.innerHTML = item.tooltip;
-                    document.body.appendChild(tooltipElement);
+                    const item = items.get(properties.item);
+                    if (item.tooltip) {
+                        const tooltipElement = document.createElement('div');
+                        tooltipElement.className = 'custom-tooltip';
+                        tooltipElement.innerHTML = item.tooltip;
+                        document.body.appendChild(tooltipElement);
 
-                    // Position the tooltip near the mouse cursor
-                    const { pageX, pageY } = properties.event;
-                    tooltipElement.style.left = pageX + 'px';
-                    tooltipElement.style.top = pageY + 'px';
-                }
-        });
+                        // Position the tooltip near the mouse cursor
+                        const { pageX, pageY } = properties.event;
+                        tooltipElement.style.left = pageX + 'px';
+                        tooltipElement.style.top = pageY + 'px';
+                    }
+                });
 
             timelineChart.on('itemout', function () {
                 
@@ -309,6 +312,21 @@ function tooltipTemplate(param){
             </div>`
    }
 
+function GetGroupAjax(){
+    $.ajax({
+            type: "get",
+            url: "{{route('group.timeline')}}",
+
+            success: function (response) {
+                groupTimeline = response.map(e=>({
+                    id:e.id, content:e.Group
+                }))
+                timelineChart.setGroups(groupTimeline)
+                console.log(groupTimeline)
+            }
+        });
+}
+
 //Template For Every Nodes  In timeline
 function CustomNodeTask(input){
     return `
@@ -344,12 +362,14 @@ function TimelineDataParser(response){
             content:e.task_name, 
             start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
             end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
+            group:e.group.id,
             // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
             tooltip: tooltipTemplate({
                 task_name:e.task_name,
                 start:e.from,
                 end:e.to
             })
+
         }
     }
     )
