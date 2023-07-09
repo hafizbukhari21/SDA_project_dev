@@ -17,5 +17,12 @@ class timesheet extends Model
     ];
     protected $dates = ['deleted_at'];
 
-    
+    //1:1
+    public function user(){
+        return $this->belongsTo(User::class,"idUser","id");
+    }
+
+    public function timesheetactivity(){
+        return $this->hasMany(timesheetactivity::class,"timeSheet_id","id");
+    }
 }
