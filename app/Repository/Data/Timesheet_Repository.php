@@ -8,4 +8,8 @@ class Timesheet_Repository extends GeneralRepository{
         $this->objectName = new timesheet();
     }
 
+    public function insert($idUser){
+      return $this->objectName->create(["idUser"=>$idUser]);
+    }
+
 }
