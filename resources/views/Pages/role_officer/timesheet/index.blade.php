@@ -16,7 +16,7 @@
                             <div class="col-lg-8 row">
                                 <div class="form-group col-lg-12 ">
                                     <label for="customRange2" class="form-label">Summary</label><br>
-                                    <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Title">
+                                    <input type="text" class="form-control " name="title" id="project_name"placeholder="Title">
                                 </div>
                                 <div class="form-group col-lg-12">
                                     
@@ -121,10 +121,10 @@
     $("#addTimeSheet").submit(function (e) { 
         $.ajax({
             type: "post",
-            url: "url",
-            data: "data",
+            url: "{{route(create.timesheet)}}",
+            data: $(this).serialize(),
             success: function (response) {
-                
+                console.log(response)
             }
         });
     });

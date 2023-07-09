@@ -31,4 +31,8 @@ class web_timesheetController extends Controller
         $payload = $this->userRepo->getUserAndTimesheet(session()->get("sessionKey")["id"])->first();
         return view("Pages.role_officer.timesheet.index",["payload"=>$payload]);
     }
+
+    public function addActivity(Request $request){
+        $this->timeSheet_act_repo->insert($request);
+    }
 }

@@ -63,6 +63,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
     Route::prefix('timesheet')->group(function(){
         Route::get("",[web_timesheetController::class,"index"])->name("show.timesheet");
+        Route::post("/create",[web_timesheetController::class,"addActivity"])->name("create.timesheet");
     });
 
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
