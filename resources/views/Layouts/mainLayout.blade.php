@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>SDA - Jalin</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('js/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -103,7 +103,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="route">Create </a>
+                        <a class="collapse-item" href="{{ route('show.timesheet') }}">Create </a>
                         <a class="collapse-item" href="utilities-color.html">Approval</a>
                     </div>
                 </div>

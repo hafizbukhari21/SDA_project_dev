@@ -8,6 +8,7 @@ use App\Http\Controllers\web\authWebController;
 use App\Http\Controllers\web\categoryProjectController;
 use App\Http\Controllers\web\web_projectController;
 use App\Http\Controllers\web\web_TimelineController;
+use App\Http\Controllers\web\web_timesheetController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -61,7 +62,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
     });
 
     Route::prefix('timesheet')->group(function(){
-        
+        Route::get("",[web_timesheetController::class,"index"])->name("show.timesheet");
     });
 
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
