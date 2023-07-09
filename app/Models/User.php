@@ -54,11 +54,18 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(project::class,'pic_id',"id");
     }
 
+    public function myHead(){
+        return $this->belongsTo(User::class,"myHeadId","id");
+    }
+    public function timesheet(){
+        return $this->belongsTo(timesheet::class,"id","idUser");
+    }
+
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
     }
 
-
+   
     
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

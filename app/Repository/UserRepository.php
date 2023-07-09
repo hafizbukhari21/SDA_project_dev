@@ -43,6 +43,12 @@ class UserRepository {
     public function getAllUserAndProject(){
         return $this->getAll()->load('project');
     }
+
+    public function getUserAndTimesheet($idUser){
+        return $this->user->where("id","=",$idUser)->get()->load("timesheet","myHead");
+    }
+
+    
     
 
 

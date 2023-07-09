@@ -40,6 +40,8 @@
                             </div>
                           
                             <input type="hidden" name="user_creator_id" value="{{session()->get("sessionKey")["id"]}}">
+                            <input type="hidden" name="timeSheet_id" value="{{$payload->timesheet->id}}">
+
                             
                             <div class="col-lg-12 row"  >
                                 <div class="form-group  btn-block col-lg-12">
@@ -59,11 +61,15 @@
                     <div class="card shadow w-100 h-100 " >
                         
                         <div class="card-body" style="height: 80vh; overflow:scroll">
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-between">
+                                <div class="">
+                                    <h1 class="h5 text-gray-900 mb-4">Approval By - {{$payload->myhead->name}}</h1>
+                                </div>
                                 <button type="button" class="btn btn-success mb-4 ">
                                     Make Approval 
                                 </button>
-                                </div>
+                              
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="tableProject" width="100%" cellspacing="0">
                                     <thead>
@@ -107,4 +113,20 @@
 @endsection
 
 @section("jsScript")
+<script>
+    $(document).ready(function () {
+        
+    });
+
+    $("#addTimeSheet").submit(function (e) { 
+        $.ajax({
+            type: "post",
+            url: "url",
+            data: "data",
+            success: function (response) {
+                
+            }
+        });
+    });
+</script>
 @endsection
