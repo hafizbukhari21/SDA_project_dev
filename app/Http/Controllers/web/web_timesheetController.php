@@ -35,4 +35,8 @@ class web_timesheetController extends Controller
     public function addActivity(Request $request){
         $this->timeSheet_act_repo->insert($request);
     }
+
+    public function getMyTimesheet($idTimesheet){
+        return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
+    }
 }

@@ -16,10 +16,8 @@ class timesheetactivity extends Model
     protected $fillable =[
         "timeSheet_id",
         "title",
-        "detail",
-        "Activity",
+        "detail_activity",
         "status",
-        "status_present",
         "activity_date",
         "from",
         "finish",

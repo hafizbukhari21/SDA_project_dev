@@ -52,8 +52,6 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("delete",[web_projectController::class, "deleteProject"])->name("project.myProject.delete");//ajax route disable csrf
         Route::get("getAll",[web_projectController::class,"returnGetAllProject"])->name("project.picAndCreator.myProject");//ajax Route
         Route::view('detail/{id}', "Pages.general.project.timeline")->name("project.timeline");
-
-
     });
     Route::prefix('timeline')->group(function(){
         Route::post("create",[web_TimelineController::class,"createTimeLine"])->name("create.timeline");
@@ -63,9 +61,9 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
     Route::prefix('timesheet')->group(function(){
         Route::get("",[web_timesheetController::class,"index"])->name("show.timesheet");
-        Route::post("/create",[web_timesheetController::class,"addActivity"])->name("create.timesheet");
+        Route::post("create",[web_timesheetController::class,"addActivity"])->name("create.timesheet");
+        Route::get("myTimesheet/{idTimesheet}",[web_timesheetController::class,"getMyTimesheet"])->name("show.myTimesheet");
     });
-
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     
 });
