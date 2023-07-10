@@ -32,11 +32,28 @@ class web_timesheetController extends Controller
         return view("Pages.role_officer.timesheet.index",["payload"=>$payload]);
     }
 
+    
+
     public function addActivity(Request $request){
-        $this->timeSheet_act_repo->insert($request);
+        iF($this->CheckMyTimeSheet($request->timeSheet_id)){
+           return $this->timeSheet_act_repo->insert($request);
+        }
+        return response(["message"=>"Forbidden"],403);
     }
 
     public function getMyTimesheet($idTimesheet){
-        return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
+        iF($this->CheckMyTimeSheet($idTimesheet)){
+            return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
+        }
+        return response(["message"=>"Forbidden"],403);
+    }
+
+    //Validation
+    private function CheckMyTimeSheet($id){
+        $check = $this->timesheetRepo->get("id",$id)->first();
+        if($check->idUser == session()->get("sessionKey")["id"]){
+            return true;
+        }
+        return false;
     }
 }
