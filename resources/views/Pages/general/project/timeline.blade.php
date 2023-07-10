@@ -114,8 +114,12 @@
                     <form class="user" id="addTaskForm">
                         @csrf
                         <div class="form-group ">
-
                                 <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Project Name">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="timeline_group" name="idGroup" aria-label="Default select example">
+                            </select>
+
                         </div>
                         <div class="form-group ">
                             <label for="">Start Date</label>
@@ -322,7 +326,11 @@ function GetGroupAjax(){
                     id:e.id, content:e.Group
                 }))
                 timelineChart.setGroups(groupTimeline)
-                console.log(groupTimeline)
+                MappingSelectOption({
+                        default:"Select Group",
+                        element:document.querySelector("#timeline_group"),
+                        data : response.map(e => ({id:e.id, name:e.Group}))
+                })
             }
         });
 }
@@ -394,11 +402,12 @@ function GetDataFromTimeline(){
 //UpdateTask Callback From Vis Js Timeline    
 function UpdateTask(item){
   
-
+    console.item
     let payload = {
         id:item.id,
         from:moment(item.start).format("YYYY-MM-DD"),
         to:moment(item.end).format("YYYY-MM-DD"),
+        idGroup:item.group
     }
     
     
@@ -466,7 +475,8 @@ $("#addTaskForm").submit(function (e) {
                         id:response.id, 
                         content:response.task_name, 
                         start: moment.utc(response.from).local().format('YYYY-MM-DD') , 
-                        end:moment.utc(response.to).local().format('YYYY-MM-DD'), 
+                        end:moment.utc(response.to).local().format('YYYY-MM-DD'),
+                        group:response.group.id, 
                         // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
                         tooltip:tooltipTemplate({
                             task_name:response.task_name,
