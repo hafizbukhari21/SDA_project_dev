@@ -14,5 +14,11 @@ class group_timeline extends Model
         "Group"
     ];
 
+    public function projects(){
+        return $this->hasMany(project_timeline::class,"idGroup","id");
+    }
+
+    
+
     
 }

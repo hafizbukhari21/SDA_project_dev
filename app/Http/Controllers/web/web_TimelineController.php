@@ -30,6 +30,6 @@ class web_TimelineController extends Controller
     }
 
     public function getGroupTimeline(){
-        return $this->group_timeline_repo->getAll();
+        return $this->group_timeline_repo->getAll()->load("projects");
     }
 }

@@ -203,7 +203,7 @@
         },
         editable: {
             updateTime: true,
-            updateGroup: true,
+            updateGroup: false,
             overrideItems: false,
             remove:true,
         },
@@ -251,7 +251,7 @@
             url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
             
             success: function (response) {
-                console.log(response)
+                // console.log(response)
                 project_name.innerHTML = response.project_name
                 pic_name.innerHTML = response.pic_id.name
                 summary.innerHTML = response.status
@@ -297,7 +297,9 @@
                 });
             
             });
+
             
+     
             }
         });
       
@@ -325,10 +327,15 @@ function GetGroupAjax(){
             url: "{{route('group.timeline')}}",
 
             success: function (response) {
-                groupTimeline = response.map(e=>({
-                    id:e.id, content:e.Group
+                // console.log(response)
+                let groupTimeline = response.map(e=>({
+                    id: e.id,
+                    content: e.Group,
+                    treeLevel: 1,
+                    nestedGroups:e.projects.map(e=>e.id)
                 }))
-                timelineChart.setGroups(groupTimeline)
+                ajaxDataToBeGroup(groupTimeline)
+                
                 MappingSelectOption({
                         default:"Select Group",
                         element:document.querySelector("#timeline_group"),
@@ -336,7 +343,28 @@ function GetGroupAjax(){
                 })
             }
         });
+
+    
+        function ajaxDataToBeGroup(groupTimeline){
+            // console.log(groupTimeline)
+            $.ajax({
+                type: "get",
+                url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
+                success: function (response) {
+                    
+                    let merge =[...response.projects_timeline.map(e=>({
+                        id: e.id,
+                        content: e.task_name,
+                        treeLevel: 2,
+                    })),...groupTimeline]
+                    console.log(merge)
+                    timelineChart.setGroups(merge)
+                }
+            });
+        }
 }
+
+
 
 //Template For Every Nodes  In timeline
 function CustomNodeTask(input){
@@ -387,13 +415,12 @@ function CustomContentTooltip(e){
 }
 
 function MappingTimeLine(e){
-    console.log(e)
     return {
             id:e.id, 
             content:CustomContentTooltip(e), 
             start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
             end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
-            group:e.idGroup,
+            group:e.id,
             //style: 'background-color: #00ff00;',
             tooltip: tooltipTemplate({
                 task_name:e.task_name,
