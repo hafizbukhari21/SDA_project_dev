@@ -476,7 +476,7 @@ $("#addTaskForm").submit(function (e) {
                         content:response.task_name, 
                         start: moment.utc(response.from).local().format('YYYY-MM-DD') , 
                         end:moment.utc(response.to).local().format('YYYY-MM-DD'),
-                        group:response.group.id, 
+                        group:response.idGroup, 
                         // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
                         tooltip:tooltipTemplate({
                             task_name:response.task_name,
