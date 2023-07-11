@@ -314,7 +314,7 @@ function tooltipTemplate(param){
                 <button type="button" class="btn btn-warning">Update Task</button>
               </div>
             </div>`
-   }
+}
 
 function GetGroupAjax(){
     $.ajax({
@@ -345,7 +345,7 @@ function CustomNodeTask(input){
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
-</div>
+    </div>
     `
 } 
 
@@ -365,12 +365,18 @@ function captureTimeline(){
 //convert Response From API To Used in DataSet and Main Data Vis JS
 function TimelineDataParser(response){
     return response.projects_timeline.map(e=>{
-        return {
+       return MappingTimeLine(e)
+    }
+    )
+}
+
+function MappingTimeLine(e){
+    return {
             id:e.id, 
             content:e.task_name, 
             start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
             end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
-            group:e.group.id,
+            group:e.idGroup,
             // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
             tooltip: tooltipTemplate({
                 task_name:e.task_name,
@@ -379,8 +385,6 @@ function TimelineDataParser(response){
             })
 
         }
-    }
-    )
 }
 
 //Re Get Data After Insert New Task
@@ -466,25 +470,9 @@ $("#addTaskForm").submit(function (e) {
                     timer:1000,
                     title:"Berhasil Menambahkan Task"
                 })
-                GetDataFromTimeline()
-
-                console.log($(this).serialize())
-                
+                GetDataFromTimeline()                
                 //Add Dataset Vis Js after adding task 
-                items.add({
-                        id:response.id, 
-                        content:response.task_name, 
-                        start: moment.utc(response.from).local().format('YYYY-MM-DD') , 
-                        end:moment.utc(response.to).local().format('YYYY-MM-DD'),
-                        group:response.idGroup, 
-                        // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
-                        tooltip:tooltipTemplate({
-                            task_name:response.task_name,
-                            start:response.from,
-                            end:response.to
-                        })
-                })
-
+                items.add(MappingTimeLine(response))
             },
             error:function(error){
             console.log(error.responseJSON)
