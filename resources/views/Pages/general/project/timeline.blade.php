@@ -449,13 +449,12 @@ function GetDataFromTimeline(){
 
 //UpdateTask Callback From Vis Js Timeline    
 function UpdateTask(item){
-  
+    
     console.item
     let payload = {
         id:item.id,
         from:moment(item.start).format("YYYY-MM-DD"),
         to:moment(item.end).format("YYYY-MM-DD"),
-        idGroup:item.group
     }
     
     
@@ -465,6 +464,7 @@ function UpdateTask(item){
         url: "{{route('update.timeline')}}",
         data:payload,
         success: function (response) {
+            GetGroupAjax()
             if (response==1){
                 SweetAlertSimple({
                     timer:1000,
@@ -494,6 +494,7 @@ function DeleteTask(item){
                     timer:1000,
                     title:"Berhasil Menghapus Task"
                 })
+            GetGroupAjax()
         },
         error:function(err){
             console.log(err.responseJSON)
@@ -517,6 +518,7 @@ $("#addTaskForm").submit(function (e) {
                 GetDataFromTimeline()                
                 //Add Dataset Vis Js after adding task 
                 items.add(MappingTimeLine(response))
+                GetGroupAjax()
             },
             error:function(error){
             console.log(error.responseJSON)
