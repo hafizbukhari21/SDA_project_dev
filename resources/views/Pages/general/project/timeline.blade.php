@@ -329,7 +329,7 @@ function GetGroupAjax(){
             success: function (response) {
                 // console.log(response)
                 let groupTimeline = response.map(e=>({
-                    id: e.id,
+                    id: e.Group,
                     content: e.Group,
                     treeLevel: 1,
                     nestedGroups:e.projects.map(e=>e.id)
