@@ -116,6 +116,9 @@
                         <div class="form-group ">
                                 <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Project Name">
                         </div>
+                        <div class="form-group ">
+                            <textarea type="text" class="form-control " name="notes" id="project_name"placeholder="Notes"></textarea>
+                        </div>
                         <div class="form-group">
                             <select class="form-control" id="timeline_group" name="idGroup" aria-label="Default select example">
                             </select>
@@ -370,14 +373,28 @@ function TimelineDataParser(response){
     )
 }
 
+
+function CustomContentTooltip(e){
+    return `
+    <div class="card bg-danger" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">${e.task_name}</h5>
+        <p class="card-text">${e.notes}</p>
+      </div>
+    </div>
+
+    `
+}
+
 function MappingTimeLine(e){
+    console.log(e)
     return {
             id:e.id, 
-            content:e.task_name, 
+            content:CustomContentTooltip(e), 
             start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
             end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
             group:e.idGroup,
-            // tooltip: `<h3>${e.task_name}</h3><p>The Task Start between ${e.from} - ${e.to}.</p>`
+            //style: 'background-color: #00ff00;',
             tooltip: tooltipTemplate({
                 task_name:e.task_name,
                 start:e.from,

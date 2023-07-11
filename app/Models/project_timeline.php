@@ -18,7 +18,8 @@ class project_timeline extends Model
         "from",
         "to",
         "id",
-        "idGroup"
+        "idGroup",
+        "notes"
     ];
 
     public function project(){
