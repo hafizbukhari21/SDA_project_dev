@@ -324,7 +324,9 @@ function tooltipTemplate(param){
 function GetGroupAjax(){
     $.ajax({
             type: "get",
-            url: "{{route('group.timeline')}}",
+
+            url: ParseRoute_SingleVar("{{route('group.timeline',':projectId')}}",projectId,":projectId"),
+
 
             success: function (response) {
                 // console.log(response)

@@ -29,7 +29,7 @@ class web_TimelineController extends Controller
         return $this->timelineRepo->insert($req);
     }
 
-    public function getGroupTimeline(){
-        return $this->group_timeline_repo->getAll()->load("projects");
+    public function getGroupTimeline($idGroup){
+        return $this->group_timeline_repo->GetGroupTimeline_FilterGroup($idGroup);
     }
 }
