@@ -1,5 +1,5 @@
 function MappingSelectOption(input){
-    let string = `<option >${input.default}</option>`
+    let string = `<option selected disabled >${input.default}</option>`
     input.data.forEach(e => {
         string += `<option value="${e.id}">${e.name}</option>`
     });

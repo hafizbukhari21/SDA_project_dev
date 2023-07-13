@@ -41,11 +41,19 @@ class web_timesheetController extends Controller
         return response(["message"=>"Forbidden"],403);
     }
 
+    public function updateActivity(Request $request){
+        return $this->timeSheet_act_repo->UpdateTimesheet($request);
+    }
+
     public function getMyTimesheet($idTimesheet){
         iF($this->CheckMyTimeSheet($idTimesheet)){
             return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
         }
         return response(["message"=>"Forbidden"],403);
+    }
+
+    public function getMyTimeSheetActivity($idActivity){
+        return $this->timeSheet_act_repo->get("id",$idActivity)->first();
     }
 
     //Validation
@@ -56,4 +64,5 @@ class web_timesheetController extends Controller
         }
         return false;
     }
+    
 }
