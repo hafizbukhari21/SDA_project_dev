@@ -153,7 +153,8 @@
 @endsection
 
 @section("jsScript")
-<script>
+<script id="myscript">
+    ProtectThis()
     let urlArr= window.location.pathname.split('/');
     let projectId = urlArr[urlArr.length-1]
     let timelineChart_parse = null
@@ -236,6 +237,7 @@
 
     
     $(document).ready(function () {
+        
         let project_name = document.querySelector("#project_name")
         let pic_name = document.querySelector("#pic_name")
         let summary = document.querySelector("#summary")

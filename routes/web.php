@@ -66,6 +66,8 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::post("update",[web_timesheetController::class,"updateActivity"])->name("update.timesheet");
         Route::get("myTimesheet/{idTimesheet}",[web_timesheetController::class,"getMyTimesheet"])->name("show.myTimesheet");
         Route::get("/{idActivity}",[web_timesheetController::class,"getMyTimeSheetActivity"])->name("get.timesheet.activity");
+
+        Route::get("head/myOfficer/{myId}",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
         
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");

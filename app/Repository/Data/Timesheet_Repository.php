@@ -4,6 +4,7 @@ use App\Models\timesheet;
 use App\Repository\GeneralRepository;
 
 class Timesheet_Repository extends GeneralRepository{
+    private $g_myId;
     public function __construct(){
         $this->objectName = new timesheet();
     }
@@ -12,4 +13,11 @@ class Timesheet_Repository extends GeneralRepository{
       return $this->objectName->create(["idUser"=>$idUser]);
     }
 
+
+    public function myOfficerTimesheet($myId){
+        $this->g_myId = $myId;
+        return $this->objectName->get()->load(["user"=>function($usr){
+          $usr->where("myHeadId",$this->g_myId);
+        }])->where("user","<>","");
+    }
 }

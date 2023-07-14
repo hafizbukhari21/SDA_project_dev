@@ -56,6 +56,10 @@ class web_timesheetController extends Controller
         return $this->timeSheet_act_repo->get("id",$idActivity)->first();
     }
 
+    public function getMyOfficer($myId){
+        return $this->timesheetRepo->myOfficerTimesheet($myId);
+    }
+
     //Validation
     private function CheckMyTimeSheet($id){
         $check = $this->timesheetRepo->get("id",$id)->first();

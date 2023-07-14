@@ -202,12 +202,13 @@
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
-<script>
-    
+<script id="myscript">
+    ProtectThis()
     let tableTimesheet = null
     $(document).ready(function () {
-       tableTimesheet= ShowTableTimesheet()
-       tableTimesheet.on("order.dt search.dt", () => {
+        
+        tableTimesheet= ShowTableTimesheet()
+        tableTimesheet.on("order.dt search.dt", () => {
                 let i = 1
                 tableTimesheet.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
                     this.data(i++);

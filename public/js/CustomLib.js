@@ -31,3 +31,29 @@ function ParseRoute_SingleVar(route,Variable, variableName){
 }
 
 
+
+//SecureWeb
+
+function ProtectThis(){
+    document.querySelector("#myscript").innerHTML =""
+    document.addEventListener('contextmenu', event => {
+        event.preventDefault()
+        alert("Not Allowed")
+    });
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && 
+            (e.keyCode === 67 || 
+             e.keyCode === 86 || 
+             e.keyCode === 85 || 
+             e.keyCode === 117)) {
+            alert("Not Allowed")
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+
+}
+
+
