@@ -67,14 +67,15 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("myTimesheet/{idTimesheet}",[web_timesheetController::class,"getMyTimesheet"])->name("show.myTimesheet");
         Route::get("/{idActivity}",[web_timesheetController::class,"getMyTimeSheetActivity"])->name("get.timesheet.activity");
 
-        Route::get("head/myOfficer/{myId}",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
+        Route::group(["middleware"=>"SessionControlWeb_Head"],function(){
+            Route::get("head/myOfficer/{myId}",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
+            
+        });
         
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     
 });
-
-
 
 Route::group(["prefix"=>"auth"],function(){
     Route::post("login",[authWebController::class,"loginWeb"])->name("loginWeb");

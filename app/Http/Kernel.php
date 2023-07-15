@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'SessionControl' => \App\Http\Middleware\SessionControlJwt::class,
         'SessionControlWeb'=> \App\Http\Middleware\sessionControlWeb::class,
+        'SessionControlWeb_Head'=>\App\Http\Middleware\sessionControlWeb_HeadRole::class,
         
     ];
 }
