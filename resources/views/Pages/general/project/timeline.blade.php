@@ -69,7 +69,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between" id="timelineHeader">
                     <h6 class="m-0 font-weight-bold text-primary">Timeline </h6>
                     <div class="d-sm-inline-block">
                         <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
@@ -153,14 +153,16 @@
 @endsection
 
 @section("jsScript")
+<script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
 <script id="myscript">
-    ProtectThis()
+    // ProtectThis()
     let urlArr= window.location.pathname.split('/');
     let projectId = urlArr[urlArr.length-1]
     let timelineChart_parse = null
     let items = []
     let timelineChart = null
     let timelineChartElement =document.getElementById('timelineChart')
+    
 
     const options = {
         
@@ -265,6 +267,11 @@
                 timelineChart = new vis.Timeline(timelineChartElement, items, options);
                 //attach group to timeline
                 GetGroupAjax()
+
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 1000);
+
                 timelineChart.on('itemover', function (properties) {
                     // console.log("hover")
                     const item = items.get(properties.item);
@@ -363,6 +370,9 @@ function GetGroupAjax(){
                     })),...groupTimeline]
                     console.log(merge)
                     timelineChart.setGroups(merge)
+                    setTimeout(() => {
+                        $(window).scrollTop($('#timelineHeader').offset().top);
+                    }, 1);
                 }
             });
         }
@@ -389,13 +399,16 @@ function captureTimeline(){
     html2canvas(timelineChartElement).then(canvas => {
     // Create a temporary link element
     const link = document.createElement('a');
-    link.href = canvas.toDataURL(); // Set the image data as the link URL
-    link.download = 'timeline.png'; // Set the image filename
+    // link.href = canvas.toDataURL(); // Set the image data as the link URL
+    CaptureTOExcel(canvas.toDataURL(),timelineChartElement.offsetHeight,timelineChartElement.offsetWidth)
+    // link.download = 'timeline.png'; // Set the image filename
     
     // Simulate a click on the link to download the image
     link.click();
   });
 }
+
+
 
 //convert Response From API To Used in DataSet and Main Data Vis JS
 function TimelineDataParser(response){

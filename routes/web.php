@@ -68,8 +68,8 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("/{idActivity}",[web_timesheetController::class,"getMyTimeSheetActivity"])->name("get.timesheet.activity");
 
         Route::group(["middleware"=>"SessionControlWeb_Head"],function(){
+            // Route::get('head/')
             Route::get("head/myOfficer/{myId}",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
-            
         });
         
     });
