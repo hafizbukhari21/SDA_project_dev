@@ -23,7 +23,9 @@ class ProjectRepository extends GeneralRepository{
 
         $projects = $this->objectName->where("id","=",$project_id)->get();
         foreach($projects as $project){
-           $project->load("projects_timeline");
+           $project->load(["projects_timeline"=>function($pt){
+            $pt->orderby("from","asc");
+           }]);
            $project->load("pic_id");
            $project->load("category_project");
            foreach($project->projects_timeline as $timeline){
