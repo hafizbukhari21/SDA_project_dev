@@ -13,9 +13,9 @@ function CaptureTOExcel(base64File,height,width){
 
 
     // Add data to the worksheet
-    worksheet.addRow(['Name', 'Age']);
-    worksheet.addRow(['John Doe', 30]);
-    worksheet.addRow(['Jane Smith', 28]);
+    // worksheet.addRow(['Name', 'Age']);
+    // worksheet.addRow(['John Doe', 30]);
+    // worksheet.addRow(['Jane Smith', 28]);
     worksheet.addImage(image, {
         tl: { col: 1, row: 1 },
         ext: { width, height }
