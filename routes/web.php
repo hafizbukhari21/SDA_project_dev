@@ -69,7 +69,8 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
         Route::group(["middleware"=>"SessionControlWeb_Head"],function(){
             // Route::get('head/')
-            Route::get("head/myOfficer/{myId}",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
+            Route::get("head/approval/myOfficer/get",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
+            Route::view("head/approval","Pages.role_head.timesheet.approval")->name("show.timesheet.approval");
         });
         
     });

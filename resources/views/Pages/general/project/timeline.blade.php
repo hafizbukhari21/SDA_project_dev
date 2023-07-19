@@ -1,6 +1,7 @@
 @extends('Layouts.mainLayout')
 
-@section('generalContent')<div class="container-fluid">
+@section('generalContent')
+<div class="container-fluid">
 
     <!-- Page Heading -->
     <div class="row">

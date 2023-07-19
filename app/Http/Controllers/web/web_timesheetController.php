@@ -56,8 +56,8 @@ class web_timesheetController extends Controller
         return $this->timeSheet_act_repo->get("id",$idActivity)->first();
     }
 
-    public function getMyOfficer($myId){
-        return $this->timesheetRepo->myOfficerTimesheet($myId);
+    public function getMyOfficer(Request $request){
+        return $this->timesheetRepo->myOfficerTimesheet(session()->get("sessionKey")["id"]);
     }
 
     //Validation

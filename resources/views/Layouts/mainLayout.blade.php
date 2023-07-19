@@ -105,7 +105,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('show.timesheet') }}">Create </a>
                         @if (session()->get("sessionKey")["role"]=='Head')
-                            <a class="collapse-item" href="utilities-color.html">Approval</a>
+                            <a class="collapse-item" href="{{ route('show.timesheet.approval') }}">Approval</a>
                         @endif
                     </div>
                 </div>
