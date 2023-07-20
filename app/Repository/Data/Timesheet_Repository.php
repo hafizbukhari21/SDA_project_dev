@@ -5,6 +5,7 @@ use App\Repository\GeneralRepository;
 
 class Timesheet_Repository extends GeneralRepository{
     private $g_myId;
+    private $userId;
     public function __construct(){
         $this->objectName = new timesheet();
     }
@@ -19,5 +20,20 @@ class Timesheet_Repository extends GeneralRepository{
         return $this->objectName->get()->load(["user"=>function($usr){
           $usr->where("myHeadId",$this->g_myId);
         }])->where("user","<>","");
+    }
+
+    public function UnApproveActivity($userId){
+      $this->userId=$userId;
+      return $this->objectName->get()->load(
+        [
+          "user"=>function($usr){
+            $usr->where("id",$this->userId);
+          },
+          "timesheetactivity"=>function($timesheetAct){
+            $timesheetAct->whereIn("status",['new','rev']);
+          }
+        ]
+        
+      )->where("user","<>","");
     }
 }

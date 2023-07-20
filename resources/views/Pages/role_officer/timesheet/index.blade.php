@@ -65,7 +65,7 @@
                                 <div class="">
                                     <h1 class="h5 text-gray-900 mb-4">Approval By - {{$payload->myhead->name}}</h1>
                                 </div>
-                                <button type="button" class="btn btn-success mb-4 lv">
+                                <button type="button" class="btn btn-success mb-4 lv" data-toggle="modal" data-target="#previewApprovalTimesheet">
                                     Make Approval 
                                 </button>
                               
@@ -188,6 +188,36 @@
         </div>
     </div>
 
+    <div class="modal fade" id="previewApprovalTimesheet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Approval Preview</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="p-4">
+                            
+                            
+                       
+                        </div>
+                    </div>
+                        
+                   
+                    
+                </div>
+                <!-- <div class="modal-footer">
+                    {{-- <button class="btn btn-primary" href="">Create</button> --}}
+                </div> -->
+            </form>
+            </div>
+        </div>
+    </div>
+
     @php
         $idLabel="deleteActivityModal"
     @endphp
@@ -291,7 +321,7 @@
                                 <i class="fas fa-trash"></i>
                                 </a>
                                 <br>
-                                <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateProject('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
+                                <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheet('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
                                 <i class="fa fa-info-circle"></i>
                                 </a>
                             </div>`
@@ -303,24 +333,24 @@
             });
 
             return table
-        }
+    }
 
 
-        function UpdateProject(id){
-            console.log(id)
-            $.ajax({
-                type: "get",
-                url: ParseRoute_SingleVar("{{route('get.timesheet.activity',':id')}}",id,":id"),
-                success: function (response) {
-                    document.querySelector("#upd_id").value = response.id
-                    document.querySelector("#upd_title").value = response.title
-                    document.querySelector("#upd_detail_activity").value = response.detail_activity
-                    document.querySelector("#upd_activity_date").value = response.activity_date
-                    document.querySelector("#upd_from").value = response.from
-                    document.querySelector("#upd_finish").value = response.finish
-                }
-            });
-        }
+    function UpdateTimesheet(id){
+        console.log(id)
+        $.ajax({
+            type: "get",
+            url: ParseRoute_SingleVar("{{route('get.timesheet.activity',':id')}}",id,":id"),
+            success: function (response) {
+                document.querySelector("#upd_id").value = response.id
+                document.querySelector("#upd_title").value = response.title
+                document.querySelector("#upd_detail_activity").value = response.detail_activity
+                document.querySelector("#upd_activity_date").value = response.activity_date
+                document.querySelector("#upd_from").value = response.from
+                document.querySelector("#upd_finish").value = response.finish
+            }
+        });
+    }
 
         function DeleteTimeSheet(id){
             $.ajax({
@@ -365,18 +395,21 @@
         }
     
             
-            $("#tableTimesheet tbody").on("click", "td.dt-control", function () {
-                let tr = $(this).closest('tr')
-                let row = tableTimesheet.row(tr)
-                
-                if (row.child.isShown()) {
-                    row.child.hide()
-                    tr.removeClass("shown")
-                } else {
-                    row.child(format(row.data())).show()
-                    tr.addClass("shown")
-                }
-            })
+        $("#tableTimesheet tbody").on("click", "td.dt-control", function () {
+            let tr = $(this).closest('tr')
+            let row = tableTimesheet.row(tr)
+            
+            if (row.child.isShown()) {
+                row.child.hide()
+                tr.removeClass("shown")
+            } else {
+                row.child(format(row.data())).show()
+                tr.addClass("shown")
+            }
+        })
+
+
+
           
 
 

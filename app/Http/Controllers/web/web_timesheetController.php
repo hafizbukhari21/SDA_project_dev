@@ -60,6 +60,11 @@ class web_timesheetController extends Controller
         return $this->timesheetRepo->myOfficerTimesheet(session()->get("sessionKey")["id"]);
     }
 
+    //select activity yang belum approve [new,rev]
+    public function getUnApproveActivity(){
+       return  $this->timesheetRepo->UnApproveActivity(session()->get("sessionKey")["id"]);
+    }
+    
     //Validation
     private function CheckMyTimeSheet($id){
         $check = $this->timesheetRepo->get("id",$id)->first();
