@@ -34,6 +34,6 @@ class Timesheet_Repository extends GeneralRepository{
           }
         ]
         
-      )->where("user","<>","");
+      )->where("user","<>","")->first();
     }
 }

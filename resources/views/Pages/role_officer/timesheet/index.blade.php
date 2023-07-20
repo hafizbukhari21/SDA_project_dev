@@ -65,7 +65,7 @@
                                 <div class="">
                                     <h1 class="h5 text-gray-900 mb-4">Approval By - {{$payload->myhead->name}}</h1>
                                 </div>
-                                <button type="button" class="btn btn-success mb-4 lv" data-toggle="modal" data-target="#previewApprovalTimesheet">
+                                <button type="button" class="btn btn-success mb-4 lv" onclick="fetchPreviewUpdate()" data-toggle="modal" data-target="#previewApprovalTimesheet">
                                     Make Approval 
                                 </button>
                               
@@ -202,7 +202,33 @@
                     <div class="col-lg-12">
                         <div class="p-4">
                             
-                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered " id="tableTimesheetApproval" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                            <th>Start</th>
+                                            <th>Finish</th>          
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                            <th>Start</th>
+                                            <th>Finish</th> 
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                     
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
                        
                         </div>
                     </div>
@@ -233,11 +259,13 @@
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
 <script id="myscript">
-    ProtectThis()
+    // ProtectThis()
     let tableTimesheet = null
+    let tableTimesheetApprove = null
     $(document).ready(function () {
         
         tableTimesheet= ShowTableTimesheet()
+        tableTimesheetApprove = ShowTableUnApprove();
         tableTimesheet.on("order.dt search.dt", () => {
                 let i = 1
                 tableTimesheet.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
@@ -335,6 +363,48 @@
             return table
     }
 
+    function ShowTableUnApprove(){
+        let table = $('#tableTimesheetApproval').DataTable({
+                
+                ajax: {
+                    url: `{{route('show.unApprove.myTimesheet')}}`,
+                    "dataType": "json",
+                    "dataSrc": "timesheetactivity",
+                },
+                info: false,
+                ordering: false,
+                paging: false,
+                searching:false,
+                columns: [
+                   
+                    {
+                        "data":"title",
+                    },
+                   
+                    {
+                        "data":"status",
+                    },
+                    {
+                        "data":"activity_date",
+                    },
+                    {
+                        "data":"from",
+                    },
+                    {
+                        "data":"finish",
+                       
+                    },
+                  
+                ]
+                });
+    
+            return table
+    }
+
+    function fetchPreviewUpdate(){
+        tableTimesheetApprove.ajax.reload()
+    }
+
 
     function UpdateTimesheet(id){
         console.log(id)
@@ -407,6 +477,8 @@
                 tr.addClass("shown")
             }
         })
+
+    
 
 
 
