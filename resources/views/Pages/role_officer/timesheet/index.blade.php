@@ -258,6 +258,10 @@
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
+<script src="{{ asset('js/Page/timesheet.js') }}"></script>
+
+
+
 <script id="myscript">
     // ProtectThis()
     let tableTimesheet = null
@@ -402,6 +406,7 @@
     }
 
     function fetchPreviewUpdate(){
+    
         tableTimesheetApprove.ajax.reload()
     }
 
@@ -422,7 +427,7 @@
         });
     }
 
-        function DeleteTimeSheet(id){
+    function DeleteTimeSheet(id){
             $.ajax({
                 type: "method",
                 url: "url",
@@ -431,40 +436,9 @@
                     
                 }
             });
-        }
+    }
 
-
-        function format(d) {
-            console.log(d)
-            return `
-                    <table class="table">
-                        <thead>
-                            
-                            <th scope="col" style="width: 70%">Detail Activity</th>
-                            <th scope="col" style="width: 30%">Overtime</th>
-                        <thead>
-                        <tbody>
-                        <tr>
-                            
-                            <td>${d.detail_activity}</td>
-                            <td>${overtimeCount(d.finish)}</td>
-                           
-                        </tr>
-                        <tr>
-                        </tbody>
-                    </table>                    
-            `
-        }
-
-        function overtimeCount(data ) {
-            let finish = moment(data,"HH:mm:ss")
-            let overtTimeAfter = moment("17:30:00","HH:mm:ss")
-            let duration = moment.duration(finish.diff(overtTimeAfter))
-            // console.log(duration.hours() +" | "+ duration.minutes())
-            return `${duration.hours()} hours and ${duration.minutes()} minutes`
-        }
-    
-            
+      
         $("#tableTimesheet tbody").on("click", "td.dt-control", function () {
             let tr = $(this).closest('tr')
             let row = tableTimesheet.row(tr)
