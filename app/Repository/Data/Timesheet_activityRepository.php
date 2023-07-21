@@ -30,7 +30,16 @@ class Timesheet_activityRepository extends GeneralRepository{
         ->orWhere("detail_activity","like","%".$request->input('search.value')."%")
         ->orWhere("activity_date","like","%".$request->input('search.value')."%");
         
-        return DatatableFormater::format($request,$query);
+        //Request, Base Query, Urutan Column datatable
+        return DatatableFormater::format($request,$query,[
+            "title",
+            "title",
+            "status",
+            "activity_date",
+            "from",
+            "finish",
+            "finish"
+        ]);
     }
 
    
