@@ -258,8 +258,13 @@
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
-<script src="{{ asset('js/Page/timesheet.js') }}"></script>
+<script id="myscriptvar">
+    ///var url
+    let ShowTableTimesheet_var= `{{route('show.myTimesheet',["idTimesheet"=>$payload->timesheet->id])}}`
+    let ShowTableUnApprove_var= `{{route('show.unApprove.myTimesheet')}}`
+</script>
 
+<script src="{{ asset('js/Page/timesheet.js') }}"></script>
 
 
 <script id="myscript">
@@ -310,100 +315,7 @@
             }
         });
     });
-
-    function ShowTableTimesheet(){
-            let table = $('#tableTimesheet').DataTable({
-                
-            ajax: {
-                url: `{{route('show.myTimesheet',["idTimesheet"=>$payload->timesheet->id])}}`,
-                "dataType": "json",
-                "dataSrc": "",
-            },
-   
-                columns: [
-                    {
-                        className: "dt-control",
-                        orderable: false,
-                        data: null,
-                        defaultContent:'<button type="button" class="btn-sm btn-primary">+</button>'
-                    },
-                    {
-                        "data":"title",
-                    },
-                   
-                    {
-                        "data":"status",
-                    },
-                    {
-                        "data":"activity_date",
-                    },
-                    {
-                        "data":"from",
-                    },
-                    {
-                        "data":"finish",
-                       
-                    },
-                  
-                    {
-                        "data":"id",
-                        render: function (data, type, row, meta) {
-                    return `<div class="btn-group ">
-                                <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${data}')" data-toggle="modal" data-target="#">
-                                <i class="fas fa-trash"></i>
-                                </a>
-                                <br>
-                                <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheet('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
-                                <i class="fa fa-info-circle"></i>
-                                </a>
-                            </div>`
-                        }
-                    },
-              
-                 
-                ]
-            });
-
-            return table
-    }
-
-    function ShowTableUnApprove(){
-        let table = $('#tableTimesheetApproval').DataTable({
-                
-                ajax: {
-                    url: `{{route('show.unApprove.myTimesheet')}}`,
-                    "dataType": "json",
-                    "dataSrc": "timesheetactivity",
-                },
-                info: false,
-                ordering: false,
-                paging: false,
-                searching:false,
-                columns: [
-                   
-                    {
-                        "data":"title",
-                    },
-                   
-                    {
-                        "data":"status",
-                    },
-                    {
-                        "data":"activity_date",
-                    },
-                    {
-                        "data":"from",
-                    },
-                    {
-                        "data":"finish",
-                       
-                    },
-                  
-                ]
-                });
-    
-            return table
-    }
+  
 
     function fetchPreviewUpdate(){
     
@@ -439,27 +351,19 @@
     }
 
       
-        $("#tableTimesheet tbody").on("click", "td.dt-control", function () {
-            let tr = $(this).closest('tr')
-            let row = tableTimesheet.row(tr)
-            
-            if (row.child.isShown()) {
-                row.child.hide()
-                tr.removeClass("shown")
-            } else {
-                row.child(format(row.data())).show()
-                tr.addClass("shown")
-            }
-        })
-
-    
-
-
-
-          
-
-
+    $("#tableTimesheet tbody").on("click", "td.dt-control", function () {
+        let tr = $(this).closest('tr')
+        let row = tableTimesheet.row(tr)
         
+        if (row.child.isShown()) {
+            row.child.hide()
+            tr.removeClass("shown")
+        } else {
+            row.child(format(row.data())).show()
+            tr.addClass("shown")
+        }
+    })
+   
 </script>
 @endsection
 @section('css')
