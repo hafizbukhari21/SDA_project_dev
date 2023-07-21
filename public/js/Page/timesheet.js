@@ -44,6 +44,11 @@ function ShowTableTimesheet(){
     let table = $('#tableTimesheet').DataTable({
     "processing": true,
     "serverSide": true,
+    language: {
+        processing: `<div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>`
+    },
     ajax: {
         url: ShowTableTimesheet_var,
         "dataType": "json",
