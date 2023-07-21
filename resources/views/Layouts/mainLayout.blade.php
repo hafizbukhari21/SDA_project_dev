@@ -39,6 +39,11 @@
         .swal2-title {
           font-size: 24px !important; /* Set the desired font size */
         }
+        .dataTables_filter {
+           width: 50%;
+           float: right;
+           text-align: left;
+        }
     </style>
 
     @yield('css')

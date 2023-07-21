@@ -44,6 +44,7 @@ function ShowTableTimesheet(){
     let table = $('#tableTimesheet').DataTable({
     "processing": true,
     "serverSide": true,
+    "responsive" :true,
     language: {
         processing: `<div class="spinner-border text-primary" role="status">
         <span class="sr-only">Loading...</span>
