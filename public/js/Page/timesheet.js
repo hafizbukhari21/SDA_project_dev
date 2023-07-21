@@ -42,11 +42,12 @@ function overtimeCount(data ) {
 
 function ShowTableTimesheet(){
     let table = $('#tableTimesheet').DataTable({
-        
+    "processing": true,
+    "serverSide": true,
     ajax: {
         url: ShowTableTimesheet_var,
         "dataType": "json",
-        "dataSrc": "",
+        "dataSrc": "data",
     },
 
         columns: [

@@ -2,7 +2,9 @@
 namespace App\Repository\Data;
 use App\Models\timesheetactivity;
 use App\Repository\GeneralRepository;
+use App\Utils\DatatableFormater;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Timesheet_activityRepository extends GeneralRepository{
     public function __construct(){
@@ -18,6 +20,18 @@ class Timesheet_activityRepository extends GeneralRepository{
         $timesheet->finish = $request->finish;
 
         return $timesheet->save();
+    }
+
+
+    public function GetTimesheetActPagination(Request $request,$idTimesheet){
+
+    $query = $this->objectName->
+    where("timeSheet_id",$idTimesheet)
+    ->where("title","like","%".$request->input('search.value')."%")
+    ->orWhere("detail_activity","like","%".$request->input('search.value')."%")
+    ->orWhere("activity_date","like","%".$request->input('search.value')."%");
+    
+    return DatatableFormater::format($request,$query);
     }
 
    

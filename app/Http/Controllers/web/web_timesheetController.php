@@ -45,9 +45,10 @@ class web_timesheetController extends Controller
         return $this->timeSheet_act_repo->UpdateTimesheet($request);
     }
 
-    public function getMyTimesheet($idTimesheet){
+    public function getMyTimesheet($idTimesheet,Request $request){
         iF($this->CheckMyTimeSheet($idTimesheet)){
-            return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
+            //return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
+            return $this->timeSheet_act_repo->GetTimesheetActPagination($request,$idTimesheet);
         }
         return response(["message"=>"Forbidden"],403);
     }
@@ -64,6 +65,7 @@ class web_timesheetController extends Controller
     public function getUnApproveActivity(){
        return  $this->timesheetRepo->UnApproveActivity(session()->get("sessionKey")["id"]);
     }
+
     
     //Validation
     private function CheckMyTimeSheet($id){
