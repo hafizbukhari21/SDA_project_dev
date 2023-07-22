@@ -26,10 +26,11 @@ class Timesheet_activityRepository extends GeneralRepository{
     public function GetTimesheetActPagination(Request $request,$idTimesheet){
         $query = $this->objectName->
         where("timeSheet_id",$idTimesheet)
-        ->where("title","like","%".$request->input('search.value')."%")
-        ->orWhere("detail_activity","like","%".$request->input('search.value')."%")
-        ->orWhere("activity_date","like","%".$request->input('search.value')."%");
-        
+        ->where(function($q) use ($request){
+            $q->orWhere("title","like","%".$request->input('search.value')."%")
+            ->orWhere("detail_activity","like","%".$request->input('search.value')."%")
+            ->orWhere("activity_date","like","%".$request->input('search.value')."%");
+        });
         //Request, Base Query, Urutan Column datatable
         return DatatableFormater::format($request,$query,[
             "title",

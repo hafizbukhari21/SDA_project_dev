@@ -60,7 +60,7 @@
                 <div class="col-lg-12">
                     <div class="card shadow w-100 h-100 " >
                         
-                        <div class="card-body" style="height: 80vh; overflow:scroll">
+                        <div class="card-body" style=" overflow:scroll">
                             <div class="d-flex justify-content-between">
                                 <div class="">
                                     <h1 class="h5 text-gray-900 mb-4">Approval By - {{$payload->myhead->name}}</h1>
@@ -368,5 +368,4 @@
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
-
 @endsection

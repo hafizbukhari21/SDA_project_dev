@@ -1,4 +1,4 @@
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="{{$idLabel}}"
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="{{$idLabel}}"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

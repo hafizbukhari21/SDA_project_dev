@@ -59,7 +59,7 @@ function ShowTableTimesheet(){
         columns: [
             {
                 className: "dt-control",
-                orderable: false,
+                orderable: true,
                 data: null,
                 defaultContent:'<button type="button" class="btn-sm btn-primary">+</button>'
             },
