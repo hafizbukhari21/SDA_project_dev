@@ -463,6 +463,7 @@
 
     
     {{-- in public directory bukan di resource --}}
+    <script src="{{ asset('js/Helper/DatatableFormater.js') }}"></script>
     <script src="{{ asset('js/CustomLib.js') }}"></script>
     <script src="{{ asset('js/ExcelJs.js') }}"></script>
     <script src="{{ asset('js/Helper/createProject.js') }}"></script>

@@ -106,45 +106,16 @@
     })
 
     function GenerateTableTimesheet (id) {
-        let table = $('#tableTimesheetSubmit').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "responsive" :true,
-        language: {
-            processing: `<div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>`
-        },
-        ajax: {
-            url: ParseRoute_SingleVar("{{route('get.myofficer.timesheet_submit',':id')}}",id,":id"),
-            "dataType": "json",
-            "dataSrc": "data",
-        },
-
-            columns: [
-             
-             
-            
-                {
-                    "data":"title",
-                },
-                {
-                    "data":"message",
-                },
-                {
-                    "data":"status_submit",
-                },
-                {
-                    "data":"submitDate",
-                
-                },
-
-                {
-                    "data":"approvalDate",
-                },
-                {
-                    "data":"attemp",
-                },
+        return DatatableFormater_serverSide({
+            element:"#tableTimesheetSubmit",
+            url:ParseRoute_SingleVar("{{route('get.myofficer.timesheet_submit',':id')}}",id,":id"),
+            columns:[
+                {"data":"title"},
+                {"data":"message"},
+                {"data":"status_submit"},
+                {"data":"submitDate"},
+                {"data":"approvalDate"},
+                {"data":"attemp"},
                 {
                     "data":"id",
                     render: function (data, type, row, meta) {
@@ -159,13 +130,8 @@
                             </div>`
                     }
                 },
-            
-            
             ]
-        });
-
-        return table
-        
+        })
     }
 
 
