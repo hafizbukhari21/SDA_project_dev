@@ -15,14 +15,19 @@ class timesheet_submit extends Model
     protected $fillable = [
         "timeSheet_id",
         "idUser",
-        "idUser_Head_approval",
         "status_submit",
         "message",
-        "submitDate"
+        "submitDate",
+        "approvalDate",
+        "attemp"
     ];
 
     public function user(){
-        return $this->belongsTo(User::);
+        return $this->belongsTo(User::class,"idUser","id");
+    }
+
+    public function timesheetactivity(){
+        return $this->hasMany(timesheetactivity::class,"ref_timeSheetSubmit","id");
     }
     
     protected $dates = ['deleted_at'];

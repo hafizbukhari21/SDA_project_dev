@@ -8,4 +8,11 @@ class Timesheet_submitRepository extends GeneralRepository{
     public function __construct(){
         $this->objectName = new timesheet_submit();
     }
+
+    public function requestApproval(){
+        $submitApproval = new timesheet_submit;
+        $submitApproval->idUser="";
+        $submitApproval->status_submit="new";
+        
+    }
 }
