@@ -14,11 +14,14 @@ class timesheet_submit extends Model
     public $table = "timesheet_submit";
     protected $fillable = [
         "timeSheet_id",
+        "idUser",
         "idUser_Head_approval",
         "status_submit",
         "message",
         "submitDate"
     ];
+
+    
     protected $dates = ['deleted_at'];
 
     

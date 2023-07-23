@@ -67,7 +67,7 @@ class web_timesheetController extends Controller
     }
 
     public function makeRequest(){
-        
+        return $this->timeSheet_act_repo->requestApproval();
     }
 
     
