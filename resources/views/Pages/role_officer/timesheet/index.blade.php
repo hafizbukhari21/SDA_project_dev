@@ -353,18 +353,12 @@
             });
     }
 
+    
       
     $("#tableTimesheet tbody").on("click", "td.dt-control", function () {
         let tr = $(this).closest('tr')
         let row = tableTimesheet.row(tr)
-        
-        if (row.child.isShown()) {
-            row.child.hide()
-            tr.removeClass("shown")
-        } else {
-            row.child(format(row.data())).show()
-            tr.addClass("shown")
-        }
+        DatatableExpandable({tr,row,format:format(row.data())})
     })
    
 </script>

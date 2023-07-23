@@ -63,75 +63,44 @@ function overtimeCount(data ) {
 }
 
 function ShowTableTimesheet(){
-    let table = $('#tableTimesheet').DataTable({
-    "processing": true,
-    "serverSide": true,
-    "responsive" :true,
-    language: {
-        processing: `<div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>`
-    },
-    ajax: {
-        url: ShowTableTimesheet_var,
-        "dataType": "json",
-        "dataSrc": "data",
-    },
-
-        columns: [
+    return DatatableFormater_serverSide({
+        element:"#tableTimesheet",
+        url:ShowTableTimesheet_var,
+        columns:[
             {
                 className: "dt-control",
                 orderable: true,
                 data: null,
                 defaultContent:'<button type="button" class="btn-sm btn-primary">+</button>'
             },
-            {
-                "data":"title",
-            },
-           
-            {
-                "data":"status",
-            },
-            {
-                "data":"activity_date",
-            },
-            {
-                "data":"from",
-            },
-            {
-                "data":"finish",
-               
-            },
-
-            {
+            {"data":"title"},
+            {"data":"status"},
+            {"data":"activity_date"},
+            {"data":"from"},
+            {"data":"finish"},
+            {   
                 "data":"ref_timeSheetSubmit",
                 render:function (ref_timeSheetSubmit, type, row, meta) {
                     if(ref_timeSheetSubmit===null) return "-"
                     else return "Requested"
                 }
-
             },
-          
             {
                 "data":"id",
                 render: function (data, type, row, meta) {
-                 return `<div class="btn-group ">
-                        <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${data}')" data-toggle="modal" data-target="#">
-                        <i class="fas fa-trash"></i>
-                        </a>
-                        <br>
-                        <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheet('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
-                        <i class="fa fa-info-circle"></i>
-                        </a>
-                        </div>`
+                    return `<div class="btn-group ">
+                                <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${data}')" data-toggle="modal" data-target="#">
+                                <i class="fas fa-trash"></i>
+                                </a>
+                                <br>
+                                <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheet('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
+                                <i class="fa fa-info-circle"></i>
+                                </a>
+                           </div>`
                 }
             },
-      
-         
         ]
-    });
-
-    return table
+    })
 }
 
 function ShowTableUnApprove(){

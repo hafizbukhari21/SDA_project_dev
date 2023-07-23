@@ -30,7 +30,7 @@ class Timesheet_Repository extends GeneralRepository{
             $usr->where("id",$this->userId);
           },
           "timesheetactivity"=>function($timesheetAct){
-            $timesheetAct->whereIn("status",['new','rev']);
+            $timesheetAct->whereIn("status",['new'])->WhereNull("ref_timeSheetSubmit");
           }
         ]
         
