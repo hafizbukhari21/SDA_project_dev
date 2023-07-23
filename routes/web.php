@@ -65,6 +65,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::post("create",[web_timesheetController::class,"addActivity"])->name("create.timesheet");
         Route::post("update",[web_timesheetController::class,"updateActivity"])->name("update.timesheet");
         Route::get("myTimesheet/{idTimesheet}",[web_timesheetController::class,"getMyTimesheet"])->name("show.myTimesheet");
+        Route::get("request",[web_timesheetController::class,"makeRequest"])->name("make.request.timesheet");
         Route::get("unApprrove",[web_timesheetController::class,"getUnApproveActivity"])->name("show.unApprove.myTimesheet");
         Route::get("/{idActivity}",[web_timesheetController::class,"getMyTimeSheetActivity"])->name("get.timesheet.activity");
 

@@ -66,6 +66,10 @@ class web_timesheetController extends Controller
        return  $this->timesheetRepo->UnApproveActivity(session()->get("sessionKey")["id"]);
     }
 
+    public function makeRequest(){
+        
+    }
+
     
     //Validation
     private function CheckMyTimeSheet($id){
