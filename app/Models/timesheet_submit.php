@@ -21,6 +21,9 @@ class timesheet_submit extends Model
         "submitDate"
     ];
 
+    public function user(){
+        return $this->belongsTo(User::);
+    }
     
     protected $dates = ['deleted_at'];
 
