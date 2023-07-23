@@ -3,7 +3,9 @@
 namespace App\Repository\Data;
 use App\Models\timesheet_submit;
 use App\Repository\GeneralRepository;
+use App\Utils\DatatableFormater;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class Timesheet_submitRepository extends GeneralRepository{
 
@@ -16,6 +18,16 @@ class Timesheet_submitRepository extends GeneralRepository{
         $this->timesheet_repo = new Timesheet_Repository();
         $this->objectName = new timesheet_submit();
     }
+
+
+    public function GetMyOfficerTimesheet(Request $request, $idOfficer){
+        $query= $this->objectName->where("idUser",$idOfficer);
+
+        return DatatableFormater::format($request, $query,[
+            "message"
+        ]);
+    }
+
 
     public function requestApproval(){
     

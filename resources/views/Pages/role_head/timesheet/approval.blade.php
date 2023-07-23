@@ -21,29 +21,32 @@
                         </select>
 
                     </div>
-                    <div>
+                    <div class="col-xl-12 ">
                         <div class="table-responsive">
-                            <table class="table table-bordered " id="tableTimesheet" width="100%" cellspacing="0">
+                            <table class="table table-bordered " id="tableTimesheetSubmit" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        
+                                       
                                         <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Start</th>
-                                        <th>Finish</th>
-                                        <th>Request</th>
+                                        <th>Message</th>
+                                        <th>Status Submit</th>
+                                        <th>Submit Date</th>
+                                        <th>Approval Date</th>
+                                        <th>Attemp</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th></th>
+                                       
                                         <th>Title</th>
-                                    
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Start</th>
-                                        <th>Finish</th>
+                                        <th>Message</th>
+                                        <th>Status Submit</th>
+                                        <th>Submit Date</th>
+                                        <th>Approval Date</th>
+                                        <th>Attemp</th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -65,8 +68,17 @@
 @endsection
 
 @section("jsScript")
+<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+
 <script>
 
+    let selectOfficer = document.querySelector("#selectOfficer")
+    let tableTimesheetSubmit =null
+    let firstGenTableTimeSheetSubmit=false
 
     $(document).ready(function () {
         $.ajax({
@@ -80,14 +92,87 @@
                     })
             }
         });
+
     });
 
 
+    selectOfficer.addEventListener("change",()=>{
+        id=selectOfficer.value
+        if(!firstGenTableTimeSheetSubmit)  {
+            tableTimesheetSubmit= GenerateTableTimesheet(id)
+            firstGenTableTimeSheetSubmit=true
+        }
+        else tableTimesheetSubmit.ajax.url( ParseRoute_SingleVar("{{route('get.myofficer.timesheet_submit',':id')}}",id,":id")).load()
+    })
+
+    function GenerateTableTimesheet (id) {
+        let table = $('#tableTimesheetSubmit').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "responsive" :true,
+        language: {
+            processing: `<div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>`
+        },
+        ajax: {
+            url: ParseRoute_SingleVar("{{route('get.myofficer.timesheet_submit',':id')}}",id,":id"),
+            "dataType": "json",
+            "dataSrc": "data",
+        },
+
+            columns: [
+             
+             
+            
+                {
+                    "data":"title",
+                },
+                {
+                    "data":"message",
+                },
+                {
+                    "data":"status_submit",
+                },
+                {
+                    "data":"submitDate",
+                
+                },
+
+                {
+                    "data":"approvalDate",
+                },
+                {
+                    "data":"attemp",
+                },
+                {
+                    "data":"id",
+                    render: function (data, type, row, meta) {
+                     return `<div class="btn-group ">
+                            <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${data}')" data-toggle="modal" data-target="#">
+                            <i class="fas fa-trash"></i>
+                            </a>
+                            <br>
+                            <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheet('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
+                            <i class="fa fa-info-circle"></i>
+                            </a>
+                            </div>`
+                    }
+                },
+            
+            
+            ]
+        });
+
+        return table
+        
+    }
 
 
 </script>
 @endsection
     
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" />
 
 @section('css')
 @endsection

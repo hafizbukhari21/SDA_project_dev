@@ -61,8 +61,10 @@ class web_timesheetController extends Controller
         return $this->timesheetRepo->myOfficerTimesheet(session()->get("sessionKey")["id"]);
     }
 
-    public function getMyOfficer_timesheetSubmit($idOfficer){
-        return $this->timesheet_submit->get("idUser",$idOfficer);
+    public function getMyOfficer_timesheetSubmit(Request $request, $idOfficer){
+    
+        // return $this->timesheet_submit->get("idUser",$idOfficer)->load("user");
+        return $this->timesheet_submit->GetMyOfficerTimesheet($request,$idOfficer);
     }
 
     //select activity yang belum approve [new,rev]
