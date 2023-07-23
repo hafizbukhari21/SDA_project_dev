@@ -201,7 +201,9 @@
                 <div class="modal-body">
                     <div class="col-lg-12">
                         <div class="p-4">
-                            
+                            <a href="{{ route('make.request.timesheet') }}" class="btn btn-primary  ">
+                                Send Request
+                            </a>
                             <div class="table-responsive">
                                 <table class="table table-bordered " id="tableTimesheetApproval" width="100%" cellspacing="0">
                                     <thead>

@@ -22,6 +22,10 @@ class Timesheet_activityRepository extends GeneralRepository{
         return $timesheet->save();
     }
 
+    public function Set_ref_submit($timesheet_submit){
+       return $this->objectName->where("status","new")->update(["ref_timeSheetSubmit"=>$timesheet_submit]);
+    }
+
 
     public function GetTimesheetActPagination(Request $request,$idTimesheet){
         $query = $this->objectName->

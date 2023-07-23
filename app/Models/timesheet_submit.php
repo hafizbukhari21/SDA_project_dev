@@ -26,9 +26,14 @@ class timesheet_submit extends Model
         return $this->belongsTo(User::class,"idUser","id");
     }
 
+    public function timesheet(){
+        return $this->belongsTo(timesheet::class,"timeSheet_id","id");
+    }
+
     public function timesheetactivity(){
         return $this->hasMany(timesheetactivity::class,"ref_timeSheetSubmit","id");
     }
+
     
     protected $dates = ['deleted_at'];
 
