@@ -80,7 +80,7 @@
                                             <th>Date</th>
                                             <th>Start</th>
                                             <th>Finish</th>
-                                            
+                                            <th>Request</th>
                                             <th>Action</th>
                                             
                                             
@@ -95,7 +95,7 @@
                                             <th>Date</th>
                                             <th>Start</th>
                                             <th>Finish</th>
-                                            
+                                            <th>Request</th>
                                             <th>Action</th>
                                             
                                         </tr>
@@ -201,7 +201,7 @@
                 <div class="modal-body">
                     <div class="col-lg-12">
                         <div class="p-4">
-                            <a href="{{ route('make.request.timesheet') }}" class="btn btn-primary  ">
+                            <a id="sendRequestButton" class="btn btn-primary  ">
                                 Send Request
                             </a>
                             <div class="table-responsive">
@@ -264,6 +264,7 @@
     ///var url
     let ShowTableTimesheet_var= `{{route('show.myTimesheet',["idTimesheet"=>$payload->timesheet->id])}}`
     let ShowTableUnApprove_var= `{{route('show.unApprove.myTimesheet')}}`
+    let buttonSendRequest_var = `{{ route('make.request.timesheet') }}`
 </script>
 
 <script src="{{ asset('js/Page/timesheet.js') }}"></script>

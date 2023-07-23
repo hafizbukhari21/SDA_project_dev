@@ -1,3 +1,26 @@
+
+
+
+let buttonSendRequest = document.querySelector("#sendRequestButton")
+buttonSendRequest.addEventListener("click",e=>{
+    e.preventDefault();
+    $.ajax({
+        type: "get",
+        url: buttonSendRequest_var,
+        success: function (response) {
+            console.log(response)
+            tableTimesheet.ajax.reload()
+            SweetAlertSimple({
+                title:"Request Sent",
+                timer:1000
+            })
+        }
+    });
+})
+
+
+
+
 function format(d) {
      console.log(d)
      return `
@@ -39,7 +62,6 @@ function overtimeCount(data ) {
     return `${duration.hours()} hours and ${duration.minutes()} minutes`
 }
 
-
 function ShowTableTimesheet(){
     let table = $('#tableTimesheet').DataTable({
     "processing": true,
@@ -80,12 +102,20 @@ function ShowTableTimesheet(){
                 "data":"finish",
                
             },
-            
+
+            {
+                "data":"ref_timeSheetSubmit",
+                render:function (ref_timeSheetSubmit, type, row, meta) {
+                    if(ref_timeSheetSubmit===null) return "-"
+                    else return "Requested"
+                }
+
+            },
           
             {
                 "data":"id",
                 render: function (data, type, row, meta) {
-            return `<div class="btn-group ">
+                 return `<div class="btn-group ">
                         <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${data}')" data-toggle="modal" data-target="#">
                         <i class="fas fa-trash"></i>
                         </a>
@@ -93,7 +123,7 @@ function ShowTableTimesheet(){
                         <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheet('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
                         <i class="fa fa-info-circle"></i>
                         </a>
-                    </div>`
+                        </div>`
                 }
             },
       

@@ -22,8 +22,27 @@ class Timesheet_activityRepository extends GeneralRepository{
         return $timesheet->save();
     }
 
-    public function Set_ref_submit($timesheet_submit){
-       return $this->objectName->where("status","new")->update(["ref_timeSheetSubmit"=>$timesheet_submit]);
+    public function Set_ref_submit($timesheet_submit,$timesheet_id){
+    
+       return $this->objectName
+            ->where("status","new")
+            ->where("timeSheet_id",$timesheet_id)
+            ->update(["ref_timeSheetSubmit"=>$timesheet_submit]);
+    }
+
+
+    //Untuk Judul Timehseet_submit Table
+    public function getFirstandLastDateNew($timesheet_id){
+        $payload= $this->objectName
+            ->where("status","new")
+            ->where("timeSheet_id",$timesheet_id)
+            ->whereNull("ref_timeSheetSubmit")
+            ->orderBy("activity_date")->get();
+        return [
+            $payload[0]->activity_date,
+            $payload[count($payload)-1]->activity_date
+        ];
+
     }
 
 
@@ -42,6 +61,7 @@ class Timesheet_activityRepository extends GeneralRepository{
             "status",
             "activity_date",
             "from",
+            "finish",
             "finish",
             "finish"
         ]);

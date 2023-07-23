@@ -19,7 +19,8 @@ class timesheet_submit extends Model
         "message",
         "submitDate",
         "approvalDate",
-        "attemp"
+        "attemp",
+        "title",
     ];
 
     public function user(){
