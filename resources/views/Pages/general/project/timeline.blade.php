@@ -85,7 +85,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body ">
-                <div id="overflow-auto">
+                <div id="">
                     <div id="timelineChart"></div>
                     
                 </div>
@@ -157,6 +157,8 @@
 <script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
 <script id="myscript">
     // ProtectThis()
+
+    console.log("minggu ke"+getWeekNumberInMonth_4(new Date('2023-07-30')))
     let urlArr= window.location.pathname.split('/');
     let projectId = urlArr[urlArr.length-1]
     let timelineChart_parse = null
