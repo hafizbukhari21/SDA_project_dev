@@ -25,6 +25,10 @@ class web_projectController extends Controller
         return $this->projectRepo->getProjectWith_PicAndCreator();
     }
 
+    public function returnProjectId(){
+        return $this->projectRepo->getProjectList();
+    }
+
     public function setProject(Request $req){
         return $this->projectRepo->insert($req);
     }
@@ -32,6 +36,8 @@ class web_projectController extends Controller
     public function deleteProject (Request $req){
         return $this->projectRepo->delete($req);
     }
+
+    
 
 
     

@@ -38,7 +38,19 @@ class ProjectRepository extends GeneralRepository{
 
     public function getProjectWith_PicAndCreator(){
         return $this->objectName->where("user_creator_id",session()->get("sessionKey")["id"])->get()->load("pic_id","user_creator","category_project");
+    }
 
+    public function getProjectList(){
+        $payloads=$this->objectName->get();
+        $response = array();
+        foreach($payloads as $payload){
+            $response[] = array (
+                "id"=>$payload->id,
+                "project_name"=>$payload->project_name
+            );
+        }
+
+        return $response;
     }
 
     public function cekProjectOwnerShip(Request $req,$project_id){
