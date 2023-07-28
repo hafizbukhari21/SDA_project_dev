@@ -13,8 +13,8 @@
                             aria-expanded="false">
                             Select Project
                         </a>
-                        <div class="dropdown-menu dropdown-menu-left animated--fade-in"
-                            aria-labelledby="navbarDropdown">
+                        <div  id="projectDropdown" class="dropdown-menu dropdown-menu-left animated--fade-in"
+                            aria-labelledby="navbarDropdown" style="height: 200px; overflow: scroll;">
                             <a class="dropdown-item" href="#">Project 1</a>
                             <a class="dropdown-item" href="#">Project 2</a>
                             <a class="dropdown-item" href="#">Project 3</a>
@@ -155,6 +155,7 @@
 
 @section("jsScript")
 <script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
+<script src="{{ asset('js/Page/project/timelineGeneral.js') }}"></script>
 <script id="myscript">
     // ProtectThis()
 

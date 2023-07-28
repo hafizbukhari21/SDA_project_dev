@@ -93,11 +93,11 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Project</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse timelineDropdown" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Components:</h6>
                         <a class="collapse-item" href="{{ route('project.create') }}">Create </a>
-                        <a class="collapse-item" href="cards.html">Timeline</a>
+                        <a class="collapse-item timeLineChild"  >Timeline</a>
                     </div>
                 </div>
             </li>
@@ -462,11 +462,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
     
+    
     {{-- in public directory bukan di resource --}}
     <script src="{{ asset('js/Helper/DatatableFormater.js') }}"></script>
     <script src="{{ asset('js/CustomLib.js') }}"></script>
     <script src="{{ asset('js/ExcelJs.js') }}"></script>
     <script src="{{ asset('js/Helper/createProject.js') }}"></script>
+
+
+    <script>
+        let setUrlTimeline_Var="{{route('project.idList')}}"
+    </script>
+    <script src="{{ asset('js/Layout.js') }}"></script>
 
     @yield('jsScript')
 
