@@ -56,9 +56,13 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
     });
     Route::prefix('timeline')->group(function(){
         Route::post("create",[web_TimelineController::class,"createTimeLine"])->name("create.timeline");
+        //For vis Js
         Route::post("update",[web_TimelineController::class,"updateTImeLine"])->name("update.timeline");
+        //Full Update Modal
+        Route::post("update/full",[web_TimelineController::class,"updateTImeLineFull"])->name("update.full.timeline");
         Route::post("delete",[web_TimelineController::class,"deleteTimeLine"])->name("delete.timeline");
         Route::get("group/{idGroup}",[web_TimelineController::class,"getGroupTimeline"])->name("group.timeline");
+        Route::get("detail/{idTimeline}",[web_TimelineController::class,"getTimelineDetail"])->name("detail.timeline");
     });
 
     Route::prefix('timesheet')->group(function(){

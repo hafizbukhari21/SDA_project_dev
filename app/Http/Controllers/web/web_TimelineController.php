@@ -21,12 +21,20 @@ class web_TimelineController extends Controller
         return $this->timelineRepo->UpdateTimeline_from_and_to_only($req);
     }
 
+    public function updateTImeLineFull (Request $req){
+        return $this->timelineRepo->updateTImeLineFull($req);
+    }
+
     public function deleteTimeLine(Request $req){
         return $this->timelineRepo->delete($req);
     }
 
     public function createTimeLine(Request $req){
         return $this->timelineRepo->insert($req);
+    }
+
+    public function getTimelineDetail($idTimeline){
+        return $this->timelineRepo->get("id",$idTimeline)->first();
     }
 
     public function getGroupTimeline($idGroup){
