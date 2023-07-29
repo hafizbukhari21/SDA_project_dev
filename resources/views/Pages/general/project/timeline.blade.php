@@ -66,7 +66,7 @@
                 </div>
             </div>
         <!-- Area Chart -->
-        <div class="col-xl-12 col-lg-7">
+        <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div
@@ -247,6 +247,9 @@
                 });
             
             });
+            
+
+            
 
             
      
@@ -261,6 +264,13 @@
        return MappingTimeLine(e)
     }
     )
+}
+
+timelineChartElement.onclick = (event) => {
+    let props = timelineChart.getEventProperties(event)
+    var itemToSlideTo = items.get(props.group);
+    timelineChart.focus(itemToSlideTo.id)
+    console.log(itemToSlideTo.id)
 }
 
 

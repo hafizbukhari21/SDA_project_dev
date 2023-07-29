@@ -63,7 +63,8 @@ function MappingTimeLine(e){
                 start:e.from,
                 end:e.to,
                 id:e.id
-            })
+            }),
+            type:e.from===e.to?"box":""
 
         }
 }
