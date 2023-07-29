@@ -15,6 +15,9 @@ class Project_timelineRepository extends GeneralRepository{
         $timeline = $this->objectName->find($req->id);
         $timeline->from = $req->from;
         $timeline->to=$req->to;
-        return $timeline->save();
+        $timeline->save();
+
+        return $timeline;
+
     }
 }
