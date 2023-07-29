@@ -27,7 +27,9 @@ class GeneralRepository implements GeneralInterface{
     public function delete($req){
 
         $objectDelete = $this->objectName->find($req->id);
-        return $objectDelete->delete();
+        $objectDelete->delete();
+
+        return $objectDelete;
     }
 
     //SoftDelete

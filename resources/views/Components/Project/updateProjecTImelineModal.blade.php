@@ -34,7 +34,7 @@ aria-hidden="true">
                     <input type="date" class="form-control " name="to" id="timeline_to_update"placeholder="End Date">
                 </div>
                
-                <input type="text" name="id" value="" id="project_id_update">
+                <input type="hidden" name="id" value="" id="project_id_update">
                 
                 <!-- <button type="submit" class="btn btn-primary   btn-block">
                     Create Task

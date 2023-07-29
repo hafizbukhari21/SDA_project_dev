@@ -328,7 +328,7 @@ function GetDataFromTimeline(){
             success: function (response) {
                 timelineDataParse_Update = TimelineDataParser(response)
                 timelineChart.setItems(timelineDataParse_Update)
-                timelineChart.redraw() 
+                // timelineChart.redraw() 
             
             }
         });
@@ -353,12 +353,12 @@ function UpdateTask(item){
         data:payload,
         success: function (response) {
             console.log(response)
-            GetGroupAjax()
+            // GetGroupAjax()
             if (response){
                 items.update(MappingTimeLine(response))
                 SweetAlertSimple({
                     timer:1000,
-                    title:"Berhasil Update Task"
+                    title:"Berhasil Update Task ss"
                 })
             }
             // console.log(response)
