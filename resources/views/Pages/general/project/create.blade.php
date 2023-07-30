@@ -117,6 +117,8 @@
     </div>
 </div>
 
+@include('Components.DeleteModal.deleteProject')
+
 @endsection
 
 @section("jsScript")
@@ -127,8 +129,9 @@
     <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script id="myscript">
-        ProtectThis()
+        // ProtectThis()
         let table =null
+        let deleteId = null
 
         $(document).ready(function () {
             
@@ -137,22 +140,25 @@
         })
 
         $("#addProjectForm").submit(function (e) { 
-                e.preventDefault()
-                $.ajax({
-                    type: "POST",
-                    url: "{{route('project.myProject')}}",
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        table.ajax.reload()
-                        Alertify({
-                            message:"Berhasil Menambahkan Project",
-                            duration:5
-                        })
-                    }
-                    
-                });
+            e.preventDefault()
+            $.ajax({
+                type: "POST",
+                url: "{{route('project.myProject')}}",
+                data: $(this).serialize(),
+                success: function (response) {
+                    table.ajax.reload()
+                    Alertify({
+                        message:"Berhasil Menambahkan Project",
+                        duration:5
+                    })
+                }
+                
             });
-
+        });
+        $("#tableProject ").on('click', 'tbody tr td:not(:last-child)', function() {
+            window.location.href = "/project/detail/"+table.row(this).data().id
+            console.log('API row values : ', );
+        })
 
 
 
@@ -181,6 +187,7 @@
                 }
             });
         }
+        
 
         function ShowTableProject(){
             let table = $('#tableProject').DataTable({
@@ -210,12 +217,17 @@
                     {
                         "data":"id",
                         render: function (data, type, row, meta) {
+                            console.log(row.project_name)
                     return `<div class="btn-group ">
-                                <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteProject('${data}')" data-toggle="modal" data-target="#updateModal">
+                                <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Show Detail"  data-toggle="modal" data-target="#deleteProjectModal" onclick="setDeleteProject(${data},'${row.project_name}')">
                                 <i class="fas fa-trash"></i>
                                 </a>
                                 <br>
-                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" href="/project/detail/${data}">
+                                <br>
+                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" oncClick="UpdateProject('${data}')">
+                                <i class="fas fa-edit"></i>
+                                </a>
+                                <a type="button" class="btn btn-sm btn-success" id="${data}" title="Show Detail" href="/project/detail/${data}">
                                 <i class="fa fa-info-circle"></i>
                                 </a>
                             </div>`
@@ -229,7 +241,14 @@
             return table
         }
 
+
+        //Set attribut delete Modal
+        function setDeleteProject(id,project_name){
+            $("#deleteModalBody").html("Apakah anda Yakin ingin menghapus Project " +project_name+"?");
+            $("#deleteModalButton").attr("onclick", `DeleteProject(${id})`);
+        }
       
+        //Eksekusi Setelah Delete Modal Keluar Function ada di button modal
         function DeleteProject(id){
             
             $.ajax({
