@@ -366,10 +366,10 @@ function UpdateTask(item){
             // GetGroupAjax()
             if (response){
                 items.update(MappingTimeLine(response))
-                SweetAlertSimple({
-                    timer:1000,
-                    title:"Berhasil Update Task ss"
-                })
+                Alertify({
+                            message:"Berhasil Mengubah Activity",
+                            duration:5
+                        })
             }
             // console.log(response)
         },
@@ -390,9 +390,9 @@ function DeleteTask(item){
         url: "{{route('delete.timeline')}}",
         data: {id:item.id},
         success: function (response) {
-            SweetAlertSimple({
-                    timer:1000,
-                    title:"Berhasil Menghapus Task"
+            Alertify({
+                    message:"Berhasil Menghapus Activity",
+                    duration:5
                 })
             GetGroupAjax()
         },
@@ -428,10 +428,10 @@ $("#updateTask").submit(function (e) {
         data: $(this).serialize(),
         success: function (response) {
             console.log(response)
-            SweetAlertSimple({
-                timer:1000,
-                title:"Berhasil Mengupdate Task"
-            })
+            Alertify({
+                            message:"Berhasil Update timeline",
+                            duration:5
+                        })
             GetDataFromTimeline()                
             //Add Dataset Vis Js after adding task 
             items.update(MappingTimeLine(response))
@@ -454,10 +454,10 @@ $("#addTaskForm").submit(function (e) {
             data: $(this).serialize(),
             success: function (response) {
                 console.log(response)
-                SweetAlertSimple({
-                    timer:1000,
-                    title:"Berhasil Menambahkan Task"
-                })
+                Alertify({
+                            message:"Berhasil Menambahkan timeline",
+                            duration:5
+                        })
                 GetDataFromTimeline()                
                 //Add Dataset Vis Js after adding task 
                 items.add(MappingTimeLine(response))

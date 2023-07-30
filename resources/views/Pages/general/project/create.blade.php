@@ -144,7 +144,10 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         table.ajax.reload()
-                        console.log(response)
+                        Alertify({
+                            message:"Berhasil Menambahkan Project",
+                            duration:5
+                        })
                     }
                     
                 });
@@ -235,6 +238,10 @@
                 data:{id},
                 success: function (response) {
                     table.ajax.reload()
+                    Alertify({
+                            message:"Berhasil Menghapus Project",
+                            duration:5
+                        })
                 }
             });
         }
