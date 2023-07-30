@@ -11,55 +11,44 @@
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Create Project</h1>
                         </div>
-                        <form class="user" id="addProjectForm">
+                        <form class="user needs-validation" id="addProjectForm" novalidate>
                             @csrf
                             <div class="form-group ">
-                                <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Project Name">
+                                <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Project Name" required>
                             </div>
                             <div class="form-group ">
-                                <input type="text" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS">
+                                <input type="text" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS" required>
                             </div>
                             <div class="form-group">
-                                <select class="form-control" id="project_pic_id" name="pic_id" aria-label="Default select example">
+                                <label for="">PIC</label>
+
+                                <select class="form-control" id="project_pic_id" name="pic_id" aria-label="Default select example" required>
                                     <!-- <option selected>PIC</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option> -->
                                   </select>
-
                             </div>
                             <div class="form-group ">
-                                
-                                <select class="form-control " id="category_project" name="category_id" aria-label="Default select example">
-                                   
+                                <label for="">Category</label>
+                                <select class="form-control " id="category_project" name="category_id" aria-label="Default select example" required>
                                   </select>
                             </div>
                             <div class="form-group">
-                                <textarea type="text" class="form-control " id="exampleFirstName" name= "status" placeholder="Status"></textarea>
+                                <textarea type="text" class="form-control " id="exampleFirstName" name= "status" placeholder="Status" required></textarea>
 
                             </div>
                             <div class="form-group ">
-                                <input type="number" class="form-control " id="exampleFirstName"placeholder="Time" name="time" step="0.5">
+                                <input type="number" class="form-control " id="exampleFirstName"placeholder="Time" name="time" step="0.5" required>
 
                             </div>
                             <div class="form-group">
                                 
                                 <label for="customRange2" class="form-label">Urgensi - <span id="previewUrgensi" >0</span></label><br>
-                                <input type="range" class="form-control" value="0" min="0" max="5" name="urgensi" step="1" id="urgensi">
+                                <input type="range" class="form-control" value="0" min="0" max="5" name="urgensi" step="1" id="urgensi" required>
                             </div>
-                            <input type="hidden" name="user_creator_id" value="{{session()->get("sessionKey")["id"]}}">
+                            <input type="hidden" name="user_creator_id" value="{{session()->get("sessionKey")["id"]}}" required>
                             
-                                
-                            {{-- <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control "
-                                        id="exampleInputPassword" placeholder="Password">
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="password" class="form-control "
-                                        id="exampleRepeatPassword" placeholder="Repeat Password">
-                                </div>
-                            </div> --}}
                             <button type="submit" class="btn btn-primary   btn-block">
                                 Create Project 
                             </button>
@@ -133,6 +122,11 @@
         let table =null
         let deleteId = null
 
+  
+
+  
+
+
         $(document).ready(function () {
             
             getAjax()
@@ -151,7 +145,7 @@
                         message:"Berhasil Menambahkan Project",
                         duration:5
                     })
-                    $("#addProjectForm")[0].reset()
+                  ResetForm("#addProjectForm")
                 }
                 
             });
