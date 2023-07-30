@@ -39,13 +39,13 @@
 
                             </div>
                             <div class="form-group ">
-                                <input type="number" class="form-control " id="exampleFirstName"placeholder="Time" name="time">
+                                <input type="number" class="form-control " id="exampleFirstName"placeholder="Time" name="time" step="0.5">
 
                             </div>
                             <div class="form-group">
                                 
-                                <label for="customRange2" class="form-label">Urgensi - <span>10</span></label><br>
-                                <input type="range" class="form-control" min="0" max="5" name="urgensi" id="customRange2">
+                                <label for="customRange2" class="form-label">Urgensi - <span id="previewUrgensi" >0</span></label><br>
+                                <input type="range" class="form-control" value="0" min="0" max="5" name="urgensi" step="1" id="urgensi">
                             </div>
                             <input type="hidden" name="user_creator_id" value="{{session()->get("sessionKey")["id"]}}">
                             
@@ -66,12 +66,7 @@
                             
                        
                         </form>
-                        {{-- <div class="text-center">
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                        </div>
-                        <div class="text-center">
-                            <a class="small" href="login.html">Already have an account? Login!</a>
-                        </div> --}}
+                     
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -118,6 +113,7 @@
 </div>
 
 @include('Components.DeleteModal.deleteProject')
+@include('Components.Project.updateProjectModal')
 
 @endsection
 
@@ -151,6 +147,7 @@
                         message:"Berhasil Menambahkan Project",
                         duration:5
                     })
+                    $("#addProjectForm")[0].reset()
                 }
                 
             });
@@ -172,6 +169,11 @@
                         element:document.querySelector("#category_project"),
                         data : response.map(e => ({id:e.id, name:e.category_name}))
                     })
+                    MappingSelectOption({
+                        default:"Select Category Project",
+                        element:document.querySelector("#category_project_update"),
+                        data : response.map(e => ({id:e.id, name:e.category_name}))
+                    })
                 }
             });
 
@@ -182,6 +184,11 @@
                     MappingSelectOption({
                         default:"Select PIC Project",
                         element:document.querySelector("#project_pic_id"),
+                        data : response.map(e => ({id:e.id, name:e.name}))
+                    })
+                    MappingSelectOption({
+                        default:"Select PIC Project",
+                        element:document.querySelector("#project_pic_id_update"),
                         data : response.map(e => ({id:e.id, name:e.name}))
                     })
                 }
@@ -217,14 +224,13 @@
                     {
                         "data":"id",
                         render: function (data, type, row, meta) {
-                            console.log(row.project_name)
                     return `<div class="btn-group ">
-                                <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Show Detail"  data-toggle="modal" data-target="#deleteProjectModal" onclick="setDeleteProject(${data},'${row.project_name}')">
+                                <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteProjectModal" onclick="setDeleteProject(${data},'${row.project_name}')">
                                 <i class="fas fa-trash"></i>
                                 </a>
                                 <br>
                                 <br>
-                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" oncClick="UpdateProject('${data}')">
+                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Update Project" data-toggle="modal" data-target="#updateProject"" onClick="showUpdateProject('${data}')">
                                 <i class="fas fa-edit"></i>
                                 </a>
                                 <a type="button" class="btn btn-sm btn-success" id="${data}" title="Show Detail" href="/project/detail/${data}">
@@ -241,12 +247,48 @@
             return table
         }
 
+        //preview SliderUrgensi
+        document.querySelector("#urgensi").addEventListener("change",()=>{
+            document.querySelector("#previewUrgensi").innerHTML = document.querySelector("#urgensi").value
+        })
+
+        //preview SliderUrgensiUpdate
+        document.querySelector("#urgensi_update").addEventListener("change",()=>{
+            document.querySelector("#previewUrgensi_update").innerHTML = document.querySelector("#urgensi_update").value
+        })
+
+
 
         //Set attribut delete Modal
         function setDeleteProject(id,project_name){
             $("#deleteModalBody").html("Apakah anda Yakin ingin menghapus Project " +project_name+"?");
             $("#deleteModalButton").attr("onclick", `DeleteProject(${id})`);
         }
+
+        function showUpdateProject(id){
+            $.ajax({
+                type: "get",
+                url: ParseRoute_SingleVar("{{route('project.myProject',':id')}}",id,":id"),
+                success: function (response) {
+                    console.log(response)
+                    $("#project_name_update").val(response.project_name)
+                    $("#project_pic_id_update").val(response.pic_id.id)
+                    $("#category_project_update").val(response.category_id);
+                    $("#status_update").val(response.status)
+                    $("#time_update").val(response.time)
+                    $("#urgensi_update").val(response.urgensi)
+                    $("#project_id_update").val(response.id)
+                    $("#previewUrgensi_update").html(response.urgensi);
+
+                }
+            });
+        }
+
+        $("#updateProjectForm").submit(function (e) { 
+            e.preventDefault();
+            
+            
+        });
       
         //Eksekusi Setelah Delete Modal Keluar Function ada di button modal
         function DeleteProject(id){
@@ -261,22 +303,13 @@
                             message:"Berhasil Menghapus Project",
                             duration:5
                         })
+                    $("#deleteProjectModal").modal("hide")
+
                 }
             });
         }
         
-        function GetProjectform(){
-            // let payload = {
-            //     pic_id:"",
-            //     category_id:"",
-            //     status:"",
-            //     time:"",
-            //     urgensi:"",
-            //     user_creator_id:"",
-            //     _token:
-            // }
-           
-        }
+       
        
     </script>
 @endsection
