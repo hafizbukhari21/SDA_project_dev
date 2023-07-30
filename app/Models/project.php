@@ -19,7 +19,8 @@ class project extends Model
         "user_creator_id",
         "status",
         "time",
-        "urgensi"
+        "urgensi",
+        "idProjectJalin"
     ];
    
     public function pic_id(){

@@ -14,10 +14,10 @@
                         <form class="user" id="addProjectForm">
                             @csrf
                             <div class="form-group ">
-                                
-                                    <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Project Name">
-                                
-                               
+                                <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Project Name">
+                            </div>
+                            <div class="form-group ">
+                                <input type="text" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS">
                             </div>
                             <div class="form-group">
                                 <select class="form-control" id="project_pic_id" name="pic_id" aria-label="Default select example">
@@ -74,9 +74,10 @@
                         
                         <div class="card-body" style="height: 80vh; overflow:scroll">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover" id="tableProject" width="100%" cellspacing="0">
+                                <table class="table table-bordered table-hover" id="tableProject" width="120%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
                                             <th>Status</th>
@@ -89,6 +90,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
                                             <th>Status</th>
@@ -206,6 +208,9 @@
             },
    
                 columns: [
+                    {
+                        "data":"idProjectJalin",
+                    },
                     {
                         "data":"project_name",
                     },
