@@ -77,26 +77,28 @@
                                 <table class="table table-bordered table-hover" id="tableProject" width="120%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Action</th>
                                             <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
                                             <th>Status</th>
                                             <th>Urgensi</th>
                                             <th>Time</th>
-                                            <th>Action</th>
+                                            
                                             
                                             
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Action</th>
                                             <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
                                             <th>Status</th>
                                             <th>Urgensi</th>
                                             <th>Time</th>
-                                            <th>Action</th>
+                                            
                                             
                                         </tr>
                                     </tfoot>
@@ -154,7 +156,7 @@
                 
             });
         });
-        $("#tableProject ").on('click', 'tbody tr td:not(:last-child)', function() {
+        $("#tableProject ").on('click', 'tbody tr td:not(:first-child)', function() {
             window.location.href = "/project/detail/"+table.row(this).data().id
             console.log('API row values : ', );
         })
@@ -209,6 +211,24 @@
    
                 columns: [
                     {
+                        "data":"id",
+                        render: function (data, type, row, meta) {
+                        return `<div class="btn-group ">
+                                <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteProjectModal" onclick="setDeleteProject(${data},'${row.project_name}')">
+                                <i class="fas fa-trash"></i>
+                                </a>
+                                <br>
+                                <br>
+                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Update Project" data-toggle="modal" data-target="#updateProject"" onClick="showUpdateProject('${data}')">
+                                <i class="fas fa-edit"></i>
+                                </a>
+                                <a type="button" class="btn btn-sm btn-success" id="${data}" title="Show Detail" href="/project/detail/${data}">
+                                <i class="fa fa-info-circle"></i>
+                                </a>
+                            </div>`
+                        }
+                    },
+                    {
                         "data":"idProjectJalin",
                     },
                     {
@@ -226,24 +246,7 @@
                     {
                         "data":"time",
                     },
-                    {
-                        "data":"id",
-                        render: function (data, type, row, meta) {
-                    return `<div class="btn-group ">
-                                <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteProjectModal" onclick="setDeleteProject(${data},'${row.project_name}')">
-                                <i class="fas fa-trash"></i>
-                                </a>
-                                <br>
-                                <br>
-                                <a type="button" class="btn btn-sm btn-warning" id="${data}" title="Update Project" data-toggle="modal" data-target="#updateProject"" onClick="showUpdateProject('${data}')">
-                                <i class="fas fa-edit"></i>
-                                </a>
-                                <a type="button" class="btn btn-sm btn-success" id="${data}" title="Show Detail" href="/project/detail/${data}">
-                                <i class="fa fa-info-circle"></i>
-                                </a>
-                            </div>`
-                }
-                    },
+                    
                   
                  
                 ]
@@ -291,7 +294,19 @@
 
         $("#updateProjectForm").submit(function (e) { 
             e.preventDefault();
-            
+            $.ajax({
+                type: "post",
+                url: "{{route('project.update')}}",
+                data: $(this).serialize(),
+                success: function (response) {
+                    table.ajax.reload()
+                    Alertify({
+                            message:"Berhasil Update Project",
+                            duration:5
+                        })
+                    $("#updateProject").modal("hide")
+                }
+            });
             
         });
       

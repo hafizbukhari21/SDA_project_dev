@@ -46,6 +46,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
     });
     Route::prefix('project')->group(function(){
         Route::view("create","Pages.general.project.create")->name("project.create");
+        Route::post("update",[web_projectController::class,"setUpdateProject"])->name("project.update");
         Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");//ajax Route
         Route::get("myProject/{idProject}",[web_projectController::class,"getMyProject"])->name("project.myProject");//ajax Route
         Route::post("myProject",[web_projectController::class, "setProject"])->name("project.myProject");

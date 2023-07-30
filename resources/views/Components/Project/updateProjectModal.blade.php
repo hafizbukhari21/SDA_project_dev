@@ -12,13 +12,12 @@
                     <form class="user" id="updateProjectForm">
                         @csrf
                         <div class="form-group ">
-                            
+                            <label for="">Project Name</label>
                                 <input type="text" class="form-control " name="project_name" id="project_name_update"placeholder="Project Name">
-                            
-                           
                         </div>
                         <div class="form-group">
-                            <select class="form-control" id="project_pic_id_update" name="pic_id_update" aria-label="Default select example">
+                            <label for="">PIC</label>
+                            <select class="form-control" id="project_pic_id_update" name="pic_id" aria-label="Default select example">
                                 <!-- <option selected>PIC</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
@@ -27,16 +26,18 @@
 
                         </div>
                         <div class="form-group ">
-                            
+                            <label for="">Category</label>
                             <select class="form-control " id="category_project_update" name="category_id" aria-label="Default select example">
                                
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="">Status</label>
                             <textarea type="text" class="form-control " id="status_update" name= "status" placeholder="Status"></textarea>
 
                         </div>
                         <div class="form-group ">
+                            <label for="">Time</label>
                             <input type="number" class="form-control " id="time_update"placeholder="Time" name="time" step="0.5">
 
                         </div>
