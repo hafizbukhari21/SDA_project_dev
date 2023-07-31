@@ -118,10 +118,7 @@
 @include('Components.Timesheet.Officer.UpdateTimesheetModal')
 @include('Components.Timesheet.Officer.PreviewApprovalModal')
 
-@php
-    $idLabel="deleteActivityModal"
-@endphp
-@include('Components.deleteModal',compact("idLabel"))
+
 
 
 @endsection
