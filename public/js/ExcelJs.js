@@ -53,12 +53,12 @@ function saveAs(blob, fileName) {
   //dateInterval
   //GroupWithTimeline
   //TimelineSorted
-  // console.log(data)
+  console.log(data)
   // console.log(RemoveArrayProjectNull(data.GroupWithTimeline))
   let listOfMonthYear = getMonthYearInterval(data.dateInterval.start,data.dateInterval.finish)
   let listMonthAndWeekTotalPerMonth = listOfMonthYear.map(e=>MappingDateProper(e))
 
-  console.log(listMonthAndWeekTotalPerMonth)
+  // console.log(listOfMonthYear)
 
 
   //Adjust Column And Label In Excel
@@ -101,6 +101,12 @@ const alignText={
   vertical: 'middle', 
   size:20, 
 }
+
+const alignTextMonth={ 
+  horizontal: 'center', 
+  vertical: 'middle', 
+  size:17, 
+}
 const fillText={
   type: 'pattern',
   pattern: 'solid',
@@ -108,6 +114,12 @@ const fillText={
 }
 const fontText={
   color: { argb: 'FFFFFFFF' }, // Set the font color (blue in this example)
+}
+const borderText= {
+  top: {style:'thin'},
+  left: {style:'thin'},
+  bottom: {style:'thin'},
+  right: {style:'thin'}
 }
 
 
@@ -149,17 +161,38 @@ function SubTitleProject(workSheetTimeline,dateHeaderWidth){
 //Line 2 Helper For DateTitle
 function LineTwoDateHelper(workSheetTimeline,dateHeader){
   let StartMergingMonthString=1
+  let EndMergingMonthString=0
   let StartDate
   dateHeader.forEach(e=>{
 
+    let Cell = workSheetTimeline.getCell(ConvertNumberToRowExcel(StartMergingMonthString)+"2")
+    
+    //Set Title Month
+    Cell.value=e.string
+
+    //Set Title Style
+    Cell.alignment = alignTextMonth
+    Cell.fill =  fillText
+    Cell.font = fontText 
+    Cell.border=borderText
+
+    //Set Title Width
+    EndMergingMonthString+=e.totWeek
+    workSheetTimeline.mergeCells(
+      ConvertNumberToRowExcel(StartMergingMonthString)+"2",
+      ConvertNumberToRowExcel(EndMergingMonthString)+"2"
+    )
+    StartMergingMonthString=EndMergingMonthString+1
+
+    
   })
 }
 
 //Adjust Column
 function AdjustWidthColumn(workSheetTimeline,dateHeaderWidth){
   workSheetTimeline.getColumn('A').width=4
-  workSheetTimeline.getColumn('B').width=25
-  workSheetTimeline.getColumn('C').width=8
+  workSheetTimeline.getColumn('B').width=30
+  workSheetTimeline.getColumn('C').width=10
 
   let totColumn=0
   dateHeaderWidth.forEach(e=>{
@@ -168,8 +201,9 @@ function AdjustWidthColumn(workSheetTimeline,dateHeaderWidth){
 
   for(let i=1; i<=totColumn;i++){
     console.log(i)
-    workSheetTimeline.getColumn(ConvertNumberToRowExcel(i)).width=2
+    workSheetTimeline.getColumn(ConvertNumberToRowExcel(i)).width=4
   }
+  
 
 }
 
