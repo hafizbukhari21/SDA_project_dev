@@ -65,6 +65,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("group/{idGroup}",[web_TimelineController::class,"getGroupTimeline"])->name("group.timeline");
         Route::get("detail/{idTimeline}",[web_TimelineController::class,"getTimelineDetail"])->name("detail.timeline");
     });
+    Route::get("/excelGen/{idProject}",[web_TimelineController::class,"DataExcelNeeded"])->name("excelGen");
 
     Route::prefix('timesheet')->group(function(){
         Route::get("",[web_timesheetController::class,"index"])->name("show.timesheet");

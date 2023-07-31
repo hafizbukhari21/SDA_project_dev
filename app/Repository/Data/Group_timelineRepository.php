@@ -15,8 +15,12 @@ class Group_timelineRepository extends GeneralRepository{
     public function GetGroupTimeline_FilterGroup($idProject){
         $this->idProjectGlobal = $idProject;
         return $this->objectName->get()->load(["projects"=>function($project){
-            $project->where("project_id",$this->idProjectGlobal);
+            $project->where("project_id",$this->idProjectGlobal)->orderBy("from","asc");
         }]);
         
+    }
+
+    public function getDateInterval($idProject){
+        return;
     }
 }

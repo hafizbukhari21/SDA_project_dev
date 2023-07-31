@@ -40,4 +40,13 @@ class web_TimelineController extends Controller
     public function getGroupTimeline($idGroup){
         return $this->group_timeline_repo->GetGroupTimeline_FilterGroup($idGroup);
     }
+
+
+    public function DataExcelNeeded($idProject){
+        return [
+            "dateInterval"=>$this->timelineRepo->getDateInterval($idProject),
+            "GroupWithTimeline"=>$this->group_timeline_repo->GetGroupTimeline_FilterGroup($idProject),
+            "TimelineSorted"=>$this->timelineRepo->TimelineSorted($idProject)
+        ];
+    }
 }

@@ -73,18 +73,6 @@ function MappingTimeLine(e){
 
 
 //Capture Timeline to Image
-function captureTimeline(){
-    html2canvas(timelineChartElement).then(canvas => {
-    // Create a temporary link element
-    const link = document.createElement('a');
-    // link.href = canvas.toDataURL(); // Set the image data as the link URL
-    CaptureTOExcel(canvas.toDataURL(),timelineChartElement.offsetHeight,timelineChartElement.offsetWidth)
-    // link.download = 'timeline.png'; // Set the image filename
-    
-    // Simulate a click on the link to download the image
-    link.click();
-  });
-}
 
 
 $(document).ready(function () {

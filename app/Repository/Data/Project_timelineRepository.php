@@ -31,4 +31,17 @@ class Project_timelineRepository extends GeneralRepository{
 
         return $timeline;
     }
+
+    public function getDateInterval($idProject){
+        $payload = $this->TimelineSorted($idProject);
+        $totalData=count($payload);
+        return [
+            "start"=>$payload[0]["from"],
+            "finish"=>$payload[$totalData-1]["to"]
+        ];
+    }
+
+    public function TimelineSorted($idProject){
+        return $this->objectName->where(["project_id"=>$idProject])->orderby("from")->get();
+    }
 }

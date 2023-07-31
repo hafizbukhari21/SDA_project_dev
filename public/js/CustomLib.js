@@ -68,25 +68,25 @@ function ProtectThis(){
 
 
 //Cast Jadi 4 Minggu sebulan
-function getWeekNumberInMonth_4(givenDate){
-    const firstDayOfMonth = new Date(givenDate.getFullYear(), givenDate.getMonth(), 1);
+// function getWeekNumberInMonth_4(givenDate){
+//     const firstDayOfMonth = new Date(givenDate.getFullYear(), givenDate.getMonth(), 1);
   
-    let diffInDays = Math.floor((givenDate - firstDayOfMonth) / (1000 * 60 * 60 * 24));
+//     let diffInDays = Math.floor((givenDate - firstDayOfMonth) / (1000 * 60 * 60 * 24));
   
-    // Handle bulan Februari pada tahun kabisat
-    if (givenDate.getMonth() === 1 && givenDate.getFullYear() % 4 === 0) {
-      diffInDays++; // Tambah 1 hari untuk memperlakukan Februari sebagai 4 minggu
-    }
+//     // Handle bulan Februari pada tahun kabisat
+//     if (givenDate.getMonth() === 1 && givenDate.getFullYear() % 4 === 0) {
+//       diffInDays++; // Tambah 1 hari untuk memperlakukan Februari sebagai 4 minggu
+//     }
   
-    const weekNumber = Math.floor((diffInDays + firstDayOfMonth.getDay()) / 7) + 1;
+//     const weekNumber = Math.floor((diffInDays + firstDayOfMonth.getDay()) / 7) + 1;
   
-    // Jika minggu ke-5 atau lebih, set ke 4 minggu
-    if (weekNumber > 4) {
-      return 4;
-    }
+//     // Jika minggu ke-5 atau lebih, set ke 4 minggu
+//     if (weekNumber > 4) {
+//       return 4;
+//     }
   
-    return weekNumber;
-  }
+//     return weekNumber;
+//   }
 
 
   

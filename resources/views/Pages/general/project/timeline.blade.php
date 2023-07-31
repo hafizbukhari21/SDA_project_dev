@@ -318,7 +318,6 @@ function GetGroupAjax(){
                         content: e.task_name,
                         treeLevel: 2,
                     })),...groupTimeline]
-                    console.log(merge)
                     timelineChart.setGroups(merge)
                     setTimeout(() => {
                         $(window).scrollTop($('#timelineHeader').offset().top);
@@ -469,6 +468,30 @@ $("#addTaskForm").submit(function (e) {
         });
         
     });
+
+
+
+function captureTimeline(){
+    $.ajax({
+        type: "get",
+        url: ParseRoute_SingleVar("{{route('excelGen',':projectId')}}",projectId,":projectId"),
+  
+        success: function (response) {
+            html2canvas(timelineChartElement).then(canvas => {
+    // Create a temporary link element
+    const link = document.createElement('a');
+    // link.href = canvas.toDataURL(); // Set the image data as the link URL
+    CaptureTOExcel(canvas.toDataURL(),timelineChartElement.offsetHeight,timelineChartElement.offsetWidth,response)
+    // link.download = 'timeline.png'; // Set the image filename
+    
+    // Simulate a click on the link to download the image
+    link.click();
+  });
+        }
+    });
+    
+}
+
   
     
 </script>
