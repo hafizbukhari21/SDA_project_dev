@@ -106,20 +106,24 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to){
   let dateTemp = []
 
   listDateBetween_Remap.forEach((e,idx,arr)=>{
+    
     if(dateTemp.length==0) {
-      dateTemp.push({...e,total:0})
+      
+      dateTemp.push({...e,total:1})
       return
     }
     for(let i=0; i<dateTemp.length;i++){
-      if(dateTemp[i].week === e.week && dateTemp[i].month === e.month) {
+      
+      if(dateTemp[i].week === e.week && dateTemp[i].monthNumber === e.monthNumber) {
         dateTemp[i].total++
         return
       }
     }
-    dateTemp.push({...e,total:0})
+    
+    dateTemp.push({...e,total:1})
 
   })
-  //console.log(dateTemp)
+  console.log(dateTemp)
 }
 
 function getWeekInMonth(date) {
@@ -339,23 +343,30 @@ function MappingDateProper(stringDate){
 
 //Count Total Week in Month With mounth Year
 function countWeeksInMonth(year, month) {
-  const firstDayOfMonth = new Date(year, month - 1, 1);
-  const lastDayOfMonth = new Date(year, month, 0);
+  // Ensure the month is within valid range (0 to 11)
+  month = month-1
+  let lastDate = getLastDayOfMonth(year,month)
+  let getWeek = getWeekInMonth(new Date(`${year}-${month+1}-${lastDate}`))
 
-  const firstDayOfWeek = 1; // 0 for Sunday, 1 for Monday, 2 for Tuesday, etc.
+  return getWeek.week;
+}
 
-  // Move to the first day of the week in the month (e.g., for Monday, move from Sunday to Monday)
-  while (firstDayOfMonth.getDay() !== firstDayOfWeek) {
-    firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
+function getLastDayOfMonth(year, month) {
+  // Ensure the month is within valid range (0 to 11)
+  if (month < 0 || month > 11) {
+    throw new Error('Invalid month. Month should be between 0 and 11.');
   }
 
-  let totalWeeks = 0;
-  while (firstDayOfMonth <= lastDayOfMonth) {
-    totalWeeks++;
-    firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 7); // Move to the next week
-  }
+  // Create a new date for the next month's first day
+  const nextMonth = new Date(year, month + 1, 1);
 
-  return totalWeeks;
+  // Move the date back to the last day of the current month
+  nextMonth.setDate(nextMonth.getDate() - 1);
+
+  // Get the day of the month for the last day
+  const lastDayOfMonth = nextMonth.getDate();
+
+  return lastDayOfMonth;
 }
 
 
