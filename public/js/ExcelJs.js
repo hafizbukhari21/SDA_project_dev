@@ -3,7 +3,7 @@ function CaptureTOExcel(base64File,height,width,data){
     var workbook = new ExcelJS.Workbook();
 
     // Add a worksheet
-    var worksheet = workbook.addWorksheet('Sheet1');
+    // var worksheet = workbook.addWorksheet('Sheet1');
 
 
   WorkSheetTimelineFormat(workbook.addWorksheet('Timeline'),data)
@@ -20,10 +20,12 @@ function CaptureTOExcel(base64File,height,width,data){
     // worksheet.addRow(['Name', 'Age']);
     // worksheet.addRow(['John Doe', 30]);
     // worksheet.addRow(['Jane Smith', 28]);
-    worksheet.addImage(image, {
-        tl: { col: 1, row: 1 },
-        ext: { width, height }
-  });
+
+    //Capture Image From Tiemline di sheet1
+  //   worksheet.addImage(image, {
+  //       tl: { col: 1, row: 1 },
+  //       ext: { width, height }
+  // });
 
     // Save the workbook
     workbook.xlsx.writeBuffer().then(function (buffer) {
@@ -162,11 +164,14 @@ function SubTitleProject(workSheetTimeline,dateHeaderWidth){
 function LineTwoDateHelper(workSheetTimeline,dateHeader){
   let StartMergingMonthString=1
   let EndMergingMonthString=0
-  let StartDate
+  let weeks=1 //Repeat every month
+  let weekSLabel=1 //defined which column fo week every monh
   dateHeader.forEach(e=>{
 
     let Cell = workSheetTimeline.getCell(ConvertNumberToRowExcel(StartMergingMonthString)+"2")
     
+    
+
     //Set Title Month
     Cell.value=e.string
 
@@ -184,7 +189,13 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
     )
     StartMergingMonthString=EndMergingMonthString+1
 
-    
+    //set week label permonth repeat every month
+    for(let i = 1;i<=e.totWeek; i++ ){
+      let weekCell = workSheetTimeline.getCell(ConvertNumberToRowExcel(weekSLabel)+"3")
+      weekCell.value =i
+      weekSLabel++
+    }
+  
   })
 }
 
@@ -231,8 +242,6 @@ function ConvertNumberToRowExcel(number){
   
   }
 }
-
-
 
 
 
