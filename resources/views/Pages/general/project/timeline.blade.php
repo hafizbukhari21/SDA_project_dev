@@ -124,7 +124,6 @@
 <script id="myscript">
     // ProtectThis()
 
-    console.log("minggu ke"+getWeekNumberInMonth_4(new Date('2023-07-30')))
     let urlArr= window.location.pathname.split('/');
     let projectId = urlArr[urlArr.length-1]
     let timelineChart_parse = null
@@ -265,12 +264,15 @@
     }
     )
 }
-
+//zoom timeline specifict group
 timelineChartElement.onclick = (event) => {
-    let props = timelineChart.getEventProperties(event)
-    var itemToSlideTo = items.get(props.group);
-    timelineChart.focus(itemToSlideTo.id)
-    console.log(itemToSlideTo.id)
+    let timelineChartGroup = document.querySelector(".vis-left")
+    timelineChartGroup.addEventListener("click",()=>{
+        let props = timelineChart.getEventProperties(event)
+        var itemToSlideTo = items.get(props.group);
+        timelineChart.focus(itemToSlideTo.id)
+    })
+    
 }
 
 

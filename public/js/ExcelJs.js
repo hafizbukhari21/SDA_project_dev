@@ -67,14 +67,12 @@ function saveAs(blob, fileName) {
 
   // console.log(listOfMonthYear)
 
-
   //Adjust Column And Label In Excel
   AdjustWidthColumn(workSheetTimeline,listMonthAndWeekTotalPerMonth)
   //Line 1
   MainTitleProject(workSheetTimeline,"Timeline Project",listMonthAndWeekTotalPerMonth)
   //Line 2
   SubTitleProject(workSheetTimeline,listMonthAndWeekTotalPerMonth)
-
   //Line 3
   ShowData(workSheetTimeline,data.GroupWithTimeline)
   
@@ -121,7 +119,7 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
       return
     }
     for(let i=0; i<dateTemp.length;i++){
-      if(dateTemp[i].week === e.week && dateTemp[i].monthNumber === e.monthNumber) {
+      if(dateTemp[i].week === e.week && dateTemp[i].monthNumber === e.monthNumber && dateTemp[i].year === e.year) {
         dateTemp[i].total++
         return
       }
@@ -129,12 +127,15 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
     dateTemp.push({...e,total:1})
   })
 
+  console.log(listDateBetween_Remap)
+
   dateTemp = dateTemp.map(dt=>({
     ...dt,
     column:define_month_week_to_column.find(
       e_def_month => e_def_month.month == dt.monthNumber+1 && e_def_month.week==dt.week && e_def_month.year == dt.year
     )
   }))
+
   // Week Define how many days in a column 1D, 2D, 3D, dst...
   dateTemp.forEach(e=>{
     let CellWeek = workSheetTimeline.getCell(e.column.row+currentDateRow)
@@ -145,7 +146,6 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
 
   })
 
-  console.log(dateTemp)
 
 }
 
@@ -253,6 +253,7 @@ function SubTitleProject(workSheetTimeline,dateHeaderWidth){
 }
 
 //Line 2 Helper For DateTitle
+//dataHeader = array of month
 function LineTwoDateHelper(workSheetTimeline,dateHeader){
   let StartMergingMonthString=1
   let EndMergingMonthString=0
@@ -279,6 +280,8 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
     )
     StartMergingMonthString=EndMergingMonthString+1
 
+
+
     //set week label permonth repeat every month
     for(let i = 1;i<=e.totWeek; i++ ){
       let whichRow = ConvertNumberToRowExcel(weekSLabel)
@@ -299,8 +302,10 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
       weekCell.font = fontText 
       weekSLabel++
     }
-  
+    
+    
   })
+
   console.log(define_month_week_to_column)
 }
 
@@ -402,6 +407,7 @@ function getLastDayOfMonth(year, month) {
 function getMonthYearInterval(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
+  if(end.getDate()<20) end.setDate(28)
 
   const intervalData = [];
   let currentDate = new Date(start);
@@ -439,26 +445,6 @@ function getWeekNumberInMonth(date) {
   }
   
 
-
-function getWeekNumberInMonth_4(givenDate){
-    const firstDayOfMonth = new Date(givenDate.getFullYear(), givenDate.getMonth(), 1);
-  
-    let diffInDays = Math.floor((givenDate - firstDayOfMonth) / (1000 * 60 * 60 * 24));
-  
-    // Handle bulan Februari pada tahun kabisat
-    if (givenDate.getMonth() === 1 && givenDate.getFullYear() % 4 === 0) {
-      diffInDays++; // Tambah 1 hari untuk memperlakukan Februari sebagai 4 minggu
-    }
-  
-    const weekNumber = Math.floor((diffInDays + firstDayOfMonth.getDay()) / 7) + 1;
-  
-    // // Jika minggu ke-5 atau lebih, set ke 4 minggu
-    // if (weekNumber > 4) {
-    //   return 4;
-    // }
-  
-    return weekNumber;
-  }
 
 
   
