@@ -1,3 +1,8 @@
+let define_month_week_to_column =[]
+const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
 function CaptureTOExcel(base64File,height,width,data){
     // Create a new workbook
     var workbook = new ExcelJS.Workbook();
@@ -69,9 +74,68 @@ function saveAs(blob, fileName) {
   MainTitleProject(workSheetTimeline,"Timeline Project",listMonthAndWeekTotalPerMonth)
   //Line 2
   SubTitleProject(workSheetTimeline,listMonthAndWeekTotalPerMonth)
+
+  //Line 3
+  ShowData(workSheetTimeline,data.GroupWithTimeline)
   
-  
+  //reset define Week array after data has been printed to excel
+  define_month_week_to_column=[]
 }
+
+function ShowData(workSheetTimeline,activityTimeline){
+  let currentDateRow = 4
+  activityTimeline.forEach(e=>{
+    let groupCell = workSheetTimeline.getCell("B"+currentDateRow)
+    groupCell.value = e.Group
+    currentDateRow++
+
+    e.projects.forEach(eAct=>{
+      let actvityCell = workSheetTimeline.getCell("B"+currentDateRow)
+      actvityCell.value =eAct.task_name
+
+      ColoringAndLabelingWeek(workSheetTimeline,eAct.from,eAct.to)
+      currentDateRow++
+    })
+  }) 
+}
+
+
+function ColoringAndLabelingWeek(workSheetTimeline,from,to){
+
+  let listDateBetween_Remap =  getDatesBetween(from,to).map(e=>getWeekInMonth(e))
+  let dateTemp = []
+
+  listDateBetween_Remap.forEach((e,idx,arr)=>{
+    if(dateTemp.length==0) {
+      dateTemp.push({...e,total:0})
+      return
+    }
+    for(let i=0; i<dateTemp.length;i++){
+      if(dateTemp[i].week === e.week && dateTemp[i].month === e.month) {
+        dateTemp[i].total++
+        return
+      }
+    }
+    dateTemp.push({...e,total:0})
+
+  })
+  //console.log(dateTemp)
+}
+
+function getWeekInMonth(date) {
+  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  const dayOfWeek = firstDayOfMonth.getDay();
+  const dayOfMonth = date.getDate();
+  
+  return {
+    week:Math.ceil((dayOfMonth + dayOfWeek) / 7),
+    monthName:monthNames[date.getMonth()],
+    monthNumber:date.getMonth(),
+    date
+  }
+}
+
+
 
 //buang group yang gk ada projectsnya
 function RemoveArrayProjectNull(data){
@@ -191,13 +255,23 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
 
     //set week label permonth repeat every month
     for(let i = 1;i<=e.totWeek; i++ ){
-      let weekCell = workSheetTimeline.getCell(ConvertNumberToRowExcel(weekSLabel)+"3")
+      let whichRow = ConvertNumberToRowExcel(weekSLabel)
+      define_month_week_to_column.push([
+        whichRow,
+        e.month,
+        e.string,
+        e.year,
+        `Year=${e.year} | Week ke = ${i} | $ month = ${e.month} => ${e.string}`
+      ])
+      let weekCell = workSheetTimeline.getCell(whichRow+"3")
       weekCell.value =i
       weekSLabel++
     }
   
   })
+  //console.log(define_month_week_to_column)
 }
+
 
 //Adjust Column
 function AdjustWidthColumn(workSheetTimeline,dateHeaderWidth){
@@ -211,7 +285,6 @@ function AdjustWidthColumn(workSheetTimeline,dateHeaderWidth){
   })
 
   for(let i=1; i<=totColumn;i++){
-    console.log(i)
     workSheetTimeline.getColumn(ConvertNumberToRowExcel(i)).width=4
   }
   
@@ -313,7 +386,6 @@ function getDatesBetween(startDate, endDate) {
     dateArray.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
-
   return dateArray;
 }
 
