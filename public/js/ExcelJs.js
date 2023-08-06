@@ -10,7 +10,7 @@ function CaptureTOExcel(base64File,height,width,data){
     // Add a worksheet
     // var worksheet = workbook.addWorksheet('Sheet1');
 
-
+  //Shewt Timeline
   WorkSheetTimelineFormat(workbook.addWorksheet('Timeline'),data)
 
 
@@ -18,8 +18,6 @@ function CaptureTOExcel(base64File,height,width,data){
       base64:base64File,
       extension:"png"
   })
-
-
 
     // Add data to the worksheet
     // worksheet.addRow(['Name', 'Age']);
@@ -106,7 +104,6 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
   let dateTemp = []
 
   listDateBetween_Remap.forEach((e,idx,arr)=>{
-    
     if(dateTemp.length==0) {
       dateTemp.push({...e,total:1})
       return
@@ -122,15 +119,21 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
 
   dateTemp = dateTemp.map(dt=>({
     ...dt,
-    column:define_month_week_to_column.find(e_def_month => e_def_month.month == dt.monthNumber+1 && e_def_month.week==dt.week)
+    column:define_month_week_to_column.find(
+      e_def_month => e_def_month.month == dt.monthNumber+1 && e_def_month.week==dt.week && e_def_month.year == dt.year
+    )
   }))
-  
+  // Week Cell Title W1, W2, dst...
   dateTemp.forEach(e=>{
     let CellWeek = workSheetTimeline.getCell(e.column.row+currentDateRow)
     CellWeek.value = `${e.total} D`
-    CellWeek.fill =  fillText
+    CellWeek.fill =  {...fillText,fgColor:{argb:"92d050"}}
+    CellWeek.font = fontText
+    CellWeek.border = borderText
 
   })
+
+  console.log(dateTemp)
 
 }
 
@@ -143,6 +146,7 @@ function getWeekInMonth(date) {
     week:Math.ceil((dayOfMonth + dayOfWeek) / 7),
     monthName:monthNames[date.getMonth()],
     monthNumber:date.getMonth(),
+    year:date.getFullYear(),
     date
   }
 }
@@ -246,10 +250,8 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
 
     let Cell = workSheetTimeline.getCell(ConvertNumberToRowExcel(StartMergingMonthString)+"2")
     
-    
-
     //Set Title Month
-    Cell.value=e.string
+    Cell.value=e.string+" "+e.year
 
     //Set Title Style
     Cell.alignment = alignTextMonth
@@ -279,7 +281,10 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
       }
       )
       let weekCell = workSheetTimeline.getCell(whichRow+"3")
-      weekCell.value =i
+      weekCell.value ="W"+i
+      weekCell.alignText = alignTextMonth
+      weekCell.fill =  fillText
+      weekCell.font = fontText 
       weekSLabel++
     }
   
