@@ -93,14 +93,14 @@ function ShowData(workSheetTimeline,activityTimeline){
       let actvityCell = workSheetTimeline.getCell("B"+currentDateRow)
       actvityCell.value =eAct.task_name
 
-      ColoringAndLabelingWeek(workSheetTimeline,eAct.from,eAct.to)
+      ColoringAndLabelingWeek(workSheetTimeline,eAct.from,eAct.to,currentDateRow)
       currentDateRow++
     })
   }) 
 }
 
 
-function ColoringAndLabelingWeek(workSheetTimeline,from,to){
+function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
 
   let listDateBetween_Remap =  getDatesBetween(from,to).map(e=>getWeekInMonth(e))
   let dateTemp = []
@@ -108,22 +108,30 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to){
   listDateBetween_Remap.forEach((e,idx,arr)=>{
     
     if(dateTemp.length==0) {
-      
       dateTemp.push({...e,total:1})
       return
     }
     for(let i=0; i<dateTemp.length;i++){
-      
       if(dateTemp[i].week === e.week && dateTemp[i].monthNumber === e.monthNumber) {
         dateTemp[i].total++
         return
       }
     }
-    
     dateTemp.push({...e,total:1})
+  })
+
+  dateTemp = dateTemp.map(dt=>({
+    ...dt,
+    column:define_month_week_to_column.find(e_def_month => e_def_month.month == dt.monthNumber+1 && e_def_month.week==dt.week)
+  }))
+  
+  dateTemp.forEach(e=>{
+    let CellWeek = workSheetTimeline.getCell(e.column.row+currentDateRow)
+    CellWeek.value = `${e.total} D`
+    CellWeek.fill =  fillText
 
   })
-  console.log(dateTemp)
+
 }
 
 function getWeekInMonth(date) {
@@ -260,20 +268,23 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
     //set week label permonth repeat every month
     for(let i = 1;i<=e.totWeek; i++ ){
       let whichRow = ConvertNumberToRowExcel(weekSLabel)
-      define_month_week_to_column.push([
-        whichRow,
-        e.month,
-        e.string,
-        e.year,
-        `Year=${e.year} | Week ke = ${i} | $ month = ${e.month} => ${e.string}`
-      ])
+      define_month_week_to_column.push({
+        row:whichRow,
+        month:e.month,
+        monthString:e.string,
+        year:e.year,
+        week:i,
+        string:`Year=${e.year} | Week ke = ${i} | $ month = ${e.month} => ${e.string}`
+
+      }
+      )
       let weekCell = workSheetTimeline.getCell(whichRow+"3")
       weekCell.value =i
       weekSLabel++
     }
   
   })
-  //console.log(define_month_week_to_column)
+  console.log(define_month_week_to_column)
 }
 
 
