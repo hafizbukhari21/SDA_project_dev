@@ -1,4 +1,6 @@
 let define_month_week_to_column =[]
+//Nomor Data pada Row A
+let No=1
 const monthNames = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
@@ -78,21 +80,31 @@ function saveAs(blob, fileName) {
   
   //reset define Week array after data has been printed to excel
   define_month_week_to_column=[]
+
+  //Reset No After Generate 
+  No=1
 }
 
 function ShowData(workSheetTimeline,activityTimeline){
   let currentDateRow = 4
+  
   activityTimeline.forEach(e=>{
     let groupCell = workSheetTimeline.getCell("B"+currentDateRow)
     groupCell.value = e.Group
+    groupCell.fill =  {...fillText,fgColor:{argb:"bfbfbf"}}
+    groupCell.font = {...fontText,color:{argb:"000000"}}
+
     currentDateRow++
 
     e.projects.forEach(eAct=>{
       let actvityCell = workSheetTimeline.getCell("B"+currentDateRow)
+      let setNo = workSheetTimeline.getCell("A"+currentDateRow)
+      setNo.value = No
       actvityCell.value =eAct.task_name
 
       ColoringAndLabelingWeek(workSheetTimeline,eAct.from,eAct.to,currentDateRow)
       currentDateRow++
+      No++
     })
   }) 
 }
@@ -123,7 +135,7 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
       e_def_month => e_def_month.month == dt.monthNumber+1 && e_def_month.week==dt.week && e_def_month.year == dt.year
     )
   }))
-  // Week Cell Title W1, W2, dst...
+  // Week Define how many days in a column 1D, 2D, 3D, dst...
   dateTemp.forEach(e=>{
     let CellWeek = workSheetTimeline.getCell(e.column.row+currentDateRow)
     CellWeek.value = `${e.total} D`
@@ -246,7 +258,7 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
   let EndMergingMonthString=0
   let weeks=1 //Repeat every month
   let weekSLabel=1 //defined which column fo week every monh
-  dateHeader.forEach(e=>{
+  dateHeader.forEach((e,idx)=>{
 
     let Cell = workSheetTimeline.getCell(ConvertNumberToRowExcel(StartMergingMonthString)+"2")
     
@@ -258,7 +270,7 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
     Cell.fill =  fillText
     Cell.font = fontText 
     Cell.border=borderText
-
+    
     //Set Title Width
     EndMergingMonthString+=e.totWeek
     workSheetTimeline.mergeCells(
