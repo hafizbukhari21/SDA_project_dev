@@ -116,8 +116,8 @@
 
 </script>
 
-<script src="{{asset('js/Page/project/timeline/Configtimeline.js')}}"></script>
-<script src="{{asset('js/Page/project/timeline/TimelineGeneral.js')}}"></script>
+<script src="{{asset('js/Page/Project/Timeline/Configtimeline.js')}}"></script>
+<script src="{{asset('js/Page/Project/Timeline/TimelineGeneral.js')}}"></script>
 
 
 
