@@ -5,16 +5,19 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use App\Repository\Data\Group_timelineRepository;
 use App\Repository\Data\Project_timelineRepository;
+use App\Repository\Data\ProjectRepository;
 use Illuminate\Http\Request;
 
 class web_TimelineController extends Controller
 {
     public Project_timelineRepository $timelineRepo;
     public Group_timelineRepository $group_timeline_repo;
+    public ProjectRepository $projectRepo;
 
-    public function __construct(Project_timelineRepository $project_timelineRepository, Group_timelineRepository $group_timelineRepository){
+    public function __construct(Project_timelineRepository $project_timelineRepository, Group_timelineRepository $group_timelineRepository, ProjectRepository $projectRepository ){
         $this->timelineRepo = $project_timelineRepository;
         $this->group_timeline_repo = $group_timelineRepository;
+        $this->projectRepo = $projectRepository;
     }
 
     public function updateTimeline(Request $req){
@@ -46,7 +49,8 @@ class web_TimelineController extends Controller
         return [
             "dateInterval"=>$this->timelineRepo->getDateInterval($idProject),
             "GroupWithTimeline"=>$this->group_timeline_repo->GetGroupTimeline_FilterGroup($idProject),
-            "TimelineSorted"=>$this->timelineRepo->TimelineSorted($idProject)
+            "TimelineSorted"=>$this->timelineRepo->TimelineSorted($idProject),
+            "projectAttr"=>$this->projectRepo->get("id",$idProject)->first()
         ];
     }
 }

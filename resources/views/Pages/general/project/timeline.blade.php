@@ -77,7 +77,7 @@
                             class="fa fa-plus fa-sm text-white-50"></i> New Task
                         </a>
                         <a href="#" class="  btn btn-sm btn-warning shadow-sm" onclick="captureTimeline()"><i
-                            class="fa fa-camera fa-sm text-white-50"></i> Capture
+                            class=""></i> Generate Timeline
                         </a>
                     </div>
                     

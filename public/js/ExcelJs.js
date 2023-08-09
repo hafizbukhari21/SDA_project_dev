@@ -11,6 +11,7 @@ function CaptureTOExcel(base64File,height,width,data){
 
     // Add a worksheet
     // var worksheet = workbook.addWorksheet('Sheet1');
+    
 
   //Shewt Timeline
   WorkSheetTimelineFormat(workbook.addWorksheet('Timeline'),data)
@@ -35,7 +36,7 @@ function CaptureTOExcel(base64File,height,width,data){
     // Save the workbook
     workbook.xlsx.writeBuffer().then(function (buffer) {
       // Download the Excel file
-      saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Timeline.xlsx');
+      saveAs(new Blob([buffer], { type: 'application/octet-stream' }), `Timeline - ${data.projectAttr.project_name}.xlsx`);
     });
 }
 
@@ -70,7 +71,7 @@ function saveAs(blob, fileName) {
   //Adjust Column And Label In Excel
   AdjustWidthColumn(workSheetTimeline,listMonthAndWeekTotalPerMonth)
   //Line 1
-  MainTitleProject(workSheetTimeline,"Timeline Project",listMonthAndWeekTotalPerMonth)
+  MainTitleProject(workSheetTimeline,`Project Timeline - ${data.projectAttr.project_name}`,listMonthAndWeekTotalPerMonth)
   //Line 2
   SubTitleProject(workSheetTimeline,listMonthAndWeekTotalPerMonth)
   //Line 3
@@ -127,7 +128,6 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
     dateTemp.push({...e,total:1})
   })
 
-  console.log(listDateBetween_Remap)
 
   dateTemp = dateTemp.map(dt=>({
     ...dt,
@@ -135,6 +135,9 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
       e_def_month => e_def_month.month == dt.monthNumber+1 && e_def_month.week==dt.week && e_def_month.year == dt.year
     )
   }))
+
+  // console.log(dateTemp)
+
 
   // Week Define how many days in a column 1D, 2D, 3D, dst...
   dateTemp.forEach(e=>{
@@ -145,6 +148,8 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
     CellWeek.border = borderText
 
   })
+
+
 
 
 }
@@ -302,6 +307,7 @@ function LineTwoDateHelper(workSheetTimeline,dateHeader){
       weekCell.font = fontText 
       weekSLabel++
     }
+
     
     
   })
@@ -407,6 +413,7 @@ function getLastDayOfMonth(year, month) {
 function getMonthYearInterval(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
+  start.setDate(20)
   if(end.getDate()<20) end.setDate(28)
 
   const intervalData = [];
