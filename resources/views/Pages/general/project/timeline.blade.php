@@ -76,6 +76,9 @@
                         <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
                             class="fa fa-plus fa-sm text-white-50"></i> New Task
                         </a>
+                        <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addGroupActivityModal"><i
+                            class="fa fa-plus fa-sm text-white-50"></i> New Group 
+                        </a>
                         <a href="#" class="  btn btn-sm btn-warning shadow-sm" onclick="captureTimeline()"><i
                             class=""></i> Generate Timeline
                         </a>
@@ -104,6 +107,9 @@
     @include('Components.Project.createProjectTimelineModal')
     {{-- Update Timeline Modal --}}
     @include('Components.Project.updateProjecTImelineModal')
+    {{-- Add Group Timeline Modal --}}
+    @include('Components.Project.createProjectGroupModal')
+
 
 @endsection
 
