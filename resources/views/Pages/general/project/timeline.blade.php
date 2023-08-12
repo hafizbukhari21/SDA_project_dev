@@ -117,6 +117,11 @@
 @section("jsScript")
 <script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
 <script src="{{ asset('js/Page/project/timelineGeneral.js') }}"></script>
+<script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
 <script>
 
@@ -503,6 +508,7 @@ function captureTimeline(){
   
     
 </script>
+<script src="{{asset('js/Page/Project/Timeline/GroupActivity.js')}}"></script>
 @endsection
 
 @section('css')
