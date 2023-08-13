@@ -39,6 +39,11 @@ class web_TimelineController extends Controller
     public function getTimelineDetail($idTimeline){
         return $this->timelineRepo->get("id",$idTimeline)->first();
     }
+    
+
+    public function insertGroup(Request $request){
+        return $this->group_timeline_repo->insert($request);
+    }
 
     public function getGroupTimeline($idGroup){
         return $this->group_timeline_repo->GetGroupTimeline_FilterGroup($idGroup);

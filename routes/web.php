@@ -62,8 +62,12 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         //Full Update Modal
         Route::post("update/full",[web_TimelineController::class,"updateTImeLineFull"])->name("update.full.timeline");
         Route::post("delete",[web_TimelineController::class,"deleteTimeLine"])->name("delete.timeline");
-        Route::get("group/{idGroup}",[web_TimelineController::class,"getGroupTimeline"])->name("group.timeline");
         Route::get("detail/{idTimeline}",[web_TimelineController::class,"getTimelineDetail"])->name("detail.timeline");
+
+        Route::post("group",[web_TimelineController::class,"insertGroup"])->name("group.insert");
+        Route::get("group/{idGroup}",[web_TimelineController::class,"getGroupTimeline"])->name("group.timeline");
+
+
     });
     Route::get("/excelGen/{idProject}",[web_TimelineController::class,"DataExcelNeeded"])->name("excelGen");
 

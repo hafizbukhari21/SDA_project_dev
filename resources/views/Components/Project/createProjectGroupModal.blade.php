@@ -16,16 +16,17 @@
                                     <form class="user needs-validation" id="addGroupForm" novalidate>
                                         @csrf
                                         <div class="form-group ">
-                                            <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Group Name" required>
+                                            <input type="text" class="form-control " name="Group" id="Group"placeholder="Group Name" required>
                                         </div>
                                         <div class="form-group ">
-                                            <input type="number" class="form-control " name="project_name" id="project_name"placeholder="Order" required>
+                                            <input type="number" class="form-control " name="order" id="order"placeholder="Order" min="0" required>
                                         </div>
-                                        <input type="hidden"  name="project_id" id="project_id"  required>
+                                        <input type="hidden"  name="idProject" id="idProjectGroup"  required>
                                         <button type="submit" class="btn btn-primary   btn-block">
                                             Create Group 
                                         </button>
                                     </form>
+                                    <br/>
                                 </div>
                                 <div class="col-lg-7 ">
                                     <div class="table-responsive">
@@ -48,19 +49,7 @@
                                             </tfoot>
                                             <tbody>
                                                 
-                                                <tr >
-                                                    <td >x</td>
-                                                    <td>
-                                                        <input type="text" class="form-control " name="project_name" id="project_name"placeholder="Group Name" value="Group Name">
-
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-group ">
-                                                            <input type="number" class="form-control " name="orderUpdate" id="ordere Update" value="0" min="0"  >
-                                                        </div>
-                                                    </td>
-                                                   
-                                                </tr>
+                                               
                                                 
                                             </tbody>
                                         </table>

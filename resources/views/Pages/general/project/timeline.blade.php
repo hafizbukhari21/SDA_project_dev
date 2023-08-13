@@ -76,7 +76,7 @@
                         <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
                             class="fa fa-plus fa-sm text-white-50"></i> New Task
                         </a>
-                        <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addGroupActivityModal"><i
+                        <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" id="newGroupModalButton" data-target="#addGroupActivityModal"><i
                             class="fa fa-plus fa-sm text-white-50"></i> New Group 
                         </a>
                         <a href="#" class="  btn btn-sm btn-warning shadow-sm" onclick="captureTimeline()"><i
@@ -124,7 +124,7 @@
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
 <script>
-
+    const insertGroup = " {{ route('group.insert')}}"
 </script>
 
 <script src="{{asset('js/Page/Project/Timeline/Configtimeline.js')}}"></script>
@@ -141,6 +141,10 @@
     let items = []
     let timelineChart = null
     let timelineChartElement =document.getElementById('timelineChart')
+
+    //url
+    let group_timeline_url = ParseRoute_SingleVar("{{route('group.timeline',':projectId')}}",projectId,":projectId")
+    let project_myproject_url = ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId")
     
 
     const options = {
@@ -195,6 +199,7 @@
         let pic_name = document.querySelector("#pic_name")
         let summary = document.querySelector("#summary")
         let project_id_new_task_form =document.querySelector("#project_id") 
+        let idProjectInInsertGroupForm =document.querySelector("#idProjectGroup")
         let timelineDataParse =[]
         let groupTimeline = []
         
@@ -203,7 +208,7 @@
         
         $.ajax({
             type: "get",
-            url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
+            url: project_myproject_url,
             
             success: function (response) {
                 // console.log(response)
@@ -212,6 +217,7 @@
                 summary.innerHTML = response.status
                 project_id_new_task_form.value = response.id
                 timelineDataParse = TimelineDataParser(response)
+                idProjectInInsertGroupForm.value = response.id
 
                 items = new vis.DataSet(timelineDataParse)
                 // timelineChart.setItems(timelineDataParse)
@@ -291,8 +297,7 @@ function GetGroupAjax(){
     $.ajax({
             type: "get",
 
-            url: ParseRoute_SingleVar("{{route('group.timeline',':projectId')}}",projectId,":projectId"),
-
+            url: group_timeline_url ,
 
             success: function (response) {
                 // console.log(response)
@@ -323,7 +328,7 @@ function GetGroupAjax(){
             // console.log(groupTimeline)
             $.ajax({
                 type: "get",
-                url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
+                url: project_myproject_url,
                 success: function (response) {
                     
                     let merge =[...response.projects_timeline.map(e=>({
@@ -341,12 +346,13 @@ function GetGroupAjax(){
 }
 
 
+
 //Re Get Data After Insert New Task
 function GetDataFromTimeline(){
     let timelineDataParse_Update
     $.ajax({
             type: "get",
-            url: ParseRoute_SingleVar("{{route('project.myProject',':projectId')}}",projectId,":projectId"),
+            url: project_myproject_url,
             success: function (response) {
                 timelineDataParse_Update = TimelineDataParser(response)
                 timelineChart.setItems(timelineDataParse_Update)
