@@ -125,6 +125,8 @@
 
 <script>
     const insertGroup = " {{ route('group.insert')}}"
+    const updateGroupOrder = " {{ route('group.update.order')}}"
+    const updateGroupName = " {{ route('group.update.name')}}"
 </script>
 
 <script src="{{asset('js/Page/Project/Timeline/Configtimeline.js')}}"></script>

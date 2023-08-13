@@ -41,6 +41,8 @@ class web_TimelineController extends Controller
     }
     
 
+
+    //Group 
     public function insertGroup(Request $request){
         return $this->group_timeline_repo->insert($request);
     }
@@ -49,6 +51,13 @@ class web_TimelineController extends Controller
         return $this->group_timeline_repo->GetGroupTimeline_FilterGroup($idGroup);
     }
 
+    public function updateGroupOrder(Request $req){
+        return $this->group_timeline_repo->updateOrder($req);
+    }
+
+    public function updateGroupName(Request $req){
+        return $this->group_timeline_repo->updateGroupName($req);
+    }
 
     public function DataExcelNeeded($idProject){
         return [

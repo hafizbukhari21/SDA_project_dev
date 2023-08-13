@@ -22,27 +22,65 @@ function UpdateInputUpdate(){
 
     input_order_update.forEach(order_update=>{
         order_update.addEventListener("input",()=>{
-            let idTimeline =order_update.dataset.id
-            let update_value = order_update.value
-            console.log({
-                idTimeline,
-                update_value
-            })
+            let id =order_update.dataset.id
+            let order = order_update.value
+            updateOrder({id,order})
         })
     })
 
+    let timerInput = null
+    let interValInput = 5000 //5 sec
     input_group_name_update.forEach(group=>{
-        group.addEventListener("input",()=>{
-            let idTimeline = group.dataset.id
-            let update_value = group.value
-            console.log({
-                idTimeline,
-                update_value
-            })
+        group.addEventListener("change",()=>{
+            
+            let id = group.dataset.id
+            let Group = group.value
+
+            clearInterval(timerInput)
+            timerInput = setTimeout(updateName({id,Group},group), interValInput)
         })
     })
 
 }
+
+function updateOrder(data,element){
+    
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: updateGroupOrder,
+        data,
+        success: function (response) {
+            Alertify({
+                message:"Berhasil Mengubah Order",
+                duration:5
+            })
+            groupDatatable.ajax.reload()
+            GetGroupAjax()
+            element.focus()
+        }
+    });
+}
+
+function updateName(data){
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: updateGroupName,
+        data,
+        success: function (response) {
+            Alertify({
+                message:"Berhasil Mengubah Nama Group",
+                duration:5
+            })
+            GetGroupAjax()
+        }
+    });
+}
+
+
+
+
 
 
 
@@ -103,6 +141,7 @@ $("#addGroupForm").submit(function (e) {
                 message:"Berhasil Menambahkan Group",
                 duration:5
             })
+            groupDatatable.ajax.reload()
             GetGroupAjax()
         }
     });

@@ -66,7 +66,8 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
         Route::post("group",[web_TimelineController::class,"insertGroup"])->name("group.insert");
         Route::get("group/{idGroup}",[web_TimelineController::class,"getGroupTimeline"])->name("group.timeline");
-
+        Route::post("group/update/groupName",[web_TimelineController::class,"updateGroupName"])->name("group.update.name");
+        Route::post("group/update/order",[web_TimelineController::class,"updateGroupOrder"])->name("group.update.order");
 
     });
     Route::get("/excelGen/{idProject}",[web_TimelineController::class,"DataExcelNeeded"])->name("excelGen");
@@ -88,6 +89,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             
         });
         
+
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     

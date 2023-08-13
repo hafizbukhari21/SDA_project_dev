@@ -3,9 +3,12 @@
 namespace App\Repository\Data;
 use App\Models\group_timeline;
 use App\Repository\GeneralRepository;
-
+use App\Utils\variableChecker;
+use Illuminate\Http\Request;
 
 class Group_timelineRepository extends GeneralRepository{
+
+    use variableChecker;
     private $idProjectGlobal;
     public function __construct(){
         $this->objectName = new group_timeline();
@@ -20,7 +23,20 @@ class Group_timelineRepository extends GeneralRepository{
         
     }
 
-    public function getDateInterval($idProject){
-        return;
+    
+    public function updateOrder(Request $req){
+        $group  =$this->objectName->find($req->id);
+
+        if($this->checkVariable_isValid($req->order))$group->order = $req->order;
+        else $group->order = 0;
+        $group->save();
+        return $group; 
+    }
+
+    public function updateGroupName(Request $req){
+        $group  =$this->objectName->find($req->id);
+        if($this->checkVariable_isValid($req->Group))$group->Group = $req->Group;
+        $group->save();
+        return $group; 
     }
 }
