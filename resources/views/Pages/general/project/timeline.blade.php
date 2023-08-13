@@ -8,7 +8,7 @@
             <div class="col-md-12">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        {{-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                             role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             Select Project
@@ -19,7 +19,24 @@
                             <a class="dropdown-item" href="#">Project 2</a>
                             <a class="dropdown-item" href="#">Project 3</a>
 
+                        </div> --}}
+
+                        <span class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            >
+                            Select Project
+                        </span>
+                        <div class="row">
+                            <div class="form-group col-xl-4" style="width: 50%">
+                                <input type="text" class="form-control " autocomplete="off" name="idProjectJalin" id="seachProjectName"placeholder="Seach by name..." required>
+                                <div style="position: absolute;z-index:2; width: 100%;" id="projectAutoComplete">
+                                    {{-- <a type="text" href="/project/detail/3" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS" required>sdsd</a>
+                                    <a type="text" href="/project/detail/3" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS" required>fddf</a>
+                                    <a type="text" href="/project/detail/3" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS" required>dfdf</a> --}}
+                                  </div>
+                            </div>
                         </div>
+                       
+
                     </li>
                 </ul>
             </div>
@@ -131,6 +148,7 @@
     const insertGroup = " {{ route('group.insert')}}"
     const updateGroupOrder = " {{ route('group.update.order')}}"
     const updateGroupName = " {{ route('group.update.name')}}"
+    const searchProjectUrl= "{{route('project.search.name')}}"
 </script>
 
 {{-- cek apakah boleh edit data atau tidak --}}
@@ -142,6 +160,8 @@
 @endif
 
 <script src="{{asset('js/Page/Project/Timeline/TimelineGeneral.js')}}"></script>
+<script src="{{asset('js/Page/Project/Timeline/SearchProjectBar.js')}}"></script>
+
 
 
 

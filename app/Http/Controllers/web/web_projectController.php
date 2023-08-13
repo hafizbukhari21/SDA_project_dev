@@ -41,6 +41,10 @@ class web_projectController extends Controller
         return $this->projectRepo->updateProject($req);
     }
 
+    public function searchProjectLikeName(Request $req){
+        return $this->projectRepo->searchProjectLikeName($req);
+    }
+
     public function loadTimelinePage($id){
         $payload = $this->projectRepo->get("id",$id)->first();
         return view("Pages.general.project.timeline",compact("payload"));

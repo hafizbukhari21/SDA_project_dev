@@ -3,12 +3,13 @@
 namespace App\Repository\Data;
 use App\Repository\GeneralRepository;
 use App\Models\project;
+use App\Utils\variableChecker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectRepository extends GeneralRepository{
 
-  
+  use variableChecker;
 
     public function __construct(){
         $this->objectName = new project();
@@ -63,6 +64,12 @@ class ProjectRepository extends GeneralRepository{
 
         if($project == null) return null;
         else return $project;
+
+    }
+
+    public function searchProjectLikeName(Request $req){
+        if($this->checkVariable_isValid($req->project_name)) return $this->objectName->where("project_name","like","%".$req->project_name."%")->get();
+        else return [];
 
     }
 
