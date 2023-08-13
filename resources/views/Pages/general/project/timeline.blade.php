@@ -57,9 +57,8 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body ">
-                        <div class="row overflow-auto" style="max-height: 20vh">
-                            <div class="col-xl-6" id="summary">Loading...</div>
-                            <div class="col-xl-6"></div>
+                        <div class="row overflow-auto" style="max-height: 40vh">
+                            <div class="col-xl-12" id="summary">Loading...</div>
                         </div>
                     </div>
                 </div>
@@ -228,7 +227,7 @@
                 console.log(response)
                 project_name.innerHTML = response.project_name
                 pic_name.innerHTML = response.pic_id.name
-                summary.innerHTML = response.status.replace(/\r?\n/g,"<br/>")
+                summary.innerHTML = response.status
                 project_id_new_task_form.value = response.id
                 timelineDataParse = TimelineDataParser(response,editableTable)
                 idProjectInInsertGroupForm.value = response.id
