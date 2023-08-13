@@ -23,7 +23,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-xl-5 mb-4" >
+            <div class="col-xl-4 mb-4" >
                 <div class="card shadow mb-4 h-100">
                     <!-- Card Header - Dropdown -->
                     <div
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-7 mb-4">
+            <div class="col-xl-8 mb-4">
                 <div class="card shadow mb-4 h-100">
                     <!-- Card Header - Dropdown -->
                     <div
@@ -57,9 +57,8 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body ">
-                        <div class="row">
-                            <div class="col-xl-6" id="summary">sd</div>
-                            
+                        <div class="row overflow-auto" style="max-height: 20vh">
+                            <div class="col-xl-6" id="summary">Loading...</div>
                             <div class="col-xl-6"></div>
                         </div>
                     </div>
@@ -74,6 +73,7 @@
                     <div class="d-sm-inline-block">
 
                         {{-- cek apakah boleh edit data atau tidak --}}
+                        
                         @if (session()->get("sessionKey")["role"]=="head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
                             <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
                                 class="fa fa-plus fa-sm text-white-50"></i> New Task

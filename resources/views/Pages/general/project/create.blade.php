@@ -129,7 +129,7 @@
 
         $(document).ready(function () {
             $('#statusAdd').trumbowyg();
-            $('#statusEdit').trumbowyg();
+            $('#status_update').trumbowyg();
             getAjax()
             table = ShowTableProject()
         })
@@ -147,6 +147,8 @@
                         duration:5
                     })
                   ResetForm("#addProjectForm")
+                  $("#status_update").trumbowyg('html', "")
+                  document.querySelector("#previewUrgensi").innerHTML = 0
                 }
                 
             });
@@ -274,7 +276,7 @@
                     $("#project_name_update").val(response.project_name)
                     $("#project_pic_id_update").val(response.pic_id.id)
                     $("#category_project_update").val(response.category_id);
-                    $("#status_update").val(response.status)
+                    $("#status_update").trumbowyg('html', response.status)
                     $("#time_update").val(response.time)
                     $("#urgensi_update").val(response.urgensi)
                     $("#project_id_update").val(response.id)

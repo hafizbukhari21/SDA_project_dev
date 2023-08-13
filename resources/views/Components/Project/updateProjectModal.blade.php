@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Status</label>
-                            <textarea type="text" class="form-control " id="status_update" name= "status" placeholder="Status"></textarea>
+                            <textarea type="text" class="form-control status_update"  id="status_update" name= "status" placeholder="Status"></textarea>
 
                         </div>
                         <div class="form-group ">
