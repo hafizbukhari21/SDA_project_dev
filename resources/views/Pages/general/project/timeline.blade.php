@@ -2,7 +2,7 @@
 
 @section('generalContent')
 <div class="container-fluid">
-
+    
     <!-- Page Heading -->
     <div class="row">
             <div class="col-md-12">
@@ -69,16 +69,20 @@
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between" id="timelineHeader">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" id="timelineHeader">
                     <h6 class="m-0 font-weight-bold text-primary">Timeline </h6>
                     <div class="d-sm-inline-block">
-                        <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
-                            class="fa fa-plus fa-sm text-white-50"></i> New Task
-                        </a>
-                        <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" id="newGroupModalButton" data-target="#addGroupActivityModal"><i
-                            class="fa fa-plus fa-sm text-white-50"></i> New Group 
-                        </a>
+
+                        {{-- cek apakah boleh edit data atau tidak --}}
+                        @if (session()->get("sessionKey")["role"]=="head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
+                            <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
+                                class="fa fa-plus fa-sm text-white-50"></i> New Task
+                            </a>
+                            <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" id="newGroupModalButton" data-target="#addGroupActivityModal"><i
+                                class="fa fa-plus fa-sm text-white-50"></i> New Group 
+                            </a>  
+                        @endif
+
                         <a href="#" class="  btn btn-sm btn-warning shadow-sm" onclick="captureTimeline()"><i
                             class=""></i> Generate Timeline
                         </a>
@@ -123,13 +127,21 @@
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
+
 <script>
     const insertGroup = " {{ route('group.insert')}}"
     const updateGroupOrder = " {{ route('group.update.order')}}"
     const updateGroupName = " {{ route('group.update.name')}}"
 </script>
 
-<script src="{{asset('js/Page/Project/Timeline/Configtimeline.js')}}"></script>
+{{-- cek apakah boleh edit data atau tidak --}}
+@if (session()->get("sessionKey")["role"]=="head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
+    <script src="{{asset('js/Page/Project/Timeline/Configtimeline.js')}}"></script>
+    
+@else
+    <script src="{{asset('js/Page/Project/Timeline/Configtimeline_readonly.js')}}"></script>  
+@endif
+
 <script src="{{asset('js/Page/Project/Timeline/TimelineGeneral.js')}}"></script>
 
 
@@ -213,14 +225,14 @@
             url: project_myproject_url,
             
             success: function (response) {
-                // console.log(response)
+                console.log(response)
                 project_name.innerHTML = response.project_name
                 pic_name.innerHTML = response.pic_id.name
-                summary.innerHTML = response.status
+                summary.innerHTML = response.status.replace(/\r?\n/g,"<br/>")
                 project_id_new_task_form.value = response.id
-                timelineDataParse = TimelineDataParser(response)
+                timelineDataParse = TimelineDataParser(response,editableTable)
                 idProjectInInsertGroupForm.value = response.id
-
+                
                 items = new vis.DataSet(timelineDataParse)
                 // timelineChart.setItems(timelineDataParse)
                 timelineChart = new vis.Timeline(timelineChartElement, items, options);
@@ -275,14 +287,7 @@
         });
       
     });
-      // Sample data for the timeline
 
-      function TimelineDataParser(response){
-    return response.projects_timeline.map(e=>{
-       return MappingTimeLine(e)
-    }
-    )
-}
 //zoom timeline specifict group
 timelineChartElement.onclick = (event) => {
     let timelineChartGroup = document.querySelector(".vis-left")
@@ -356,7 +361,7 @@ function GetDataFromTimeline(){
             type: "get",
             url: project_myproject_url,
             success: function (response) {
-                timelineDataParse_Update = TimelineDataParser(response)
+                timelineDataParse_Update = TimelineDataParser(response,editableTable)
                 timelineChart.setItems(timelineDataParse_Update)
                 // timelineChart.redraw() 
             

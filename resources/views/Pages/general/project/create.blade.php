@@ -35,7 +35,11 @@
                                   </select>
                             </div>
                             <div class="form-group">
-                                <textarea type="text" class="form-control " id="exampleFirstName" name= "status" placeholder="Status" required></textarea>
+                                <label for="">Status</label>
+                                <textarea type="text" class="form-control " id="statusAdd" name= "status" placeholder="Status" aria-describedby="validationServerStatusFeedback" required></textarea>
+                                <div id="validationServerStatusFeedback" class="invalid-feedback">
+                                    Please insert Status
+                                  </div>
 
                             </div>
                             <div class="form-group ">
@@ -70,7 +74,6 @@
                                             <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
-                                            <th>Status</th>
                                             <th>Urgensi</th>
                                             <th>Time</th>
                                             
@@ -84,7 +87,6 @@
                                             <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
-                                            <th>Status</th>
                                             <th>Urgensi</th>
                                             <th>Time</th>
                                             
@@ -117,18 +119,17 @@
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-    <script id="myscript">
+
+ <!-- Include Trumbowyg JavaScript -->
+ <script src="https://cdn.jsdelivr.net/npm/trumbowyg@2.26.0/dist/trumbowyg.min.js"></script>    <script id="myscript">
         // ProtectThis()
         let table =null
         let deleteId = null
 
-  
-
-  
-
 
         $(document).ready(function () {
-            
+            $('#statusAdd').trumbowyg();
+            $('#statusEdit').trumbowyg();
             getAjax()
             table = ShowTableProject()
         })
@@ -232,9 +233,6 @@
                         "data":"pic_id.name",
                     },
                     {
-                        "data":"status",
-                    },
-                    {
                         "data":"urgensi",
                     },
                     {
@@ -326,4 +324,8 @@
        
        
     </script>
+@endsection
+
+@section('css')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/trumbowyg@2.26.0/dist/ui/trumbowyg.min.css">
 @endsection

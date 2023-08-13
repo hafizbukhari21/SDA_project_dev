@@ -53,7 +53,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("delete",[web_projectController::class, "deleteProject"])->name("project.myProject.delete");//ajax route disable csrf
         Route::get("getAll",[web_projectController::class,"returnGetAllProject"])->name("project.picAndCreator.myProject");//ajax Route
         Route::get("idList",[web_projectController::class,"returnProjectId"])->name("project.idList");
-        Route::view('detail/{id}', "Pages.general.project.timeline")->name("project.timeline");
+        Route::get('detail/{id}', [web_projectController::class,"loadTimelinePage"])->name("project.timeline");
     });
     Route::prefix('timeline')->group(function(){
         Route::post("create",[web_TimelineController::class,"createTimeLine"])->name("create.timeline");

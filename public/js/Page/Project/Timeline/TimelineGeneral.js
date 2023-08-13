@@ -11,6 +11,17 @@ function tooltipTemplate(param){
         </div>`
 }
 
+function tooltipTemplate_readonly(param){
+  return `<div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title text-dark">${param.task_name}</h5>
+          <p class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format('DD-MM-YYYY')} - ${moment.utc(param.end).local().format('DD-MM-YYYY')}</p>
+        </div>
+        <div class="card-footer d-flex flex-row-reverse">
+        </div>
+      </div>`
+}
+
 
 //Card Timeline
 function CustomContentTooltip(e){
@@ -42,15 +53,15 @@ function CustomNodeTask(input){
 
 
 //convert Response From API To Used in DataSet and Main Data Vis JS
-function TimelineDataParser(response){
+function TimelineDataParser(response,editableTable){
     return response.projects_timeline.map(e=>{
-       return MappingTimeLine(e)
+       return MappingTimeLine(e,editableTable)
     }
     )
 }
 
 
-function MappingTimeLine(e){
+function MappingTimeLine(e,editableTable){
     return {
             id:e.id, 
             content:CustomContentTooltip(e), 
@@ -58,12 +69,19 @@ function MappingTimeLine(e){
             end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
             group:e.id,
             //style: 'background-color: #00ff00;',
-            tooltip: tooltipTemplate({
-                task_name:e.task_name,
-                start:e.from,
-                end:e.to,
-                id:e.id
-            }),
+            tooltip: editableTable?
+                tooltipTemplate({
+                    task_name:e.task_name,
+                    start:e.from,
+                    end:e.to,
+                    id:e.id
+                }):
+                tooltipTemplate_readonly({
+                  task_name:e.task_name,
+                  start:e.from,
+                  end:e.to,
+                  id:e.id
+              }),
             type:e.from===e.to?"box":""
 
         }

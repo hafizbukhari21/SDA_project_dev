@@ -20,12 +20,12 @@ let baseConfig = {
         followMouse: true
     },
     editable: {
-        updateTime: true,
+        updateTime: false,
         updateGroup: false,
         overrideItems: false,
-        remove:true,
+        remove:false,
     },
     moveable: true,
 }
 
-let editableTable=true
+let editableTable=false

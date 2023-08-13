@@ -402,6 +402,7 @@
         let setUrlTimeline_Var="{{route('project.idList')}}"
     </script>
     <script src="{{ asset('js/Layout.js') }}"></script>
+    <script src="{{ asset('js/CheckConnection.js') }}"></script>
 
     @yield('jsScript')
 
