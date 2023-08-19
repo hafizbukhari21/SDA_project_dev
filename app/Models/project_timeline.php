@@ -23,7 +23,7 @@ class project_timeline extends Model
     ];
 
     public function project(){
-        return $this->belongsTo(project::class,"id");
+        return $this->belongsTo(project::class,"project_id","id");
     }
     public function group(){
         return $this->belongsTo(group_timeline::class,"idGroup","id");
