@@ -6,6 +6,7 @@ use App\Http\Controllers\projectController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\web\authWebController;
 use App\Http\Controllers\web\categoryProjectController;
+use App\Http\Controllers\web\notificationController;
 use App\Http\Controllers\web\web_projectController;
 use App\Http\Controllers\web\web_TimelineController;
 use App\Http\Controllers\web\web_timesheetController;
@@ -91,6 +92,10 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         });
         
 
+    });
+
+    Route::prefix("notifBar")->group(function(){
+        Route::get("",[notificationController::class,"SetNotifBar"])->name("notifBar.get");
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     

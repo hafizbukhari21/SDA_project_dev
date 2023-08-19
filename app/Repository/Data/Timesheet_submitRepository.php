@@ -31,11 +31,11 @@ class Timesheet_submitRepository extends GeneralRepository{
 
     public function requestApproval(){
     
-        $timsesheetId=$this->timesheet_repo->get("idUser",session()->get("sessionKey")["id"])->first()->id;
+        $timsesheetId=$this->timesheet_repo->get("idUser",session()->get("sessionKey")["id"])->first()->id;//get session value should be from controller
         $timesheet_act_new_without_ref=$this->timesheet_act_repo->getFirstandLastDateNew($timsesheetId);
         $submitApproval = $this->objectName->create([
             "timeSheet_id"=>$timsesheetId,
-            "idUser"=>session()->get("sessionKey")["id"],
+            "idUser"=>session()->get("sessionKey")["id"],//get session value should be from controller
             "status_submit"=>"new",
             "attemp"=>1,
             "submitDate"=>Carbon::now(),

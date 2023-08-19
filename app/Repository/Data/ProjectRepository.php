@@ -38,7 +38,7 @@ class ProjectRepository extends GeneralRepository{
     }
 
     public function getProjectWith_PicAndCreator(){
-        return $this->objectName->where("user_creator_id",session()->get("sessionKey")["id"])->get()->load("pic_id","user_creator","category_project");
+        return $this->objectName->where("user_creator_id",session()->get("sessionKey")["id"])->get()->load("pic_id","user_creator","category_project");//get session value should be from controller
     }
 
     public function getProjectList(){
@@ -78,7 +78,7 @@ class ProjectRepository extends GeneralRepository{
         
         $project = $this->objectName
                     ->where([
-                        "user_creator_id"=>session()->get("sessionKey")["id"],
+                        "user_creator_id"=>session()->get("sessionKey")["id"],//get session value should be from controller
                         "id"=>$project_id
                     ])->first();
 

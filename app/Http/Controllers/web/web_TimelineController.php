@@ -6,18 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Repository\Data\Group_timelineRepository;
 use App\Repository\Data\Project_timelineRepository;
 use App\Repository\Data\ProjectRepository;
+use App\Repository\Data\NotificationRepository;
 use Illuminate\Http\Request;
+
 
 class web_TimelineController extends Controller
 {
     public Project_timelineRepository $timelineRepo;
     public Group_timelineRepository $group_timeline_repo;
     public ProjectRepository $projectRepo;
+    public NotificationRepository $notifRepo;
 
-    public function __construct(Project_timelineRepository $project_timelineRepository, Group_timelineRepository $group_timelineRepository, ProjectRepository $projectRepository ){
+    public function __construct(Project_timelineRepository $project_timelineRepository, Group_timelineRepository $group_timelineRepository, ProjectRepository $projectRepository, NotificationRepository $notificationRepository ){
         $this->timelineRepo = $project_timelineRepository;
         $this->group_timeline_repo = $group_timelineRepository;
         $this->projectRepo = $projectRepository;
+        $this->notifRepo = $notificationRepository;
     }
 
     public function updateTimeline(Request $req){
@@ -33,7 +37,13 @@ class web_TimelineController extends Controller
     }
 
     public function createTimeLine(Request $req){
-        return $this->timelineRepo->insert($req);
+        $timeline =  $this->timelineRepo->insert($req);
+        $notifFlag = $this->notifRepo->CreateNotifAsTimeline($timeline->id);
+    
+        return [
+            "timeline"=>$timeline,
+            "notif"=>$notifFlag
+        ];
     }
 
     public function getTimelineDetail($idTimeline){
