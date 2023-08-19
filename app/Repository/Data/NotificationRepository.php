@@ -25,16 +25,16 @@ class NotificationRepository extends GeneralRepository{
     }
 
     public function SetNotifBar(){
-        $notifTimelines = $this->objectName->get()->load(["timeline","timesheet_submit"]);
         $carbon = CarbonImmutable::now();
-        $carbonPrev2Day = $carbon->add(-2,"day");
-        $carbonNext2Day = $carbon->add(2,"day");
+        $carbonPrev2Day = $carbon->add(-2,"day")->format("Y-m-d");
+        $carbonNext2Day = $carbon->add(2,"day")->format("Y-m-d");
+        $notifTimelines = $this->objectName->whereHas("timeline",function($timeline) use($carbonPrev2Day,$carbonNext2Day){
+            $timeline->whereBetween("to",[$carbonPrev2Day,$carbonNext2Day]);
+        })->get()->load("timeline.project", "timesheet_submit");
 
         //cek kalo notif kosong
         if(!$notifTimelines) return [];
-
-        // $notifTimelines = $notifTimelines->where("timeline.to",);
-
+       
         return $notifTimelines;
     }
 
