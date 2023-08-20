@@ -1,3 +1,4 @@
+let longNotif=0
 $(document).ready(function () {
     GetTimelineRoute()
     
@@ -13,3 +14,15 @@ function GetTimelineRoute(){
         }
     });
 }
+
+
+function AjaxTimeline(){
+    $.ajax({
+        type: "get",
+        url:setUrlNotif_Var,
+        success: function (response) {
+            
+        }
+    });
+}
+
