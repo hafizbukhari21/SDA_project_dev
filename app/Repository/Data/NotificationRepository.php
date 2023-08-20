@@ -43,4 +43,8 @@ class NotificationRepository extends GeneralRepository{
         return compact(["notifBar","userUid"]);
     }
 
+    public function GetNotifDetail($Uuid){
+        return $this->objectName->where("uuid",$Uuid)->get()->load(["timeline","timeline.project"])->first();
+    }
+
 }

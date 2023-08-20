@@ -9,51 +9,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="user" id="addTaskForm">
-                        @csrf
-                        <div class="row">
-                            <div class="col-lg-6      ">
-                                <div class="form-group ">
-                                    <label for="">Project Name</label>
-                                        <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Project Name">
-                                </div>
-                               
-                                <div class="form-group">
-                                    <label for="">Select Group</label>
-                                    <select class="form-control" id="timeline_group" name="idGroup" aria-label="Default select example">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6      ">
-                                <div class="form-group ">
-                                    <label for="">Start Date</label>
-                                    <input type="date" class="form-control " name="from" id="project_name"placeholder="Start Date">
-                                </div>
-                                <div class="form-group ">
-                                    <label for="">End Date</label>
-                                    <input type="date" class="form-control " name="to" id="project_name"placeholder="End Date">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="">Notes</label>
-                            <textarea type="text" class="form-control " name="notes" id="project_name"placeholder="Notes"></textarea>
-                        </div>
-                       
-                      
-                       
-                        <input type="hidden" name="project_id" value="" id="project_id">
-                        
-                        <!-- <button type="submit" class="btn btn-primary   btn-block">
-                            Create Task
-                        </button> -->
-                        
-                   
-                    
+                    <h3 id="modalNotifTitleProject">Title Project</h5>
+                    <h5 id="modalNotifTaskName">Task Project</h5>
+                    <label id="modalNotifDate" for="">XXX s.d. XXX</label>
+                    <p id="modalNotifTaskDetail"> Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail </p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" href="">Create</button>
+                    <button class="btn btn-secondary" id="modalNotifDismissButton" type="button" data-dismiss="modal">Dismiss</button>
+                    <button class="btn btn-primary" href="">View Project</button>
                 </div>
             </form>
             </div>

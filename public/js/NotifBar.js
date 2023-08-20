@@ -43,6 +43,22 @@ function setReadStatus(notifUid,userUid){
     }
 }
 
+function GetNotifDetail(notifUUid){
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: setUrlNotif_VarDetail,
+        data: {uuid:notifUUid},
+        success: function (response) {
+            console.log(response)
+            document.querySelector("#modalNotifTitleProject").innerHTML = response.timeline.project.project_name
+            document.querySelector("#modalNotifTaskName").innerHTML = "Task - "+response.timeline.task_name
+            document.querySelector("#modalNotifDate").innerHTML = `${moment(response.timeline.from).format("MMM-DD, YYYY")} s.d. ${moment(response.timeline.to).format("MMM-DD, YYYY")}`
+            document.querySelector("#modalNotifTaskDetail").innerHTML = response.timeline.notes
+        }
+    });
+}
+
 
 function IsTimeline(nb,userUid){
     let currentDate = moment().format("YYYY-MM-DD")
@@ -59,7 +75,7 @@ function IsTimeline(nb,userUid){
     function template_timeline(data){   
         //IF notif expired can be dismiss
 
-        return  `<a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#notifDetailModal" >
+        return  `<a class="dropdown-item d-flex align-items-center" data-toggle="modal" data-target="#notifDetailModal" onclick="GetNotifDetail('${data.nb.uuid}')">
         <div class="mr-3">
             <div class="icon-circle bg-${data.status}">
                 <i class="fas fa-exclamation-triangle text-white"></i>

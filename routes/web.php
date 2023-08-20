@@ -96,6 +96,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
     Route::prefix("notifBar")->group(function(){
         Route::get("",[notificationController::class,"SetNotifBar"])->name("notifBar.get");
+        Route::post("detail",[notificationController::class,"GetNotifDetail"])->name("notifBar.get.detail");
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     

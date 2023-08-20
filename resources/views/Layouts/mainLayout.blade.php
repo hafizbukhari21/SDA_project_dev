@@ -308,6 +308,7 @@
     <script>
         let setUrlTimeline_Var="{{route('project.idList')}}"
         const setUrlNotif_Var = "{{route('notifBar.get')}}"
+        const setUrlNotif_VarDetail ="{{route('notifBar.get.detail')}}"
     </script>
     <script src="{{ asset('js/Layout.js') }}"></script>
     <script src="{{ asset('js/NotifBar.js') }}"></script>
