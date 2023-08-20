@@ -3,6 +3,7 @@ namespace App\Repository\Data;
 
 use App\Models\notification;
 use App\Repository\GeneralRepository;
+use App\Repository\UserRepository;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Dflydev\DotAccessData\Data;
@@ -10,8 +11,10 @@ use Illuminate\Support\Str;
 
 
 class NotificationRepository extends GeneralRepository{
-    public function __construct(){
+    private UserRepository $useRepo;
+    public function __construct(UserRepository $userRepository){
         $this->objectName = new  notification();
+        $this->useRepo = $userRepository;
     }
 
     public function CreateNotifAsTimeline($idTimeline){
@@ -24,18 +27,20 @@ class NotificationRepository extends GeneralRepository{
 
     }
 
-    public function SetNotifBar(){
+    public function SetNotifBar($userId){
         $carbon = CarbonImmutable::now();
         $carbonPrev2Day = $carbon->add(-2,"day")->format("Y-m-d");
         $carbonNext2Day = $carbon->add(2,"day")->format("Y-m-d");
-        $notifTimelines = $this->objectName->whereHas("timeline",function($timeline) use($carbonPrev2Day,$carbonNext2Day){
+        $userUid = $this->useRepo->getUserUIDbyId($userId);
+        $notifBar = $this->objectName->whereHas("timeline",function($timeline) use($carbonPrev2Day,$carbonNext2Day){
             $timeline->whereBetween("to",[$carbonPrev2Day,$carbonNext2Day]);
         })->get()->load("timeline.project", "timesheet_submit");
 
+        
         //cek kalo notif kosong
-        if(!$notifTimelines) return [];
+        if(!$notifBar) return compact(["userUid",""]);
        
-        return $notifTimelines;
+        return compact(["notifBar","userUid"]);
     }
 
 }

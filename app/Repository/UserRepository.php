@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
 use App\Repository\Data\Timesheet_Repository;
+use Illuminate\Support\Str;
 
 class UserRepository {
    
@@ -30,9 +31,11 @@ class UserRepository {
 
         $payload = User::create($request->all()) ;
         $timesheetRepo = $this->timesheetRepo->insert($payload->id);
+        $userUUid = $this->setUserUID($payload->id);
         return [
             "user"=>$payload,
-            "timesheet"=>$timesheetRepo
+            "timesheet"=>$timesheetRepo,
+            "userUuid"=>$userUUid
         ];
     }
     
@@ -46,6 +49,17 @@ class UserRepository {
 
     public function getUserAndTimesheet($idUser){
         return $this->user->where("id","=",$idUser)->get()->load("timesheet","myHead");
+    }
+
+    public function setUserUID($userid){
+        $user = $this->user->find($userid);
+        $user->uuid = Str::orderedUuid();
+        return $user->save();
+    }
+
+    public function getUserUIDbyId($userid){
+        return $this->user->find($userid)->uuid;
+        
     }
 
     

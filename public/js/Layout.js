@@ -16,13 +16,5 @@ function GetTimelineRoute(){
 }
 
 
-function AjaxTimeline(){
-    $.ajax({
-        type: "get",
-        url:setUrlNotif_Var,
-        success: function (response) {
-            
-        }
-    });
-}
+
 

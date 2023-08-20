@@ -15,6 +15,6 @@ class notificationController extends Controller
     }
 
     public function SetNotifBar(){
-        return $this->notifRepo->SetNotifBar();
+        return $this->notifRepo->SetNotifBar(session()->get("sessionKey")["id"]);
     }
 }
