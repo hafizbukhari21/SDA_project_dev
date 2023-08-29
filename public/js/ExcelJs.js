@@ -61,7 +61,6 @@ function saveAs(blob, fileName) {
   //dateInterval
   //GroupWithTimeline
   //TimelineSorted
-  console.log(data)
   // console.log(RemoveArrayProjectNull(data.GroupWithTimeline))
   let listOfMonthYear = getMonthYearInterval(data.dateInterval.start,data.dateInterval.finish)
   let listMonthAndWeekTotalPerMonth = listOfMonthYear.map(e=>MappingDateProper(e))
@@ -115,6 +114,8 @@ function ColoringAndLabelingWeek(workSheetTimeline,from,to,currentDateRow){
   let dateTemp = []
 
   listDateBetween_Remap.forEach((e,idx,arr)=>{
+    console.log(e)
+    if(e.day == "Sunday" ||e.day == "Saturday") return 
     if(dateTemp.length==0) {
       dateTemp.push({...e,total:1})
       return
@@ -158,13 +159,15 @@ function getWeekInMonth(date) {
   const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
   const dayOfWeek = firstDayOfMonth.getDay();
   const dayOfMonth = date.getDate();
+  const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   
   return {
     week:Math.ceil((dayOfMonth + dayOfWeek) / 7),
     monthName:monthNames[date.getMonth()],
     monthNumber:date.getMonth(),
     year:date.getFullYear(),
-    date
+    date,
+    day:weekday[date.getDay()]
   }
 }
 

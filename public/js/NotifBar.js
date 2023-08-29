@@ -44,6 +44,7 @@ function setReadStatus(notifUid,userUid){
 }
 
 function GetNotifDetail(notifUUid){
+    //Dismiss modal when project has been over timeline date
     PreAjax()
     $.ajax({
         type: "post",
