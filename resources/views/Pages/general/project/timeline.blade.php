@@ -412,7 +412,7 @@ function UpdateTask(item){
             console.log(response)
             // GetGroupAjax()
             if (response){
-                items.update(MappingTimeLine(response))
+                items.update(MappingTimeLine(response,editableTable))
                 Alertify({
                             message:"Berhasil Mengubah Activity",
                             duration:5

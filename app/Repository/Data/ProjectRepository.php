@@ -4,6 +4,7 @@ namespace App\Repository\Data;
 use App\Repository\GeneralRepository;
 use App\Models\project;
 use App\Utils\variableChecker;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,9 @@ class ProjectRepository extends GeneralRepository{
         $projects = $this->objectName->where("id","=",$project_id)->get();
         foreach($projects as $project){
            $project->load(["projects_timeline"=>function($pt){
+            $pt->whereHas("group",function(Builder $q){
+                $q->whereNull("deleted_at");//Ngakalin soft delete jadi kalo deleted_at nya null berarti kan datanya masih ada 
+            });
             $pt->orderby("from","asc");
            }]);
            $project->load("pic_id");
