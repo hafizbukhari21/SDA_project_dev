@@ -28,4 +28,4 @@ let baseConfig = {
     moveable: true,
 }
 
-let editableTable=true
+const editableTable=true

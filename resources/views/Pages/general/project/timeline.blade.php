@@ -381,6 +381,7 @@ function GetDataFromTimeline(){
             url: project_myproject_url,
             success: function (response) {
                 timelineDataParse_Update = TimelineDataParser(response,editableTable)
+                console.log({editableTable})
                 timelineChart.setItems(timelineDataParse_Update)
                 // timelineChart.redraw() 
             
@@ -478,7 +479,7 @@ $("#updateTask").submit(function (e) {
                         })
             GetDataFromTimeline()                
             //Add Dataset Vis Js after adding task 
-            items.update(MappingTimeLine(response))
+            items.update(MappingTimeLine(response,editableTable))
             GetGroupAjax()
             $("#updateTimeline").modal("hide")
         },
