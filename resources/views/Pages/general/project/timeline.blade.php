@@ -90,7 +90,7 @@
 
                         {{-- cek apakah boleh edit data atau tidak --}}
                         
-                        @if (session()->get("sessionKey")["role"]=="head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
+                        @if (session()->get("sessionKey")["role"]=="Head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
                             <a href="#" class="  btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addTaskModal"><i
                                 class="fa fa-plus fa-sm text-white-50"></i> New Task
                             </a>
@@ -152,7 +152,7 @@
 </script>
 
 {{-- cek apakah boleh edit data atau tidak --}}
-@if (session()->get("sessionKey")["role"]=="head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
+@if (session()->get("sessionKey")["role"]=="Head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
     <script src="{{asset('js/Page/Project/Timeline/Configtimeline.js')}}"></script>
     
 @else
