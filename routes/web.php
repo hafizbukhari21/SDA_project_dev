@@ -67,6 +67,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("detail/{idTimeline}",[web_TimelineController::class,"getTimelineDetail"])->name("detail.timeline");
 
         Route::post("group",[web_TimelineController::class,"insertGroup"])->name("group.insert");
+        Route::post("group/delete",[web_TimelineController::class,"deleteGroup"])->name("group.delete");
         Route::get("group/{idGroup}",[web_TimelineController::class,"getGroupTimeline"])->name("group.timeline");
         Route::post("group/update/groupName",[web_TimelineController::class,"updateGroupName"])->name("group.update.name");
         Route::post("group/update/order",[web_TimelineController::class,"updateGroupOrder"])->name("group.update.order");

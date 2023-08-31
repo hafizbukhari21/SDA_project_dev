@@ -2,6 +2,7 @@ let groupDatatable = null
 let buttonaddGroupModal = document.querySelector("#newGroupModalButton")
 let input_order_update = null
 let input_group_name_update = null
+let allDeleteGroupButton = null
 
 $(document).ready(function () {
     groupDatatable = SetDatatable()
@@ -14,11 +15,34 @@ buttonaddGroupModal.addEventListener("click",()=>{
 })
 
 
+function HandleDeleteGroup(delGroupElem){
+    PreAjax()
+    let id = delGroupElem.getAttribute("id")
+    $.ajax({
+        type: "post",
+        url: deleteGroup,
+        data: {id},
+        success: function (response) {
+            groupDatatable.ajax.reload()
+            GetGroupAjax()
+            GetDataFromTimeline(true)
+        }
+    });
+    
+}
 
 
 function UpdateInputUpdate(){
     input_order_update=document.querySelectorAll(".order_update")
     input_group_name_update=document.querySelectorAll(".Group")
+    allDeleteGroupButton = document.querySelectorAll(".deleteGroupButton")
+
+    
+    allDeleteGroupButton.forEach(delGroupElem=>{
+        delGroupElem.addEventListener("click",e=>{
+            HandleDeleteGroup(delGroupElem)
+        })
+    })
 
     input_order_update.forEach(order_update=>{
         order_update.addEventListener("input",()=>{
@@ -105,7 +129,7 @@ function SetDatatable(){
         "data":"id",
         render: function (data, type, row, meta) {
             return `<div class="btn-group ">
-                    <a type="button" class="btn btn-sm btn-danger" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteProjectModal" onclick="">
+                    <a type="button" class="btn btn-sm btn-danger deleteGroupButton" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteProjectModal" onclick="">
                     <i class="fas fa-trash"></i>
                     </a>
                 </div>`

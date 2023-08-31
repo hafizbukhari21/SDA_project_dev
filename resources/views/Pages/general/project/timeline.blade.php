@@ -146,6 +146,7 @@
 
 <script>
     const insertGroup = " {{ route('group.insert')}}"
+    const deleteGroup = "{{route('group.delete')}}"
     const updateGroupOrder = " {{ route('group.update.order')}}"
     const updateGroupName = " {{ route('group.update.name')}}"
     const searchProjectUrl= "{{route('project.search.name')}}"
@@ -374,7 +375,7 @@ function GetGroupAjax(){
 
 
 //Re Get Data After Insert New Task
-function GetDataFromTimeline(){
+function GetDataFromTimeline(reset=false){
     let timelineDataParse_Update
     $.ajax({
             type: "get",
@@ -383,7 +384,8 @@ function GetDataFromTimeline(){
                 timelineDataParse_Update = TimelineDataParser(response,editableTable)
                 console.log({editableTable})
                 timelineChart.setItems(timelineDataParse_Update)
-                // timelineChart.redraw() 
+                if(reset)timelineChart.redraw()
+                
             
             }
         });

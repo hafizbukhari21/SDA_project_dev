@@ -57,6 +57,10 @@ class web_TimelineController extends Controller
         return $this->group_timeline_repo->insert($request);
     }
 
+    public function deleteGroup(Request $request){
+        return $this->group_timeline_repo->delete($request);
+    }
+
     public function getGroupTimeline($idGroup){
         return $this->group_timeline_repo->GetGroupTimeline_FilterGroup($idGroup);
     }
