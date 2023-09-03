@@ -14,6 +14,9 @@ class GeneralRepository implements GeneralInterface{
     public function get($var,$val){
         return $this->objectName->where([$var => $val])->get();    
     }
+    public function getByUUid($uuid){
+        return $this->objectName->where(["uuid" => $uuid])->get();    
+    }
 
     public function getAll(){
         return $this->objectName->all();

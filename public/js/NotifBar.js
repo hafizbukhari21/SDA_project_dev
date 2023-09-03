@@ -2,6 +2,8 @@ let dropDownNotif = document.querySelector("#dropDownNotif")
 let showAllButton = null
 let maxLengthNotif = 5
 const notifKeyPrefix = "notif "
+let buttondissmiss = document.querySelector("#modalNotifDismissButton")
+let counterNotif = document.querySelector("#counterNotif")
 $(document).ready(function () {
     AjaxNotifBar()
 });
@@ -12,6 +14,7 @@ function AjaxNotifBar(){
         type: "get",
         url:setUrlNotif_Var,
         success: function (response) {
+            SetCounterNotif(response.notifBar.length)
             ShowNotif(response)
         }
     });
@@ -25,22 +28,28 @@ function ShowNotif(response){
         if(nb.group =="timeline") string+=IsTimeline(nb,response.userUid)
         else IsTimesheet(nb)
     })
-    string +=`<a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>`
+    //string +=`<a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>`
 
     dropDownNotif.innerHTML=string
 }
 
-function setReadStatus(notifUid,userUid){
-    let notifDissmissStorage = localStorage.getItem(notifKeyPrefix+userUid)
+// function setReadStatus(notifUid,userUid){
+//     let notifDissmissStorage = localStorage.getItem(notifKeyPrefix+userUid)
 
 
-    if(!notifDissmissStorage) {
-        let container = []
-        container.push(notifUid)
-        localStorage.setItem(notifKeyPrefix+userUid,JSON.stringify(container))
-        container=[]
-        AjaxNotifBar()
-    }
+//     if(!notifDissmissStorage) {
+//         let container = []
+//         container.push(notifUid)
+//         localStorage.setItem(notifKeyPrefix+userUid,JSON.stringify(container))
+//         container=[]
+//         AjaxNotifBar()
+//     }
+// }
+
+function SetCounterNotif(notifLength){
+    counterNotif.innerHTML=`${notifLength}`
+    if(notifLength==0) counterNotif.style.display="none"
+    else counterNotif.style.display="inline"
 }
 
 function GetNotifDetail(notifUUid){
@@ -63,13 +72,31 @@ function GetNotifDetail(notifUUid){
             totduration = duration.days()
 
             //Check if the date +1 or +2 from curren date summon button dissmiss
-            if(totduration==1 ||totduration==2 )document.querySelector("#modalNotifDismissButton").style.display="inline"   
-            else document.querySelector("#modalNotifDismissButton").style.display="none"   
+            if(totduration==1 ||totduration==2 ){
+                buttondissmiss.style.display="inline" 
+                buttondissmiss.setAttribute("notif-uid",response.uuid)
+            }  
+            else buttondissmiss.style.display="none"   
 
             
         }
     });
 }
+
+
+
+buttondissmiss.addEventListener("click",(e)=>{
+    e.preventDefault()
+    $.ajax({
+        type: "post",
+        url: setUrlNotifRead_var,
+        data: {uuid:buttondissmiss.getAttribute("notif-uid")},
+        success: function (response) {
+            console.log(response)
+            AjaxNotifBar()
+        }
+    });
+})
 
 
 function IsTimeline(nb,userUid){
