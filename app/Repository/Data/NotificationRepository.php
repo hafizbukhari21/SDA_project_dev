@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository\Data;
 
+use App\Models\notif_read;
 use App\Models\notification;
 use App\Repository\GeneralRepository;
 use App\Repository\UserRepository;
@@ -14,6 +15,7 @@ class NotificationRepository extends GeneralRepository{
     private UserRepository $useRepo;
     public function __construct(UserRepository $userRepository){
         $this->objectName = new  notification();
+        
         $this->useRepo = $userRepository;
     }
 
@@ -52,12 +54,6 @@ class NotificationRepository extends GeneralRepository{
         return $this->objectName->where("uuid",$Uuid)->get()->load(["timeline","timeline.project"])->first();
     }
 
-    public function setAsRead($userId,$notifId){
-        return $this->objectName->create([
-            "id_user"=>$userId,
-            "id_notif"=>$userId,
-            "uuid"=>Str::uuid()
-        ]);
-    }
+    
 
 }
