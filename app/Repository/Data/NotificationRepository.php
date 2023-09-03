@@ -32,12 +32,17 @@ class NotificationRepository extends GeneralRepository{
         $carbonPrev2Day = $carbon->add(-2,"day")->format("Y-m-d");
         $carbonNext2Day = $carbon->add(2,"day")->format("Y-m-d");
         $userUid = $this->useRepo->getUserUIDbyId($userId);
-        $notifBar = $this->objectName->whereHas("timeline",function($timeline) use($carbonPrev2Day,$carbonNext2Day){
-            $timeline->whereBetween("to",[$carbonPrev2Day,$carbonNext2Day]);
-        })->get()->load("timeline.project", "timesheet_submit");
-
+        $notifBar = $this->objectName->
+                    whereDoesntHave("notif_read",function($notif_read) use($userId){
+                        $notif_read->where("id_user",$userId);//Cek The notif has been read or not
+                    })->
+                    whereHas("timeline",function($timeline) use($carbonPrev2Day,$carbonNext2Day){
+                        $timeline->whereBetween("to",[$carbonPrev2Day,$carbonNext2Day]);//filter time interval next 2 Days or prev 2 days
+                    })->
+                    get()->load("timeline.project", "timesheet_submit");
         
-        //cek kalo notif kosong
+        
+        //cek if notif Is Empty
         if(!$notifBar) return compact(["userUid",""]);
        
         return compact(["notifBar","userUid"]);
@@ -45,6 +50,14 @@ class NotificationRepository extends GeneralRepository{
 
     public function GetNotifDetail($Uuid){
         return $this->objectName->where("uuid",$Uuid)->get()->load(["timeline","timeline.project"])->first();
+    }
+
+    public function setAsRead($userId,$notifId){
+        return $this->objectName->create([
+            "id_user"=>$userId,
+            "id_notif"=>$userId,
+            "uuid"=>Str::uuid()
+        ]);
     }
 
 }

@@ -56,6 +56,17 @@ function GetNotifDetail(notifUUid){
             document.querySelector("#modalNotifTaskName").innerHTML = "Task - "+response.timeline.task_name
             document.querySelector("#modalNotifDate").innerHTML = `${moment(response.timeline.from).format("MMM-DD, YYYY")} s.d. ${moment(response.timeline.to).format("MMM-DD, YYYY")}`
             document.querySelector("#modalNotifTaskDetail").innerHTML = response.timeline.notes
+           
+            let to = moment(response.timeline.to,"YYYY-MM-DD")
+            let currentDate = moment().date()
+            let duration = moment.duration(to.diff(currentDate))
+            totduration = duration.days()
+
+            //Check if the date +1 or +2 from curren date summon button dissmiss
+            if(totduration==1 ||totduration==2 )document.querySelector("#modalNotifDismissButton").style.display="inline"   
+            else document.querySelector("#modalNotifDismissButton").style.display="none"   
+
+            
         }
     });
 }

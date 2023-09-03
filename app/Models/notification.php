@@ -29,6 +29,10 @@ class notification extends Model
         return $this->belongsTo(project_timeline::class,"timelineId","id");
     }
 
+    public function notif_read(){
+        return $this->hasOne(notif_read::class,"id_notif","id");
+    }
+
 
     
 
