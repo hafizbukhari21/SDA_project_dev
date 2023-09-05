@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
-
+    <meta name='robots' content='noindex, follow' />
     <title>SDA - Jalin</title>
 
     <!-- Custom fonts for this template-->

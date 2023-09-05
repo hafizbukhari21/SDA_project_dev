@@ -41,6 +41,15 @@ Route::get("/project/getAll",[projectController::class,"getAllProject"]);
 
 //fixing controller
 Route::group(['middleware'=>'SessionControlWeb'],function(){
+    Route::group(['middleware'=>'SessionControlWeb_SuperUser'],function(){
+        Route::prefix("superUser")->group(function(){
+            Route::prefix("user")->group(function(){
+                Route::view("management","Pages.role_superUser.userManagement")->name("superuser.user.management");
+            });
+        });
+    });
+
+
     Route::prefix('user')->group(function () {
         // Route::post("register",[userController::class,"registerUser"])->name("registerUser");
         Route::get("head",[userController::class,"returnAllHead"])->name("user.head");//ajax Route

@@ -7,7 +7,7 @@
     <div id="userManagement" class="collapse timelineDropdown" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Components:</h6>
-            <a class="collapse-item" href=""> User Management</a>
+            <a class="collapse-item" href="{{ route('superuser.user.management') }}"> User Management</a>
             
         </div>
     </div>

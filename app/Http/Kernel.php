@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'SessionControl' => \App\Http\Middleware\SessionControlJwt::class,
         'SessionControlWeb'=> \App\Http\Middleware\sessionControlWeb::class,
         'SessionControlWeb_Head'=>\App\Http\Middleware\sessionControlWeb_HeadRole::class,
+        'SessionControlWeb_SuperUser'=>\App\Http\Middleware\sessionControlWeb_SuperUserRole::class,
         
     ];
 }
