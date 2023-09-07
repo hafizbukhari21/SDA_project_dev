@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid();
             $table->enum("group",["timeline","timesheet"]);
             $table->foreignId("timelineId")->nullable()->references("id")->on("projects_timeline")->onDelete("cascade")->onUpdate("cascade");
-            $table->foreignId("timesheetsubmitId")->nullable()->references("id")->on("timesheet_submit")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreignId("timesheetsubmitId")->nullable()->references("id")->on("timeSheet_submit")->onDelete("cascade")->onUpdate("cascade");
             $table->timestamps();
             $table->softDeletes();
         });
