@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement(" ALTER TABLE timesheetactivity MODIFY COLUMN status ENUM('rej', 'apv', 'rev','new') DEFAULT 'new'");
+        DB::statement(" ALTER TABLE timeSheetActivity MODIFY COLUMN status ENUM('rej', 'apv', 'rev','new') DEFAULT 'new'");
 
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement(" ALTER TABLE timesheetactivity MODIFY COLUMN status ENUM('rej', 'apv', 'rev','new') DEFAULT 'new'");
+        DB::statement(" ALTER TABLE timeSheetActivity MODIFY COLUMN status ENUM('rej', 'apv', 'rev','new') DEFAULT 'new'");
 
     }
 };
