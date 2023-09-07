@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('timesheet_submit', function (Blueprint $table) {
+        Schema::table('timeSheet_submit', function (Blueprint $table) {
             $table->integer("attemp");
             $table->date("approvalDate");
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('timesheet_submit', function (Blueprint $table) {
+        Schema::table('timeSheet_submit', function (Blueprint $table) {
             $table->dropColumn("attemp");
             $table->dropColumn("approvalDate");
         });

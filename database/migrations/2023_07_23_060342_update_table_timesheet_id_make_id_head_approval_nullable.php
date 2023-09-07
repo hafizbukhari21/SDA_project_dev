@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         
-        Schema::table('timesheet_submit', function (Blueprint $table) {
+        Schema::table('timeSheet_submit', function (Blueprint $table) {
            
             $table->foreignId("idUser_Head_approval")->nullable()->change();
 
