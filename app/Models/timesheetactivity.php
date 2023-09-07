@@ -11,7 +11,7 @@ class timesheetactivity extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public $table ="timesheetactivity";
+    public $table ="timeSheetActivity";
 
     protected $fillable =[
         "timeSheet_id",

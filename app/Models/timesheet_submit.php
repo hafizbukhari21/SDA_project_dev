@@ -11,7 +11,7 @@ class timesheet_submit extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public $table = "timesheet_submit";
+    public $table = "timeSheet_submit";
     protected $fillable = [
         "timeSheet_id",
         "idUser",
