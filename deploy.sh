@@ -19,8 +19,16 @@ php artisan clear-compiled
 # Recreate cache
 php artisan optimize
 
+
 # Run database migrations
 php artisan migrate 
+
+# Reset Config
+php artisan config:cache
+php artisan config:clear
+
+# Reset Route Cache
+php artisan route:cache
 
 # Exit maintenance mode
 php artisan up
