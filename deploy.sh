@@ -22,6 +22,9 @@ php artisan optimize
 # Run database migrations
 php artisan migrate 
 
+php artisan config:cache
+php artisan config:clear
+
 # Exit maintenance mode
 php artisan up
 
