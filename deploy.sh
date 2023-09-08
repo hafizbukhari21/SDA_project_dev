@@ -30,6 +30,7 @@ php artisan config:clear
 # Reset Route Cache
 php artisan route:cache
 
+#other
 # Exit maintenance mode
 php artisan up
 
