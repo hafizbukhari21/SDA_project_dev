@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             $table->string("pic_am")->nullable();
+            $table->string("status_progress")->nullable();
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             $table->dropColumn("pic_am");
+            $table->dropColumn("status_progress");
         });
     }
 };
