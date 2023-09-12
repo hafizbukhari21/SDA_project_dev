@@ -80,6 +80,7 @@
                                             <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
+                                            <th>PIC AM</th>
                                             <th>Urgensi</th>
                                             <th>Time</th>
                                             
@@ -93,6 +94,7 @@
                                             <th>Project ID QAMS</th>
                                             <th>Project Name</th>
                                             <th>PIC Name</th>
+                                            <th>PIC AM</th>
                                             <th>Urgensi</th>
                                             <th>Time</th>
                                             
@@ -239,6 +241,9 @@
                     },
                     {
                         "data":"user_creator.name",
+                    },
+                    {
+                        "data":"pic_am",
                     },
                     {
                         "data":"urgensi",
