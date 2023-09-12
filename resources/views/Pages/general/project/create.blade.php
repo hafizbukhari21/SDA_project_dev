@@ -30,6 +30,9 @@
                                     <option value="3">Three</option> -->
                                   </select>
                             </div>
+                            @else
+                            <input type="hidden" class="form-control " name="user_creator_id" >
+
                             @endif
                             <div class="form-group ">
                                 <label for="">Category</label>
