@@ -19,6 +19,9 @@
                             <div class="form-group ">
                                 <input type="text" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS" required>
                             </div>
+                            <div class="form-group ">
+                                <input type="text" class="form-control " name="pic_am" id="idProjectJalin"placeholder="PIC AM" required>
+                            </div>
                             @if (session()->get("sessionKey")["role"]=="Head")
                             <div class="form-group">
                                 <label for="">PIC</label>

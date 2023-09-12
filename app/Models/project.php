@@ -14,7 +14,6 @@ class project extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         "project_name",
-        "pic_id", 
         "category_id", 
         "user_creator_id",
         "status",
