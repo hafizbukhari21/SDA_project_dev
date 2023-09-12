@@ -20,7 +20,7 @@
                                 <input type="text" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS" required>
                             </div>
                             <div class="form-group ">
-                                <input type="text" class="form-control " name="pic_am" id="idProjectJalin"placeholder="PIC AM" required>
+                                <input type="text" class="form-control " name="pic_am" id="idPIAM"placeholder="PIC AM" required>
                             </div>
                             @if (session()->get("sessionKey")["role"]=="Head")
                             <div class="form-group">
@@ -286,6 +286,7 @@
                     $("#time_update").val(response.time)
                     $("#urgensi_update").val(response.urgensi)
                     $("#project_id_update").val(response.id)
+                    $("#pic_am_update").val(response.pic_am)
                     $("#previewUrgensi_update").html(response.urgensi);
 
                 }

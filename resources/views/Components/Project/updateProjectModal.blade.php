@@ -35,6 +35,12 @@
                                
                             </select>
                         </div>
+                        <div class="form-group ">
+                            <label for="">PIC AM</label>
+                            <input type="text" class="form-control " id="pic_am_update" name="pic_am" aria-label="Default select example">
+                               
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="">Status</label>
                             <textarea type="text" class="form-control status_update"  id="status_update" name= "status" placeholder="Status"></textarea>
