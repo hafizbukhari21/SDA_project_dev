@@ -23,9 +23,7 @@ class project extends Model
         "idProjectJalin"
     ];
    
-    public function pic_id(){
-        return $this->belongsTo(User::class,"pic_id","id");
-    }
+ 
     public function user_creator(){
         return $this->belongsTo(User::class,"user_creator_id","id");
     }

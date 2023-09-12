@@ -9,7 +9,7 @@ function GetTimelineRoute(){
         type: "get",
         url: setUrlTimeline_Var,
         success: function (response) {
-
+            
             $(".timeLineChild").attr("href", "/project/detail/"+response[0].id);
         }
     });

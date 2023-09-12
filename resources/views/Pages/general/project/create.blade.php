@@ -19,16 +19,18 @@
                             <div class="form-group ">
                                 <input type="text" class="form-control " name="idProjectJalin" id="idProjectJalin"placeholder="Project ID QAMS" required>
                             </div>
+                            @if (session()->get("sessionKey")["role"]=="Head")
                             <div class="form-group">
                                 <label for="">PIC</label>
 
-                                <select class="form-control" id="project_pic_id" name="pic_id" aria-label="Default select example" required>
+                                <select class="form-control" id="project_pic_id" name="user_creator_id" aria-label="Default select example" required>
                                     <!-- <option selected>PIC</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option> -->
                                   </select>
                             </div>
+                            @endif
                             <div class="form-group ">
                                 <label for="">Category</label>
                                 <select class="form-control " id="category_project" name="category_id" aria-label="Default select example" required>
@@ -50,9 +52,7 @@
                                 
                                 <label for="customRange2" class="form-label">Urgensi - <span id="previewUrgensi" >0</span></label><br>
                                 <input type="range" class="form-control" value="0" min="0" max="5" name="urgensi" step="1" id="urgensi" required>
-                            </div>
-                            <input type="hidden" name="user_creator_id" value="{{session()->get("sessionKey")["id"]}}" required>
-                            
+                            </div>                            
                             <button type="submit" class="btn btn-primary   btn-block">
                                 Create Project 
                             </button>
@@ -232,7 +232,7 @@
                         "data":"project_name",
                     },
                     {
-                        "data":"pic_id.name",
+                        "data":"user_creator.name",
                     },
                     {
                         "data":"urgensi",
@@ -274,7 +274,7 @@
                 success: function (response) {
                     console.log(response)
                     $("#project_name_update").val(response.project_name)
-                    $("#project_pic_id_update").val(response.pic_id.id)
+                    $("#project_pic_id_update").val(response.user_creator.id)
                     $("#category_project_update").val(response.category_id);
                     $("#status_update").trumbowyg('html', response.status)
                     $("#time_update").val(response.time)
@@ -293,6 +293,7 @@
                 url: "{{route('project.update')}}",
                 data: $(this).serialize(),
                 success: function (response) {
+                    
                     table.ajax.reload()
                     Alertify({
                             message:"Berhasil Update Project",

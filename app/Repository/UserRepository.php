@@ -27,6 +27,11 @@ class UserRepository {
     public function getAllHead(){
         return $this->user->where("role","Head")->get();
     }
+
+    //Only For Login as Head
+    public function getAllMyOfficer(){
+        return $this->user->where("myHeadId",session()->get("sessionKey")["id"])->get();
+    }
     public function insert($request){
 
         $payload = User::create($request->all()) ;

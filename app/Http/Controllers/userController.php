@@ -49,6 +49,10 @@ class userController extends Controller
         return $this->userRepository->getAllHead();
     }
 
+    public function returnMyOfficer(){
+        return $this->userRepository->getAllMyOfficer();
+    }
+
     
 
   

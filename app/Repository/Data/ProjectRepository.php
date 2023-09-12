@@ -23,7 +23,7 @@ class ProjectRepository extends GeneralRepository{
     public function getProjectDetail($project_id){
         //return $this->objectName->where("id","=",$project_id)->get()->load("projects_timeline","pic_id","category_project")->first();
 
-        $projects = $this->objectName->where("id","=",$project_id)->get();
+        $projects = $this->objectName->where("id","=",$project_id)->get()->load("user_creator");
         foreach($projects as $project){
            $project->load(["projects_timeline"=>function($pt){
             $pt->whereHas("group",function(Builder $q){
@@ -31,7 +31,7 @@ class ProjectRepository extends GeneralRepository{
             });
             $pt->orderby("from","asc");
            }]);
-           $project->load("pic_id");
+
            $project->load("category_project");
            foreach($project->projects_timeline as $timeline){
             $timeline->load("group");
@@ -42,7 +42,14 @@ class ProjectRepository extends GeneralRepository{
     }
 
     public function getProjectWith_PicAndCreator(){
-        return $this->objectName->where("user_creator_id",session()->get("sessionKey")["id"])->get()->load("pic_id","user_creator","category_project");//get session value should be from controller
+        if (session()->get("sessionKey")["role"]=="Head") 
+            return $this->objectName
+                ->whereHas("user_creator", function($userCreatorId){
+                    $userCreatorId->myHeadId = session()->get("sessionKey")["id"];
+                })
+                ->get()->load("user_creator","category_project");
+
+        return $this->objectName->where("user_creator_id",session()->get("sessionKey")["id"])->get()->load("user_creator","category_project");//get session value should be from controller
     }
 
     public function getProjectList(){

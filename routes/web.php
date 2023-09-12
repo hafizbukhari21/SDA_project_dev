@@ -52,7 +52,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 
     Route::prefix('user')->group(function () {
         // Route::post("register",[userController::class,"registerUser"])->name("registerUser");
-        Route::get("head",[userController::class,"returnAllHead"])->name("user.head");//ajax Route
+        Route::get("head",[userController::class,"returnMyOfficer"])->name("user.head");//ajax Route
     });
     Route::prefix('project')->group(function(){
         Route::view("create","Pages.general.project.create")->name("project.create");

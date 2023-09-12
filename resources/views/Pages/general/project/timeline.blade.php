@@ -245,9 +245,9 @@
             url: project_myproject_url,
             
             success: function (response) {
-                console.log(response)
+                // console.log(response)
                 project_name.innerHTML = response.project_name
-                pic_name.innerHTML = response.pic_id.name
+                pic_name.innerHTML = response.user_creator.name
                 summary.innerHTML = response.status
                 project_id_new_task_form.value = response.id
                 timelineDataParse = TimelineDataParser(response,editableTable)
