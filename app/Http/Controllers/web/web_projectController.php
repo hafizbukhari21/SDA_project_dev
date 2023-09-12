@@ -31,7 +31,9 @@ class web_projectController extends Controller
 
     public function setProject(Request $req){
         if (session()->get("sessionKey")["role"]=="Officer") $req->merge(["user_creator_id" => session()->get("sessionKey")["id"]]);//Role Officer
-        return $this->projectRepo->insert($req);
+        $project =  $this->projectRepo->insert($req);
+        $statusUUid = $this->projectRepo->setProjectUID($project->id);
+        return $project;
     }
 
     public function deleteProject (Request $req){

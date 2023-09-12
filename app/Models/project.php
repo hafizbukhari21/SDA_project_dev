@@ -20,7 +20,10 @@ class project extends Model
         "status",
         "time",
         "urgensi",
-        "idProjectJalin"
+        "idProjectJalin",
+        "pic_am",
+        "status_progress",
+        "uuid"
     ];
    
  

@@ -7,6 +7,8 @@ use App\Utils\variableChecker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class ProjectRepository extends GeneralRepository{
 
@@ -18,6 +20,12 @@ class ProjectRepository extends GeneralRepository{
 
     public function myProject(Request $req){
         return $this->objectName->where("pic_id",$req->User()->id)->get(); 
+    }
+
+    public function setProjectUID($projectId){
+        $project = $this->objectName->find($projectId);
+        $project->uuid = Str::orderedUuid();
+        return $project->save();
     }
 
     public function getProjectDetail($project_id){
@@ -51,6 +59,8 @@ class ProjectRepository extends GeneralRepository{
 
         return $this->objectName->where("user_creator_id",session()->get("sessionKey")["id"])->get()->load("user_creator","category_project");//get session value should be from controller
     }
+
+
 
     public function getProjectList(){
         $payloads=$this->objectName->get();
