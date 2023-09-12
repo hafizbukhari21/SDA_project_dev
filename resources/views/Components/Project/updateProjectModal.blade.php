@@ -15,9 +15,10 @@
                             <label for="">Project Name</label>
                                 <input type="text" class="form-control " name="project_name" id="project_name_update"placeholder="Project Name">
                         </div>
+                        @if (session()->get("sessionKey")["role"]=="Head")
                         <div class="form-group">
                             <label for="">PIC</label>
-                            <select class="form-control" id="project_pic_id_update" name="pic_id" aria-label="Default select example">
+                            <select class="form-control" id="project_pic_id_update" name="user_creator_id" aria-label="Default select example">
                                 <!-- <option selected>PIC</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
@@ -25,6 +26,9 @@
                               </select>
 
                         </div>
+                        @else
+                            <input type="hidden" class="form-control " name="user_creator_id" >
+                         @endif
                         <div class="form-group ">
                             <label for="">Category</label>
                             <select class="form-control " id="category_project_update" name="category_id" aria-label="Default select example">
