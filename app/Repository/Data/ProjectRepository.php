@@ -4,6 +4,7 @@ namespace App\Repository\Data;
 use App\Repository\GeneralRepository;
 use App\Models\project;
 use App\Utils\variableChecker;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,18 @@ class ProjectRepository extends GeneralRepository{
 
     public function __construct(){
         $this->objectName = new project();
+    }
+
+
+    public function getTotalProject(){
+        return $this->objectName->count();
+    }
+
+    public function getTotalProjectOpen(){
+        $currentDate = Carbon::now()->format("Y-m-d");
+        return $this->objectName->whereHas("projects_timeline",function (Builder $q) use($currentDate){
+            $q->where("to",">",$currentDate)->orderBy("to","desc");// Project yang punya timeline yang deadlinenya lebih besar dari hari ini
+        })->count();
     }
 
     public function myProject(Request $req){

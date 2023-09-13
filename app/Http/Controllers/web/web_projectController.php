@@ -13,13 +13,22 @@ class web_projectController extends Controller
         $this->projectRepo = $projectRepository;
     }
 
+    public function getTotalProject(){
+        $totalProject =  $this->projectRepo->getTotalProject();
+        $totalProjectOpen = $this->projectRepo->getTotalProjectOpen();
+        $totalProjectClosed = $totalProject-$totalProjectOpen;
+
+        return compact("totalProject","totalProjectOpen","totalProjectClosed");
+    }
+
+
     public function getMyProject(Request $req, $idProject){
         // if($this->projectRepo->cekProjectOwnerShip_web($req,$idProject)==null){
         //     return response(null,401);
         // }
         return $this->projectRepo->getProjectDetail($idProject);
-    }   
-
+    }  
+    
 
     public function setStatusUpdate(Request $req){
         return $this->projectRepo->setStatusUpdate($req);
