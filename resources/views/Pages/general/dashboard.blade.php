@@ -19,16 +19,11 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                My Time</div>
-                            <!-- <div class="row h5 mb0- font-weight-bold text-gray-800">
-                                <div id="col-xl-6 col-md-6">
-                                    $40,000
-                                </div>
-                                <div id="col-xl-6 col-md-6">
-                                    $40,000
-                                </div>
-                            </div> -->
+                            <div class="text-xs  mb-1">
+                                <span class="font-weight-bold text-primary text-uppercase">Total Project</span>
+                                <h5 id="totProject"></h5>
+                            </div>
+                          
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -44,18 +39,11 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                My Avibility</div>
-                                <!-- <div class="row  mb0- font-weight-bold text-gray-800">
-                                    <div class="row">
-                                        <div class="col">
-                                            Availbility
-                                          </div>
-                                          <div class="col">
-                                            Capacity
-                                          </div>
-                                    </div>
-                                </div> -->
+                            <div class="text-xs  mb-1">
+                                <span class="font-weight-bold text-primary text-uppercase">Total Open Project</span>
+                                <h5 id="totProjectOpen"></h5>
+                            </div>
+                         
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -71,22 +59,14 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">My Utilization
+                            <div class="text-xs  mb-1">
+                                <span class="font-weight-bold text-primary text-uppercase">Total Closed Project</span>
+                                <h5 id="totProjectClosed"></h5>
                             </div>
-                            <!-- <div class="row no-gutters align-items-center">
-                                <div class="row h5 mb0- font-weight-bold text-gray-800">
-                                    <div id="col-xl-6 col-md-6">
-                                        $40,000
-                                    </div>
-                                    <div id="col-xl-6 col-md-6">
-                                        $40,000
-                                    </div>
-                                </div>
-                               
-                            </div> -->
+                          
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -178,4 +158,23 @@
     
 
 </div>
+@endsection
+
+@section("jsScript")
+<script>
+    const totProject = document.querySelector("#totProject")
+    const totProjectOpen = document.querySelector("#totProjectOpen")
+    const totProjectClosed = document.querySelector("#totProjectClosed")
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: "{{route('project.total')}}",
+            success: function (response) {
+                totProject.innerHTML = response.totalProject
+                totProjectOpen.innerHTML = response.totalProjectOpen
+                totProjectClosed.innerHTML = response.totalProjectClosed
+            }
+        });
+    });
+</script>
 @endsection
