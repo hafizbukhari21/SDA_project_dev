@@ -9,35 +9,35 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="user" id="addTaskForm">
+                    <form class="user needs-validation" id="addTaskForm" novalidate>
                         @csrf
                         <div class="row">
                             <div class="col-lg-6      ">
                                 <div class="form-group ">
-                                    <label for="">Project Name</label>
-                                        <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Project Name">
+                                    <label for="">Task Name</label>
+                                        <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Project Name" required>
                                 </div>
                                
                                 <div class="form-group">
                                     <label for="">Select Group</label>
-                                    <select class="form-control" id="timeline_group" name="idGroup" aria-label="Default select example">
+                                    <select class="form-control" id="timeline_group" name="idGroup" aria-label="Default select example" required>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6      ">
                                 <div class="form-group ">
                                     <label for="">Start Date</label>
-                                    <input type="date" class="form-control " name="from" id="project_name"placeholder="Start Date">
+                                    <input type="date" class="form-control " name="from" id="timeline_from" placeholder="Start Date" required>
                                 </div>
                                 <div class="form-group ">
                                     <label for="">End Date</label>
-                                    <input type="date" class="form-control " name="to" id="project_name"placeholder="End Date">
+                                    <input type="date" class="form-control " name="to" id="timeline_to" placeholder="End Date" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group ">
                             <label for="">Notes</label>
-                            <textarea type="text" class="form-control " name="notes" id="project_name"placeholder="Notes"></textarea>
+                            <textarea type="text" class="form-control " name="notes" id="project_name"placeholder="Notes" required></textarea>
                         </div>
                        
                       
