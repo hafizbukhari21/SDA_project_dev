@@ -53,16 +53,18 @@
                         <div class="row">
                           
                             <div class="col-xl-12 col-lg-12 ">
-                                <h5 class="text-primary">Project - <Span id="project_name"></Span></h5>
+                                <h5 class="text-primary"><Span id="project_name"></Span></h5>
                                 
-                                <p>PIC - <span id="pic_name" ></span></p>
+                                <h6>PIC - <span id="pic_name" ></span></h6>
                             </div>
                             
                         </div>
-                        <div class="form-group col-xl-12 mt-4" >
-                            <label for="">Status Update</label>
+                        @if (session()->get("sessionKey")["role"]=="Head"||session()->get("sessionKey")["id"]==$payload->user_creator_id)
+                        <div class="row col-xl-12 mt-4"  >
+                            <label for="" style="font-size: 12px">Status Update</label>
                             <textarea type="text" class="form-control " autocomplete="off" name="" id="add_status_project"placeholder="Input Status disini" required></textarea>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -182,6 +184,7 @@
     let items = []
     let timelineChart = null
     let timelineChartElement =document.getElementById('timelineChart')
+
     let project_status_update = document.querySelector("#add_status_project")
 
 
@@ -236,111 +239,7 @@
     // Create a timeline chart
 
    
-    $(document).ready(function () {
-        
-        let project_name = document.querySelector("#project_name")
-        let pic_name = document.querySelector("#pic_name")
-        let summary = document.querySelector("#summary")
-        let project_id_new_task_form =document.querySelector("#project_id") 
-        let idProjectInInsertGroupForm =document.querySelector("#idProjectGroup")
-        let timelineDataParse =[]
-        let groupTimeline = []
-        
-       
-      
-        
-        $.ajax({
-            type: "get",
-            url: project_myproject_url,
-            
-            success: function (response) {
-                console.log(response)
-                project_name.innerHTML = response.project_name
-                pic_name.innerHTML = response.user_creator.name
-                summary.innerHTML = response.status
-                project_id_new_task_form.value = response.id
-                timelineDataParse = TimelineDataParser(response,editableTable)
-                idProjectInInsertGroupForm.value = response.id
-                project_status_update.value = response.status_progress==null?"":response.status_progress
-                project_status_update.setAttribute("project-uuid", response.uuid)
-
-                
-                items = new vis.DataSet(timelineDataParse)
-                // timelineChart.setItems(timelineDataParse)
-                timelineChart = new vis.Timeline(timelineChartElement, items, options);
-                //attach group to timeline
-                GetGroupAjax()
-
-                setTimeout(() => {
-                    window.scrollTo(0, 0);
-                }, 1000);
-
-                timelineChart.on('itemover', function (properties) {
-                    // console.log("hover")
-                    const item = items.get(properties.item);
-                    if (item.tooltip) {
-                        const tooltipElement = document.createElement('div');
-                        tooltipElement.className = 'custom-tooltip';
-                        tooltipElement.innerHTML = item.tooltip;
-                        document.body.appendChild(tooltipElement);
-
-                        // Position the tooltip near the mouse cursor
-                        const { pageX, pageY } = properties.event;
-                        tooltipElement.style.left = pageX + 'px';
-                        tooltipElement.style.top = pageY + 'px';
-                    }
-                });
-
-            timelineChart.on('itemout', function () {
-                
-                const tooltip = document.querySelector(".custom-tooltip")
-                
-                if($(".custom-tooltip:hover").length === 0){
-                    const tooltips = document.querySelectorAll('.custom-tooltip');
-                    tooltips.forEach(box => {
-                        box.remove();
-                    });
-                } 
-                tooltip.addEventListener("mouseleave", function(){
-                    const tooltips = document.querySelectorAll('.custom-tooltip');
-                    tooltips.forEach(box => {
-                        box.remove();
-                    });
-                });
-            
-            });
-            
-
-            
-
-            
-     
-            }
-        });
-      
-    });
-
-
-    project_status_update.addEventListener("change",()=>{
-        //console.log({uuid:project_status_update.getAttribute("project-uuid"),value:project_status_update.value})
-        PreAjax()
-        $.ajax({
-            type: "post",
-            url: updateStatusProgressUrl,
-            data: {
-                uuid:project_status_update.getAttribute("project-uuid"),
-                status_progerss:project_status_update.value
-            },
-            success: function (response) {
-                if (response){
-                    Alertify({
-                            message:"Berhasil Mengubah Activity",
-                            duration:5
-                        })
-                }
-            }
-        });
-    })
+   
 
 //zoom timeline specifict group
 timelineChartElement.onclick = (event) => {

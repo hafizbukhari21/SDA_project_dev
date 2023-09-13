@@ -1,3 +1,114 @@
+$(document).ready(function () {
+        
+    let project_name = document.querySelector("#project_name")
+    let pic_name = document.querySelector("#pic_name")
+    let summary = document.querySelector("#summary")
+    let project_id_new_task_form =document.querySelector("#project_id") 
+    let idProjectInInsertGroupForm =document.querySelector("#idProjectGroup")
+    let timelineDataParse =[]
+    let groupTimeline = []
+    
+   
+  
+    
+    $.ajax({
+        type: "get",
+        url: project_myproject_url,
+        
+        success: function (response) {
+            console.log(response)
+            project_name.innerHTML = response.project_name
+            pic_name.innerHTML = response.user_creator.name
+            summary.innerHTML = response.status
+            project_id_new_task_form.value = response.id
+            timelineDataParse = TimelineDataParser(response,editableTable)
+            idProjectInInsertGroupForm.value = response.id
+
+            if(project_status_update){
+                project_status_update.value = response.status_progress==null?"":response.status_progress
+                project_status_update.setAttribute("project-uuid", response.uuid)
+            }
+
+
+            
+            items = new vis.DataSet(timelineDataParse)
+            // timelineChart.setItems(timelineDataParse)
+            timelineChart = new vis.Timeline(timelineChartElement, items, options);
+            //attach group to timeline
+            GetGroupAjax()
+
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 1000);
+
+            timelineChart.on('itemover', function (properties) {
+                // console.log("hover")
+                const item = items.get(properties.item);
+                if (item.tooltip) {
+                    const tooltipElement = document.createElement('div');
+                    tooltipElement.className = 'custom-tooltip';
+                    tooltipElement.innerHTML = item.tooltip;
+                    document.body.appendChild(tooltipElement);
+
+                    // Position the tooltip near the mouse cursor
+                    const { pageX, pageY } = properties.event;
+                    tooltipElement.style.left = pageX + 'px';
+                    tooltipElement.style.top = pageY + 'px';
+                }
+            });
+
+        timelineChart.on('itemout', function () {
+            
+            const tooltip = document.querySelector(".custom-tooltip")
+            
+            if($(".custom-tooltip:hover").length === 0){
+                const tooltips = document.querySelectorAll('.custom-tooltip');
+                tooltips.forEach(box => {
+                    box.remove();
+                });
+            } 
+            tooltip.addEventListener("mouseleave", function(){
+                const tooltips = document.querySelectorAll('.custom-tooltip');
+                tooltips.forEach(box => {
+                    box.remove();
+                });
+            });
+        
+        });
+        
+
+        
+
+        
+ 
+        }
+    });
+  
+});
+
+
+project_status_update.addEventListener("change",()=>{
+    //console.log({uuid:project_status_update.getAttribute("project-uuid"),value:project_status_update.value})
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: updateStatusProgressUrl,
+        data: {
+            uuid:project_status_update.getAttribute("project-uuid"),
+            status_progerss:project_status_update.value
+        },
+        success: function (response) {
+            if (response){
+                Alertify({
+                        message:"Berhasil Mengubah Activity",
+                        duration:5
+                    })
+            }
+        }
+    });
+})
+
+
 function GetGroupAjax(){
     $.ajax({
             type: "get",
