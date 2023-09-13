@@ -60,6 +60,11 @@
                                 </h5>
                                 <p>PIC Project</p>
                             </div>
+                            
+                        </div>
+                        <div class="form-group col-xl-12 mt-4" >
+                            <label for="">Status Update</label>
+                            <textarea type="text" class="form-control " autocomplete="off" name="" id="add_status_project"placeholder="Input Status disini" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -150,6 +155,7 @@
     const updateGroupOrder = " {{ route('group.update.order')}}"
     const updateGroupName = " {{ route('group.update.name')}}"
     const searchProjectUrl= "{{route('project.search.name')}}"
+    const updateStatusProgressUrl = "{{route('project.status_progress')}}"
 </script>
 
 {{-- cek apakah boleh edit data atau tidak --}}
@@ -175,6 +181,8 @@
     let items = []
     let timelineChart = null
     let timelineChartElement =document.getElementById('timelineChart')
+    let project_status_update = document.querySelector("#add_status_project")
+
 
     //url
     let group_timeline_url = ParseRoute_SingleVar("{{route('group.timeline',':projectId')}}",projectId,":projectId")
@@ -245,13 +253,16 @@
             url: project_myproject_url,
             
             success: function (response) {
-                // console.log(response)
+                console.log(response)
                 project_name.innerHTML = response.project_name
                 pic_name.innerHTML = response.user_creator.name
                 summary.innerHTML = response.status
                 project_id_new_task_form.value = response.id
                 timelineDataParse = TimelineDataParser(response,editableTable)
                 idProjectInInsertGroupForm.value = response.id
+                project_status_update.value = response.status_progress==null?"":response.status_progress
+                project_status_update.setAttribute("project-uuid", response.uuid)
+
                 
                 items = new vis.DataSet(timelineDataParse)
                 // timelineChart.setItems(timelineDataParse)
@@ -307,6 +318,28 @@
         });
       
     });
+
+
+    project_status_update.addEventListener("change",()=>{
+        //console.log({uuid:project_status_update.getAttribute("project-uuid"),value:project_status_update.value})
+        PreAjax()
+        $.ajax({
+            type: "post",
+            url: updateStatusProgressUrl,
+            data: {
+                uuid:project_status_update.getAttribute("project-uuid"),
+                status_progerss:project_status_update.value
+            },
+            success: function (response) {
+                if (response){
+                    Alertify({
+                            message:"Berhasil Mengubah Activity",
+                            duration:5
+                        })
+                }
+            }
+        });
+    })
 
 //zoom timeline specifict group
 timelineChartElement.onclick = (event) => {

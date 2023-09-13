@@ -20,6 +20,10 @@ class web_projectController extends Controller
         return $this->projectRepo->getProjectDetail($idProject);
     }   
 
+
+    public function setStatusUpdate(Request $req){
+        return $this->projectRepo->setStatusUpdate($req);
+    }
     public function  returnGetAllProject(){
     
         return $this->projectRepo->getProjectWith_PicAndCreator();

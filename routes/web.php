@@ -65,6 +65,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::get("idList",[web_projectController::class,"returnProjectId"])->name("project.idList");
         Route::get('detail/{id}', [web_projectController::class,"loadTimelinePage"])->name("project.timeline");
         Route::post("search/name",[web_projectController::class,"searchProjectLikeName"])->name("project.search.name");//ajax Route
+        Route::post("update_status_progress",[web_projectController::class,"setStatusUpdate"])->name("project.status_progress");
     });
     Route::prefix('timeline')->group(function(){
         Route::post("create",[web_TimelineController::class,"createTimeLine"])->name("create.timeline");

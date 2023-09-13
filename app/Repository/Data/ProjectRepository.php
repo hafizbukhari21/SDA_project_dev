@@ -28,6 +28,12 @@ class ProjectRepository extends GeneralRepository{
         return $project->save();
     }
 
+    public function setStatusUpdate(Request $req){
+        $project = $this->objectName->where(['uuid'=> $req->uuid])->first();
+        $project->status_progress = $req->status_progerss;
+        return  $project->save();
+    }
+
     public function getProjectDetail($project_id){
         //return $this->objectName->where("id","=",$project_id)->get()->load("projects_timeline","pic_id","category_project")->first();
 
