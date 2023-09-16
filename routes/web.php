@@ -45,6 +45,8 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::prefix("superUser")->group(function(){
             Route::prefix("user")->group(function(){
                 Route::view("management","Pages.role_superUser.userManagement")->name("superuser.user.management");
+                Route::get("getHead",[userController::class,"returnAllHead"])->name("superuser.get.head");
+                Route::post("create",[userController::class,"registerUser"])->name("superuser.user.create");
             });
         });
     });

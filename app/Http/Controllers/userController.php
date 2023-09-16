@@ -35,12 +35,18 @@ class userController extends Controller
     public function registerUser(Request $req){
         $req->validate([
             'name' => 'required',
-            'password'  => 'required',
             'role' => 'required',
             'email' => 'required',
         ]);
+
+        
         $cekEmail=$this->userRepository->getEmail($req->email);
         if(sizeof($cekEmail) >0 ) return "Email Sudah terdaftar";
+        if($req->role != "Officer")unset($req["Role"]); 
+
+        $req->merge(["password" => $req->role]);//set password defalut sesual role 
+        
+
         return $this->userRepository->insert($req);
         
     }
