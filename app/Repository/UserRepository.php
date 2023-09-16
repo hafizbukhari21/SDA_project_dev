@@ -19,6 +19,7 @@ class UserRepository {
     }
 
     public function get($id){
+        return $this->user->where(["id"=>$id]);
     }
     public function getAll(){
         return $this->user->all();
