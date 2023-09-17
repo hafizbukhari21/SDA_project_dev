@@ -55,6 +55,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(project::class,'pic_id',"id");
     }
 
+    public function forget_password(){
+        return $this->hasOne(forget_password::class,"idUser","id");
+    }
+
     public function myHead(){
         return $this->belongsTo(User::class,"myHeadId","id");
     }
