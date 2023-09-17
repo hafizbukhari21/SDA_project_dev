@@ -37,7 +37,7 @@ class ProjectRepository extends GeneralRepository{
 
     public function getAllProjectPaginate(){
         $currentDateTime = Carbon::now()->toDateString();
-        return $this->objectName->with(["user_creator","projects_timeline"=>function($projectTimeline) use($currentDateTime){
+        return $this->objectName->with(["user_creator","category_project","projects_timeline"=>function($projectTimeline) use($currentDateTime){
             $projectTimeline->where("to","<",$currentDateTime)->first();
         }])->paginate(20);
     }

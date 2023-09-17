@@ -109,155 +109,18 @@
                         <table class="table " >
                             <thead>
                               <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Project</th>
+                                <th scope="col">PIC SDA</th>
+                                <th scope="col">PIC AM BPM</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Urgensi</th>
+                                <th scope="col">Total Load</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr> <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                              </tr>
+                            <tbody id="apppendData">
+                             
                             </tbody>
                           </table>
                     </div>
@@ -321,7 +184,7 @@
     const totProjectClosed = document.querySelector("#totProjectClosed")
     const tableWrapper = document.querySelector("#tableWrapper")
     let pageProject = 1
-    let readyNextProjectAjax  = true
+    let readyNextProjectAjax  = false
 
     $(document).ready(function () {
         $.ajax({
@@ -333,6 +196,8 @@
                 totProjectClosed.innerHTML = response.totalProjectClosed
             }
         });
+
+        DoingAjaxData()
     });
 
     tableWrapper.addEventListener("scroll",()=>{
@@ -344,19 +209,39 @@
             pageProject++
             console.log(pageProject)
             readyNextProjectAjax = false
+            DoingAjaxData()
             
-            $.ajax({
-                type: "method",
-                url: "url",
-                data: "data",
-                dataType: "dataType",
-                success: function (response) {
-                    
-                }
-            });
         }
       
     })
+
+
+    function DoingAjaxData(){
+        $.ajax({
+                type: "get",
+                url: `/project/dashboard/detail?page=${pageProject}`,
+                success: function (response) {
+                    pageProject++
+                    readyNextProjectAjax = true
+                    console.log(response)
+                    response.data.map(e=>{
+                        $("#apppendData").append(`
+                        <tr>
+                                <td>${e.project_name}</td>
+                                <td>${e.user_creator.name}</td>
+                                <td>${e.pic_am}</td>
+                                <td>${e.category_project.category_name}</td>
+                                <td>${e.status_progress}</td>
+                                <td>${e.time}</td>
+                                <td>${e.urgensi}</td>
+                                <td>${e.time*e.urgensi}</td>
+                                
+                              </tr>
+                        `);
+                    })
+                }
+            });
+    }
 </script>
 @endsection
 
