@@ -26,9 +26,16 @@ class ProjectRepository extends GeneralRepository{
 
     public function getTotalProjectOpen(){
         $currentDate = Carbon::now()->format("Y-m-d");
-        return $this->objectName->whereHas("projects_timeline",function (Builder $q) use($currentDate){
-            $q->where("to",">",$currentDate)->orderBy("to","desc");// Project yang punya timeline yang deadlinenya lebih besar dari hari ini
+
+        return $this->objectName->doesntHave("projects_timeline")->orWhere(function($query) use($currentDate){
+            $query->whereHas("projects_timeline",function (Builder $q) use($currentDate){
+                $q->where("to",">",$currentDate)->orderBy("to","desc");// Project yang punya timeline yang deadlinenya lebih besar dari hari ini
+            });
         })->count();
+
+        // return $this->objectName->whereHas("projects_timeline",function (Builder $q) use($currentDate){
+        //     $q->where("to",">",$currentDate)->orderBy("to","desc");// Project yang punya timeline yang deadlinenya lebih besar dari hari ini
+        // })->count();
     }
 
     public function myProject(Request $req){
