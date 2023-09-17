@@ -66,8 +66,10 @@ function GetNotifDetail(notifUUid){
             document.querySelector("#modalNotifDate").innerHTML = `${moment(response.timeline.from).format("MMM-DD, YYYY")} s.d. ${moment(response.timeline.to).format("MMM-DD, YYYY")}`
             document.querySelector("#modalNotifTaskDetail").innerHTML = response.timeline.notes
            
+            let date = new Date
             let to = moment(response.timeline.to,"YYYY-MM-DD")
-            let currentDate = moment().date()
+            let currentDate = moment(date.toISOString().split('T')[0],"YYYY-MM-DD")
+            console.log({currentDate})
             let duration = moment.duration(to.diff(currentDate))
             totduration = duration.days()
 
