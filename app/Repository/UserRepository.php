@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 use App\Interfaces\GeneralInterface;
+use App\Mail\forgot_password;
+use App\Mail\Mailer;
 use App\Models\forget_password;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,6 +14,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request as RequestHttp;
+use Illuminate\Support\Facades\Mail;
+
 
 
 class UserRepository {
@@ -83,25 +87,52 @@ class UserRepository {
 
         //Check if ever forget password
         $forget_pass_data = $this->forget_password->whereHas("user",
-        function( $user) use($email){
-            $user->email = $email;
-        });
+        function( Builder $user) use($email){
+            $user->where("email",$email);
+        })->first();
 
+        
         //If Forgetpassword doesnt exist for specifict user
         if(!$forget_pass_data){
             $forgetPassNew = new forget_password();
             $forgetPassNew->idUser = $user->id;
             $forgetPassNew->hash = hash("md5", $user->uuid);
-            $forgetPassNew->expiredTime = $currentTime->addMinutes(5)->toDateTimeString();
+            $forgetPassNew->expiredTime = $currentTime->addMinutes(20)->toDateTimeString();
             $return = $forgetPassNew->save();
         }
         //if Exist just updatate
         else{
-           $forget_pass_data->expiredTime = $currentTime->addMinutes(5)->toDateTimeString();
+           $forget_pass_data->expiredTime = $currentTime->addMinutes(20)->toDateTimeString();
            $forget_pass_data->hash = hash("md5", $user->uuid);
            $return = $forget_pass_data->save();
         }
 
+        $userData = $this->user->where("email",$email)->get()->load("forget_password")->first();
+
+        
+
+        if($return) {
+            Mail::to($user->email)->send(new forgot_password($userData));
+            return "sukses";
+        }
+        
+        return "something wrong";
+
+    }   
+
+
+    public function processForgetPasswod($hash){
+        $forget_password= $this->forget_password->where("hash",$hash)->first();
+        $currentDateTime = Carbon::now()->toDateTimeString();
+        if($forget_password->expiredTime<$currentDateTime) return "expired";
+        else return view("Pages.auth.forgetPasswordForm");
+    }
+
+    public function doResetPassword(RequestHttp $request){
+        $forgetPassword = $this->forget_password->where("hash",$request->hash)->first();
+        $user = $this->user->where("id",$forgetPassword->idUser)->first();
+        $user->password = $request->password;
+        return $user->save();
 
     }
 

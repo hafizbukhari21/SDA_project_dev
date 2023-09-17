@@ -18,6 +18,10 @@
        rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
 
+
+
+
+
    <!-- Custom styles for this template-->
    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
@@ -42,34 +46,29 @@
                             <div class="col-lg-6 ">
                                 <div class="p-5 bg-gray-200">
                                     <div class="text-center">
-                                        <h1 class="h4 text-primary mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-primary mb-4">Reset Password</h1>
                                     </div>
-                                    <form class="user" id="loginForm" >
+                                    <form class="user" id="resetPasswordForm" novalidate >
                                         @csrf
+                                       
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..." name= "email">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="password" placeholder="Input New Password" name="password" required>
+                                            <input type="hidden" value="" name="hash" id="hash">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password" name="password">
+                                                id="rePassword" placeholder="Re Input New Password" name="reinputPass" required>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                {{-- <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label> --}}
-                                            </div>
-                                        </div>
-                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Login">
+                                      
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Reset Password">
                                             
                                        
                                        
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" data-target="#forgotPasswordModal" data-toggle="modal">Forgot Password?</a>
+                                        <a class="small" data-target="#forgotPasswordModal" data-toggle="modal">Back to Login</a>
                                     </div>
                                     
                                 </div>
@@ -98,62 +97,47 @@
 
 
      <script>
-        $("#sentForgetPassword").submit(function (e) { 
+       
+       $(document).ready(function () {
+        const hash = window.location.pathname.split('/')[3]
+        document.querySelector("#hash").value = hash
+        
+       });
+      
+        
+
+        $("#resetPasswordForm").submit(function (e) { 
+            const pass = $("#password").val()
+            const repass = $("#rePassword").val();
             e.preventDefault();
+            if (pass !== repass) {
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "Password Tidak Match" ,
+                    })
+
+                return 
+            }
+
             $.ajax({
                 type: "post",
-                url: "auth/forget_password",
+                url: "{{route('reset.password')}}",
                 data: $(this).serialize(),
-
                 success: function (response) {
-                    console.log(response)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: "Password Berhasil diganti" ,
+                    })
                 }
             });
             
         });
-        $("#loginForm").submit(function (e) { 
-              Swal.fire({
-        title: 'Please Wait !!!',
-        html: `<div class="spinner-grow text-primary" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-secondary" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-success" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-danger" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                            <div class="spinner-grow text-warning" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>`,
-        allowOutsideClick: false,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-        showConfirmButton: false,
-    });
-            e.preventDefault();
-            $.ajax({
-                type: "post",
-                url: "{{ route('loginWeb') }}",
-                data: $(this).serialize(),
-                success: function (response) {
-                    if (response=="Gagal Login"){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Kesalahan Username dan Password',
-                        text: response,
-                    })
-                    }
-                    else{
-                        window.location.href ="{{route('dashboard')}}"
-                    }
-                }
-            });
-        });
+
+            
+        
+      
      </script>
 </body>
 

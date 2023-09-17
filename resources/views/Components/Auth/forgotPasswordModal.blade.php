@@ -9,11 +9,11 @@ aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">
-            <form class="user" id="updateTask">
+            <form class="user needs-validation" id="sentForgetPassword" novalidate>
                 @csrf
                 <div class="form-group ">
                     <label for="">Insert Your Email</label>
-                        <input type="email" class="form-control " name="task_name" id="timeline_name_update" placeholder="email">
+                        <input type="email" class="form-control " name="email" id="timeline_name_update" placeholder="email" required>
                 </div>
         </div>
         <div class="modal-footer">

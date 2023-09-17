@@ -37,6 +37,28 @@ class authWebController extends Controller
         return redirect("");
     }
 
+    public function forgotPassword(Request $req){
+        $return = null;
+
+        return [
+            "status" => $this->authRepo->requestForgotPassword($req,$return),
+            "value" => $return
+        ];
+        
+    }
+
+    public function receivedForget($hash){
+        return $this->authRepo->processForgetPasswod($hash);
+
+    }
+
+    public function doResetPassword (Request $request){
+        return $this->authRepo->doResetPassword($request);
+    }
+
+    
+
+
 
 
 }

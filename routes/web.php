@@ -37,6 +37,8 @@ Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjec
 
 Route::get("/project/getAll",[projectController::class,"getAllProject"]);
 
+Route::view("/forgotPass","Mail.forgetPassword");
+
 
 
 //fixing controller
@@ -127,6 +129,9 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
 Route::group(["prefix"=>"auth"],function(){
     Route::post("login",[authWebController::class,"loginWeb"])->name("loginWeb");
     Route::get("logout",[authWebController::class,"logoutWeb"])->name("logout");
+    Route::post("forget_password",[authWebController::class,"forgotPassword"]);
+    Route::get("forget_password/{hash}",[authWebController::class,"receivedForget"]);
+    Route::post("forget_password/reset/password",[authWebController::class,"doResetPassword"])->name("reset.password");
 });
 
 
