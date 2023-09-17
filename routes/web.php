@@ -71,6 +71,9 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             Route::get('detail/{id}', [web_projectController::class,"loadTimelinePage"])->name("project.timeline");
             Route::post("search/name",[web_projectController::class,"searchProjectLikeName"])->name("project.search.name");//ajax Route
             Route::post("update_status_progress",[web_projectController::class,"setStatusUpdate"])->name("project.status_progress");
+            Route::get('dashboard/detail', [web_projectController::class,"getAllProjectDashboard"])->name("project.dashboard.detail");
+
+            
     
             Route::get("totalProject",[web_projectController::class,"getTotalProject"])->name("project.total");
         });

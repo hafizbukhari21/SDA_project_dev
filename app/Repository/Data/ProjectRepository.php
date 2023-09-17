@@ -35,6 +35,13 @@ class ProjectRepository extends GeneralRepository{
         return $this->objectName->where("pic_id",$req->User()->id)->get(); 
     }
 
+    public function getAllProjectPaginate(){
+        $currentDateTime = Carbon::now()->toDateString();
+        return $this->objectName->with(["user_creator","projects_timeline"=>function($projectTimeline) use($currentDateTime){
+            $projectTimeline->where("to","<",$currentDateTime)->first();
+        }])->paginate(20);
+    }
+
     public function setProjectUID($projectId){
         $project = $this->objectName->find($projectId);
         $project->uuid = Str::orderedUuid();

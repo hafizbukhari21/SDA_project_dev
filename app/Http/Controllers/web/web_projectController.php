@@ -68,6 +68,11 @@ class web_projectController extends Controller
 
     }
 
+
+    public function getAllProjectDashboard(){
+        return $this->projectRepo->getAllProjectPaginate();
+    }
+
     
 
     
