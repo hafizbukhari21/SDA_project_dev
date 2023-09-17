@@ -25,7 +25,7 @@ class authWebController extends Controller
         if($token==null) return  "Gagal Login";
 
 
-        $req->session()->put("sessionKey",$req->User());
+        $req->session()->put("sessionKey",$req->User()->first());
 
         return redirect("dashboard");
 
