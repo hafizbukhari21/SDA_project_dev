@@ -69,7 +69,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" data-target="#forgotPasswordModal" data-toggle="modal">Forgot Password?</a>
                                     </div>
                                     
                                 </div>
@@ -82,6 +82,7 @@
 
         </div>
 
+        @include('Components.Auth.forgotPasswordModal')
     </div>
 
      <!-- Bootstrap core JavaScript-->

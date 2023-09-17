@@ -2,20 +2,27 @@
 
 namespace App\Repository;
 use App\Interfaces\GeneralInterface;
+use App\Models\forget_password;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
 use App\Repository\Data\Timesheet_Repository;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request as RequestHttp;
+
 
 class UserRepository {
    
     public User $user;
+    public forget_password $forget_password;
     public Timesheet_Repository $timesheetRepo;
-    public function __construct(User $user, Timesheet_Repository $timesheet_Repository){
+    public function __construct(User $user, Timesheet_Repository $timesheet_Repository, forget_password $forget_password){
         $this->user = $user;
         $this->timesheetRepo = $timesheet_Repository;
+        $this->forget_password = $forget_password;
     }
 
     public function get($id){
@@ -66,6 +73,36 @@ class UserRepository {
     public function getUserUIDbyId($userid){
         return $this->user->find($userid)->uuid;
         
+    }
+
+    public function requestForgotPassword(RequestHttp $req, &$return){
+        $currentTime = Carbon::now();
+        $email = $req->email;
+
+        $user = $this->user->where("email",$email)->first();
+
+        //Check if ever forget password
+        $forget_pass_data = $this->forget_password->whereHas("user",
+        function( $user) use($email){
+            $user->email = $email;
+        });
+
+        //If Forgetpassword doesnt exist for specifict user
+        if(!$forget_pass_data){
+            $forgetPassNew = new forget_password();
+            $forgetPassNew->idUser = $user->id;
+            $forgetPassNew->hash = hash("md5", $user->uuid);
+            $forgetPassNew->expiredTime = $currentTime->addMinutes(5)->toDateTimeString();
+            $return = $forgetPassNew->save();
+        }
+        //if Exist just updatate
+        else{
+           $forget_pass_data->expiredTime = $currentTime->addMinutes(5)->toDateTimeString();
+           $forget_pass_data->hash = hash("md5", $user->uuid);
+           $return = $forget_pass_data->save();
+        }
+
+
     }
 
     

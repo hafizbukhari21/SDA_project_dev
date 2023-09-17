@@ -14,5 +14,9 @@ class forget_password extends Model
         "hash",
         "expiredTime"
     ];
+
+    protected function user(){
+        return $this->belongsTo(User::class,"idUser","id");
+    }
     
 }

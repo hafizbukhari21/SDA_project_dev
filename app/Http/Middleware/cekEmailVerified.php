@@ -23,9 +23,8 @@ class cekEmailVerified
     }
     public function handle(Request $request, Closure $next): Response
     {
-        $userRepository = $this->userRepo->get(session()->get("sessionKey")["id"])->first();
-        // return $userRepository;
-        if($userRepository->email_isVerified==0) return redirect("/emailNotVerified");
+        // $userRepository = $this->userRepo->get(session()->get("sessionKey")["id"])->first();
+        // if($userRepository->email_isVerified==0) return redirect("/emailNotVerified");
         return $next($request);
     }
 }
