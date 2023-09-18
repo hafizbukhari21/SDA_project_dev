@@ -99,6 +99,29 @@
 
      <script>
         $("#sentForgetPassword").submit(function (e) { 
+            Swal.fire({
+        title: 'Please Wait !!!',
+        html: `<div class="spinner-grow text-primary" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-secondary" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-success" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-danger" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-warning" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>`,
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        },
+        showConfirmButton: false,
+    });
             e.preventDefault();
             $.ajax({
                 type: "post",
@@ -107,6 +130,11 @@
 
                 success: function (response) {
                     console.log(response)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Silahkan Cek email anda',
+                        text: "",
+                    })
                 }
             });
             

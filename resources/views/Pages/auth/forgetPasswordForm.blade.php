@@ -68,7 +68,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" data-target="#forgotPasswordModal" data-toggle="modal">Back to Login</a>
+                                        <a class="small" href="/">Back to Login</a>
                                     </div>
                                     
                                 </div>
