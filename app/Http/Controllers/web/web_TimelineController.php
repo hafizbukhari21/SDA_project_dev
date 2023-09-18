@@ -54,6 +54,15 @@ class web_TimelineController extends Controller
 
     //Group 
     public function insertGroup(Request $request){
+        $request->validate([
+            'Group' => 'required',
+            'order' => 'required',
+        ]);
+
+        $group = $this->group_timeline_repo->checkDuplicateGroup($request);
+
+        if($group) return response(["message"=>"duplicate group name"],422);
+
         return $this->group_timeline_repo->insert($request);
     }
 

@@ -161,16 +161,26 @@ $("#addGroupForm").submit(function (e) {
         url: insertGroup,
         data: $(this).serialize(),
         success: function (response) {
+            console.log(response)
             Alertify({
                 message:"Berhasil Menambahkan Group",
                 duration:5
             })
             groupDatatable.ajax.reload()
             GetGroupAjax()
+        },
+        error: function (request, status, error) {
+            console.log(request)
+            AlertifyFailed({
+                message:"Format tidak sesuai - General Error",
+                duration:5
+            })
         }
+
     });
     
 });
+
 
 
 // $("#tableAddGroup").on('click', 'tbody tr td ', function(e) {

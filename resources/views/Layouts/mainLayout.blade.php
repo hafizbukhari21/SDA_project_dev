@@ -310,6 +310,8 @@
         const setUrlNotif_Var = "{{route('notifBar.get')}}"
         const setUrlNotif_VarDetail ="{{route('notifBar.get.detail')}}"
         const setUrlNotifRead_var = "{{route('notifbar.read')}}"
+
+   
     </script>
     <script src="{{ asset('js/Layout.js') }}"></script>
     <script src="{{ asset('js/NotifBar.js') }}"></script>

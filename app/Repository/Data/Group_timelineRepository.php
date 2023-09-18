@@ -39,4 +39,14 @@ class Group_timelineRepository extends GeneralRepository{
         $group->save();
         return $group; 
     }
+
+
+    public function checkDuplicateGroup(Request $req){
+        return $this->objectName
+                ->where([
+                    ["Group","=",$req->Group],
+                    ["idProject","=",$req->idProject]
+                ])->get()->first();
+            
+    }
 }
