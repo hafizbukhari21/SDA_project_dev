@@ -262,7 +262,10 @@ $("#updateTask").submit(function (e) {
             $("#updateTimeline").modal("hide")
         },
         error:function(error){
-            console.log(error.responseJSON)
+            AlertifyFailed({
+                message:"Format tidak sesuai - General Error",
+                duration:5
+            })
         }
     });
     
@@ -287,8 +290,10 @@ $("#addTaskForm").submit(function (e) {
                 GetGroupAjax()
             },
             error:function(error){
-            console.log(error.responseJSON)
-        }
+                AlertifyFailed({
+                    message:"Format tidak sesuai - General Error",
+                    duration:5
+                })        }
         });
         
     });

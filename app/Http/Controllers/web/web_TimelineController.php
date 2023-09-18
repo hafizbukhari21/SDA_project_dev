@@ -29,6 +29,7 @@ class web_TimelineController extends Controller
     }
 
     public function updateTImeLineFull (Request $req){
+        if ($req->to < $req->from) return response(["message"=>"To harus lebih kecil dari from"],422);
         return $this->timelineRepo->updateTImeLineFull($req);
     }
 
@@ -37,6 +38,15 @@ class web_TimelineController extends Controller
     }
 
     public function createTimeLine(Request $req){
+        $req->validate([
+            'task_name' => 'required',
+            'idGroup' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+
+        if ($req->to < $req->from) return response(["message"=>"To harus lebih kecil dari from"],422);
+
         $timeline =  $this->timelineRepo->insert($req);
         $notifFlag = $this->notifRepo->CreateNotifAsTimeline($timeline->id);
     

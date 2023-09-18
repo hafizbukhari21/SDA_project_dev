@@ -15,7 +15,7 @@
                             <div class="col-lg-6      ">
                                 <div class="form-group ">
                                     <label for="">Task Name</label>
-                                        <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Project Name" required>
+                                        <input type="text" class="form-control " name="task_name" id="project_name"placeholder="Task Name" required>
                                 </div>
                                
                                 <div class="form-group">
