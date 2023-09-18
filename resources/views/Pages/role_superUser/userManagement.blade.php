@@ -55,10 +55,6 @@
                                
                             </div>
                           
-                            
-                          
-                            
-                       
                         </form>
                    
                     </div>
@@ -75,33 +71,27 @@
                               
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-bordered " id="tableTimesheet" width="100%" cellspacing="0">
+                                <table class="table table-bordered " id="tableUser" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th></th>
-                                            <th>Title</th>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                            <th>Start</th>
-                                            <th>Finish</th>
-                                            <th>Request</th>
                                             <th>Action</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            
                                             
                                             
                                         </tr>
                                     </thead>
+                                    <tbody>
+
+                                    </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th></th>
-                                            <th>Title</th>
-                                        
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                            <th>Start</th>
-                                            <th>Finish</th>
-                                            <th>Request</th>
                                             <th>Action</th>
-                                            
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>                                            
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -129,7 +119,10 @@
 <script id="myscriptvar">
     const getHeadUrl = "{{route('superuser.get.head')}}"
     const createUserUrl = "{{route('superuser.user.create')}}"
+    const getAllUserUrl = "{{route('superuser.user.all')}}"
  </script>
+
+ 
 
 <script src="{{ asset('js/Page/Usermanagement/userManagement.js') }}"></script>
 

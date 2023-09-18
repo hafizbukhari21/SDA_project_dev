@@ -32,10 +32,6 @@ class ProjectRepository extends GeneralRepository{
                 $q->where("to",">",$currentDate)->orderBy("to","desc");// Project yang punya timeline yang deadlinenya lebih besar dari hari ini
             });
         })->count();
-
-        // return $this->objectName->whereHas("projects_timeline",function (Builder $q) use($currentDate){
-        //     $q->where("to",">",$currentDate)->orderBy("to","desc");// Project yang punya timeline yang deadlinenya lebih besar dari hari ini
-        // })->count();
     }
 
     public function myProject(Request $req){

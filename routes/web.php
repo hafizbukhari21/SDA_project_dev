@@ -28,16 +28,16 @@ Route::get('/', function () {
     return view('Pages.auth.login');
 });
 
-Route::view('/auth/register', 'Pages.auth.register');
+// Route::view('/auth/register', 'Pages.auth.register');
 
 
-Route::get("/user/getAllUser",[userController::class, "getAllUser"]);
+// Route::get("/user/getAllUser",[userController::class, "getAllUser"]);
 
-Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjectList"]);
+// Route::get("/user/getAllUserDetail",[userController::class, "returnUserAndProjectList"]);
 
-Route::get("/project/getAll",[projectController::class,"getAllProject"]);
+// Route::get("/project/getAll",[projectController::class,"getAllProject"]);
 
-Route::view("/forgotPass","Mail.forgetPassword");
+// Route::view("/forgotPass","Mail.forgetPassword");
 
 
 
@@ -49,6 +49,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
                 Route::view("management","Pages.role_superUser.userManagement")->name("superuser.user.management");
                 Route::get("getHead",[userController::class,"returnAllHead"])->name("superuser.get.head");
                 Route::post("create",[userController::class,"registerUser"])->name("superuser.user.create");
+                Route::get("all",[userController::class,"getAllUser"])->name("superuser.user.all");
             });
         });
     });
