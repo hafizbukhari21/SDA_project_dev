@@ -65,7 +65,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             Route::post("update",[web_projectController::class,"setUpdateProject"])->name("project.update");
             Route::get("category",[categoryProjectController::class,"returnCategoryProject_all"])->name("project.category.all");//ajax Route
             Route::get("myProject/{idProject}",[web_projectController::class,"getMyProject"])->name("project.myProject");//ajax Route
-            Route::post("myProject",[web_projectController::class, "setProject"])->name("project.myProject");
+            Route::post("myProject",[web_projectController::class, "setProject"])->name("project.myProject.create");
             Route::get("delete",[web_projectController::class, "deleteProject"])->name("project.myProject.delete");//ajax route disable csrf
             Route::get("getAll",[web_projectController::class,"returnGetAllProject"])->name("project.picAndCreator.myProject");//ajax Route
             Route::get("idList",[web_projectController::class,"returnProjectId"])->name("project.idList");

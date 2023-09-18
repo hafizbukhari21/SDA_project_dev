@@ -146,7 +146,7 @@
             e.preventDefault()
             $.ajax({
                 type: "POST",
-                url: "{{route('project.myProject')}}",
+                url: "{{route('project.myProject.create')}}",
                 data: $(this).serialize(),
                 success: function (response) {
                     table.ajax.reload()
