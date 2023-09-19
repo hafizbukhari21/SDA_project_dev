@@ -51,6 +51,19 @@ class userController extends Controller
         
     }
 
+    private function validateUser(Request $req){
+        $req->validate([
+            'name' => 'required',
+            'role' => 'required',
+            'email' => 'required',
+        ]);
+    }
+
+    public function updateUser(Request $req){
+        $this->validateUser($req);
+        return $this->userRepository->update($req);
+    }
+
     public function returnAllHead(){
         return $this->userRepository->getAllHead();
     }

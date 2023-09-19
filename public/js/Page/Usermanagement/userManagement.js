@@ -1,6 +1,7 @@
 const HeadPart = document.querySelector("#HeadPart")
 const select_role = document.querySelector("#select_role")
 let HeadPartUpdate = document.querySelector("#HeadPartUpdate")
+let select_role_update = document.querySelector("#select_role_update")
 let tableUser = null
 
 $(document).ready(function () {
@@ -33,13 +34,19 @@ $("#addUserForm").submit(function (e) {
         url: createUserUrl,
         data: $(this).serialize(),
         success: function (response) {
-            // table.ajax.reload()
+            console.log(response)
             Alertify({
                 message:"Berhasil Menambahkan Project",
                 duration:5
             })
             tableUser.ajax.reload()
           ResetForm("#addUserForm")
+        }, error: function (request, status, error) {
+            console.log(request)
+            AlertifyFailed({
+                message:"Format tidak sesuai - General Error",
+                duration:5
+            })
         }
         
     });
@@ -95,6 +102,7 @@ function showUpdateUser(id){
             $("#name_update").val(response.name);
             $("#select_role_update").val(response.role)
             $("#email_update").val(response.email)
+            $("#id_update").val(response.id);
 
             if(response.role==="Officer") {
                 HeadPartUpdate.style.display = "inline"
@@ -108,6 +116,39 @@ function showUpdateUser(id){
         }
     });
 }
+
+
+$("#updateUserForm").submit(function (e) { 
+    e.preventDefault();
+
+    $.ajax({
+        type: "post",
+        url: updateUserUrl,
+        data: $(this).serialize(),
+        success: function (response) {
+            console.log(response)
+            Alertify({
+                message:"Berhasil Update User",
+                duration:5
+            })
+            tableUser.ajax.reload()
+        },
+        error: function (request, status, error) {
+            console.log(request)
+            AlertifyFailed({
+                message:"Format tidak sesuai - General Error",
+                duration:5
+            })
+        }
+    });
+    
+});
+
+
+select_role_update.addEventListener("change",()=>{
+    if(select_role_update.value=="Officer")HeadPartUpdate.style.display = "inline"
+    else HeadPartUpdate.style.display = "none"
+})
 
 
 

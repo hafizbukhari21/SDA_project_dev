@@ -17,6 +17,9 @@
                                 <label for="customRange2" class="form-label">Nama</label><br>
                                 <input type="text" class="form-control " name="name" id="name_update"placeholder="Title" required>
 
+                                <input type="hidden" class="form-control " name="id" id="id_update"placeholder="Title" required>
+
+
 
                             </div>
                             <div class="form-group col-lg-12">
@@ -44,16 +47,7 @@
                           
                             
                         </div>
-                        <div class="col-lg-12 row"  >
-                            <div class="form-group  btn-block col-lg-12">
-                            <button type="submit" class="btn btn-primary  ">
-                                Create User
-                            </button>
-                            </div>
-                           
-                        </div>
-                      
-                    </form>                        
+                                 
                     
                         
                    

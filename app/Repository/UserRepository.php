@@ -46,6 +46,7 @@ class UserRepository {
     }
     public function insert($request){
 
+        if($request->role !="Officer") $request->merge(["myHeadId" => null]);
         $payload = User::create($request->all()) ;
         $timesheetRepo = $this->timesheetRepo->insert($payload->id);
         $userUUid = $this->setUserUID($payload->id);
@@ -54,6 +55,19 @@ class UserRepository {
             "timesheet"=>$timesheetRepo,
             "userUuid"=>$userUUid
         ];
+    }
+
+    public function update(RequestHttp $req){
+        $user = $this->user->find($req->id);
+        $user->name = $req->name;
+        $user->email = $req->email;
+        $user->role = $req->role;
+        if($req->role == "Officer") $user->myHeadId = $req->myHeadId;
+        else $user->myHeadId = null;
+
+        return $user->save();
+
+
     }
     
     public function getEmail($email){
