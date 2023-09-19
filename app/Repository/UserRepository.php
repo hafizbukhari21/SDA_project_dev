@@ -29,8 +29,8 @@ class UserRepository {
         $this->forget_password = $forget_password;
     }
 
-    public function get($id){
-        return $this->user->where(["id"=>$id]);
+    public function get(RequestHttp $request){
+        return $this->user->find($request->id);
     }
     public function getAll(){
         return $this->user->all();

@@ -43,6 +43,13 @@ class authController extends Controller
       return $req->User();
     }
 
+    public function getUserByid(Request $request){
+        return  $this->authRepository->get($request);
+      }
+
+
+    
+
 
 
 

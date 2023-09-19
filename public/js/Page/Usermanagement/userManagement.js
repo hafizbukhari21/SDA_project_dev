@@ -1,5 +1,6 @@
 const HeadPart = document.querySelector("#HeadPart")
 const select_role = document.querySelector("#select_role")
+let HeadPartUpdate = document.querySelector("#HeadPartUpdate")
 let tableUser = null
 
 $(document).ready(function () {
@@ -12,6 +13,11 @@ $(document).ready(function () {
             MappingSelectOption({
                 default:"Select Head",
                 element:document.querySelector("#getMyHead"),
+                data : response.map(e => ({id:e.id, name:e.name}))
+            })
+            MappingSelectOption({
+                default:"Select Head",
+                element:document.querySelector("#getMyHead_update"),
                 data : response.map(e => ({id:e.id, name:e.name}))
             })
         }
@@ -61,6 +67,8 @@ function loadTableUser(){
                 return `<div class="btn-group ">
                         <a type="button" class="btn btn-sm btn-danger deleteGroupButton" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteProjectModal" onclick="">
                         <i class="fas fa-trash"></i>
+                        <a type="button" class="btn btn-sm btn-warning " id="${data}" title="Delete Project"  data-toggle="modal" data-target="#updateUserModal" onclick="showUpdateUser('${data}')">
+                        <i class="fas fa-edit"></i>
                         </a>
                     </div>`
                 }
@@ -71,8 +79,37 @@ function loadTableUser(){
         ]
     
     })
-        
+    
 }
+
+
+function showUpdateUser(id){
+   
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: getUserDetail,
+        data: {id},
+
+        success: function (response) {
+            $("#name_update").val(response.name);
+            $("#select_role_update").val(response.role)
+            $("#email_update").val(response.email)
+
+            if(response.role==="Officer") {
+                HeadPartUpdate.style.display = "inline"
+                $("#getMyHead_update").val(response.myHeadId);
+            }
+            else{
+                
+                HeadPartUpdate.style.display = "none"
+                $("#getMyHead_update").val(null);
+            }
+        }
+    });
+}
+
+
 
 
 

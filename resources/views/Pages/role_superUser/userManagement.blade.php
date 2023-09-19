@@ -107,6 +107,8 @@
         </div>
     </div>
 </div>
+
+@include('Components.UserManagement.updateUserModal')
 @endsection
 
 @section("jsScript")
@@ -120,6 +122,7 @@
     const getHeadUrl = "{{route('superuser.get.head')}}"
     const createUserUrl = "{{route('superuser.user.create')}}"
     const getAllUserUrl = "{{route('superuser.user.all')}}"
+    const getUserDetail = "{{route('superuser.user.detail')}}"
  </script>
 
  

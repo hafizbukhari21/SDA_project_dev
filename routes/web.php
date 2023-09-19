@@ -50,6 +50,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
                 Route::get("getHead",[userController::class,"returnAllHead"])->name("superuser.get.head");
                 Route::post("create",[userController::class,"registerUser"])->name("superuser.user.create");
                 Route::get("all",[userController::class,"getAllUser"])->name("superuser.user.all");
+                Route::post("detail",[authController::class,"getUserByid"])->name("superuser.user.detail");
             });
         });
     });
