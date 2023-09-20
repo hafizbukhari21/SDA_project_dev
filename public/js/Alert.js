@@ -30,7 +30,8 @@ function Alertify(data){
 }
 
 
-function AlertifyFailed(data){
+function AlertifyFailed(data){ 
+    
     var duration = data.duration;
 
     var basicMessage = `
