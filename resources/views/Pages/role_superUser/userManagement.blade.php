@@ -6,14 +6,14 @@
         <div class="card-body p-0 ">
             <!-- Nested Row within Card Body -->
             <div class="row"  >
-                <div class="col-lg-12">
+                <div class="col-lg-4">
                     <div class="p-4">
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Create User</h1>
                         </div>
                         <form class="user row needs-validation" id="addUserForm" novalidate>
                             @csrf
-                            <div class="col-lg-6 row">
+                            <div class="col-lg-12 row">
                                 <div class="form-group col-lg-12 ">
                                     <label for="customRange2" class="form-label">Nama</label><br>
                                     <input type="text" class="form-control " name="name" id="project_name"placeholder="Title" required>
@@ -31,7 +31,7 @@
         
                                 </div>  
                             </div>
-                            <div class="col-lg-6 row">
+                            <div class="col-lg-12 row">
                                 <div class="form-group col-lg-12 ">
                                     <label for="customRange2" class="form-label">Email</label><br>
                                     <input type="email" class="form-control " name="email" id="email" placeholder="Title" required>
@@ -59,7 +59,7 @@
                    
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <div class="card shadow w-100 h-100 " >
                         
                         <div class="card-body" style=" overflow:scroll">
