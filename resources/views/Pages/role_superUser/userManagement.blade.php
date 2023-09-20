@@ -108,7 +108,7 @@
     </div>
 </div>
 
-@include('Components.UserManagement.updateUserModal')
+@include('Components.UserManagement.updateUser')
 @endsection
 
 @section("jsScript")
