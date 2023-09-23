@@ -4,29 +4,44 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Repository\AuthRepository;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+
 
 class authWebController extends Controller
 {
 
     public AuthRepository $authRepo;
+    public UserRepository $userRepo;
     protected $guard;
 
-    public function __construct(AuthRepository $authRepository){
+    public function __construct(AuthRepository $authRepository, UserRepository $userRepository){
         $this->authRepo = $authRepository;
+        $this->userRepo = $userRepository;
         $this->guard = Auth::setDefaultDriver("web");
     }
     
 
     public function loginWeb(Request $req){
 
-        $token = $this->authRepo->LoginJwt($req);
-        if($token==null) return  "Gagal Login";
+        $checkUserDeleted = $this->userRepo->checkDeletedUser($req->email);
 
+        if($checkUserDeleted) return response([
+            "message"=>"User Not Found Or Already Deleted"
+        ],400);
+
+        $token = $this->authRepo->LoginJwt($req);
+        if($token==null)  return response([
+            "message"=>"User Not Found Or Already Deleted"
+        ],400);
+
+
+        Log::info("user ".$req->email." Login in ".Carbon::now());
 
         $req->session()->put("sessionKey",$req->User());
-
         return redirect("dashboard");
 
     }
@@ -55,6 +70,8 @@ class authWebController extends Controller
     public function doResetPassword (Request $request){
         return $this->authRepo->doResetPassword($request);
     }
+
+    
 
     
 

@@ -151,6 +151,11 @@ class UserRepository {
 
     }
 
+    public function checkDeletedUser($email){
+        $user =$this->user->where("email",$email)->get()->first();
+        return $user?false:true;//if user has been deleted return false
+    }
+
     
     
 

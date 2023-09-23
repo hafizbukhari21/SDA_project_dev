@@ -179,6 +179,13 @@
                     else{
                         window.location.href ="{{route('dashboard')}}"
                     }
+                },
+                error:function(error){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.responseJSON.message,
+                    })
                 }
             });
         });
