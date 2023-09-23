@@ -72,7 +72,7 @@ function loadTableUser(){
             "data":"id",
             render: function (data, type, row, meta) {
                 return `<div class="btn-group ">
-                        <a type="button" class="btn btn-sm btn-danger deleteGroupButton" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteProjectModal" onclick="">
+                        <a type="button" class="btn btn-sm btn-danger deleteGroupButton" id="${data}" title="Delete Project"  data-toggle="modal" data-target="#deleteUserModal" onclick="setdeleteUser('${data}','${row.name}')">
                         <i class="fas fa-trash"></i>
                         <a type="button" class="btn btn-sm btn-warning " id="${data}" title="Delete Project"  data-toggle="modal" data-target="#updateUserModal" onclick="showUpdateUser('${data}')">
                         <i class="fas fa-edit"></i>
@@ -149,6 +149,31 @@ select_role_update.addEventListener("change",()=>{
     if(select_role_update.value=="Officer")HeadPartUpdate.style.display = "inline"
     else HeadPartUpdate.style.display = "none"
 })
+
+function setdeleteUser(id,name){
+ $("#deleteUserName").html(name);
+ $("#deleteUSerModalButton").attr("userId", id);
+}
+
+
+document.querySelector("#deleteUSerModalButton").addEventListener("click",e=>{
+    e.preventDefault()
+    let idUSer =$("#deleteUSerModalButton").attr("userId")
+    $.ajax({
+        type: "post",
+        url: "url",
+        data: {id:idUser},
+        success: function (response) {
+            Alertify({
+                message:"Berhasil Delete User",
+                duration:5
+            })
+            tableUser.ajax.reload()
+        }
+    });
+})
+
+
 
 
 

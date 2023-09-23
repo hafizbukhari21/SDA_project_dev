@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 
 class userController extends Controller
+
 {
     private ProjectRepository $projectRepository;
     private UserRepository $userRepository;

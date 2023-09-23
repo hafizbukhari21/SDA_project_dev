@@ -109,6 +109,7 @@
 </div>
 
 @include('Components.UserManagement.updateUser')
+@include('Components.UserManagement.deleteUser')
 @endsection
 
 @section("jsScript")
