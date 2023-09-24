@@ -39,6 +39,7 @@ class Timesheet_activityRepository extends GeneralRepository{
     
        return $this->objectName
             ->where("status","new")
+            ->where("ref_timeSheetSubmit",null)
             ->where("timeSheet_id",$timesheet_id)
             ->update(["ref_timeSheetSubmit"=>$timesheet_submit]);
     }
