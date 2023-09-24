@@ -65,6 +65,8 @@
         </div>
     </div>
 </div>
+@include('Components.Timesheet.Head.ActionApprovalModal')
+
 @endsection
 
 @section("jsScript")
@@ -73,6 +75,10 @@
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="{{ asset('js/Page/Timesheet/timesheetHead.js') }}"></script>
+
+
+
 
 <script>
 
@@ -125,14 +131,10 @@
                 {"data":"approvalDate"},
                 {"data":"attemp"},
                 {
-                    "data":"id",
+                    "data":"uuid",
                     render: function (data, type, row, meta) {
-                     return `<div class="btn-group ">
-                            <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${data}')" data-toggle="modal" data-target="#">
-                            <i class="fas fa-trash"></i>
-                            </a>
-                            <br>
-                            <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheet('${data}')" data-toggle="modal" data-target="#udapteTimeSheetModal" >
+                     return `
+                            <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheetApproval('${data}')" data-toggle="modal" data-target="#previewApprovalTimesheetHead" >
                             <i class="fa fa-info-circle"></i>
                             </a>
                             </div>`
@@ -141,6 +143,8 @@
             ]
         })
     }
+
+   
 
 
 </script>
