@@ -159,10 +159,11 @@ function setdeleteUser(id,name){
 document.querySelector("#deleteUSerModalButton").addEventListener("click",e=>{
     e.preventDefault()
     let idUSer =$("#deleteUSerModalButton").attr("userId")
+    PreAjax()
     $.ajax({
         type: "post",
-        url: "url",
-        data: {id:idUser},
+        url: deleteUserUrl,
+        data: {id:idUSer},
         success: function (response) {
             Alertify({
                 message:"Berhasil Delete User",

@@ -52,6 +52,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
                 Route::get("all",[userController::class,"getAllUser"])->name("superuser.user.all");
                 Route::post("update",[userController::class,"updateUser"])->name("superuser.user.update");
                 Route::post("detail",[authController::class,"getUserByid"])->name("superuser.user.detail");
+                Route::post("delete/inactive",[userController::class,"deleteInactiveUser"])->name("superuser.user.deleteInactive");
             });
         });
     });

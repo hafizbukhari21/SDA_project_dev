@@ -44,7 +44,7 @@ class userController extends Controller
 
         
         $cekEmail=$this->userRepository->getEmail($req->email);
-        if(sizeof($cekEmail) >0 ) return "Email Sudah terdaftar";
+        if(sizeof($cekEmail) >0 ) return response(["message"=>"Email sudah terdaftar"],400);
         if($req->role != "Officer")unset($req["Role"]); 
 
         $req->merge(["password" => $req->role]);//set password defalut sesual role 
@@ -60,6 +60,10 @@ class userController extends Controller
             'role' => 'required',
             'email' => 'required',
         ]);
+    }
+
+    public function deleteInactiveUser(Request $request){
+        return $this->userRepository->deleteInactiveUser($request);
     }
 
     public function updateUser(Request $req){

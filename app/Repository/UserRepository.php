@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request as RequestHttp;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -33,7 +34,7 @@ class UserRepository {
         return $this->user->find($request->id);
     }
     public function getAll(){
-        return $this->user->all();
+        return $this->user->where("isDeleted","0")->get();
     }
 
     public function getAllHead(){
@@ -67,6 +68,16 @@ class UserRepository {
 
         return $user->save();
 
+
+    }
+
+    public function deleteInactiveUser(RequestHttp $req){
+        $user = $this->user->find($req->id);
+        $user->email = null;
+        $user->isDeleted = true;
+        if($user->save()) 
+            Log::info("user [".session()->get("sessionKey")["name"].
+            "] Deleted Inactive User : [".$user->name." | ".$user->uuid."]On ".Carbon::now());
 
     }
     

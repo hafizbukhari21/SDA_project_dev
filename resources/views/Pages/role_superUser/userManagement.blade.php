@@ -125,6 +125,7 @@
     const getAllUserUrl = "{{route('superuser.user.all')}}"
     const getUserDetail = "{{route('superuser.user.detail')}}"
     const updateUserUrl = "{{route('superuser.user.update')}}"
+    const deleteUserUrl = "{{route('superuser.user.deleteInactive')}}"
  </script>
 
  
