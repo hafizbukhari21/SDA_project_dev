@@ -85,11 +85,13 @@
             type: "get",
             url: "{{route('get.myofficer.timesheet')}}",
             success: function (response) {
+                console.log(response)
                 MappingSelectOption({
                         default:"Select Officer",
                         element:document.querySelector("#selectOfficer"),
                         data : response.map(e => ({id:e.user.id, name:`${e.user.name} - ${e.user.email}`}))
                     })
+                TriggerGeneratedTableApproval()
             }
         });
 
@@ -97,17 +99,23 @@
 
 
     selectOfficer.addEventListener("change",()=>{
+        TriggerGeneratedTableApproval()
+    })
+
+    function TriggerGeneratedTableApproval(){
         id=selectOfficer.value
         if(!firstGenTableTimeSheetSubmit)  {
             tableTimesheetSubmit= GenerateTableTimesheet(id)
             firstGenTableTimeSheetSubmit=true
         }
         else tableTimesheetSubmit.ajax.url( ParseRoute_SingleVar("{{route('get.myofficer.timesheet_submit',':id')}}",id,":id")).load()
-    })
+    }
+
 
     function GenerateTableTimesheet (id) {
         return DatatableFormater_serverSide({
             element:"#tableTimesheetSubmit",
+            dataSrc:"data",
             url:ParseRoute_SingleVar("{{route('get.myofficer.timesheet_submit',':id')}}",id,":id"),
             columns:[
                 {"data":"title"},

@@ -24,8 +24,17 @@ class Timesheet_submitRepository extends GeneralRepository{
         $query= $this->objectName->where("idUser",$idOfficer);
 
         return DatatableFormater::format($request, $query,[
-            "message"
+            "title",
+            "message",
+            "status_submit",
+            "submitDate",
+            "approvalDate",
+            "attemp",
+            "submitDate"
+           
         ]);
+
+       
     }
 
 

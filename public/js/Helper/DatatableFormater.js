@@ -11,7 +11,7 @@ function DatatableFormater_serverSide(data){
         ajax: {
             url: data.url,
             "dataType": "json",
-            "dataSrc": "data",
+            "dataSrc": data.dataSrc,
         },
 
             columns: data.columns

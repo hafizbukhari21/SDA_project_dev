@@ -2,6 +2,8 @@
 namespace App\Repository\Data;
 use App\Models\timesheet;
 use App\Repository\GeneralRepository;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class Timesheet_Repository extends GeneralRepository{
     private $g_myId;
@@ -15,10 +17,12 @@ class Timesheet_Repository extends GeneralRepository{
     }
 
     public function myOfficerTimesheet($myId){
-        $this->g_myId = $myId;
-        return $this->objectName->get()->load(["user"=>function($usr){
-          $usr->where("myHeadId",$this->g_myId);
-        }])->where("user","<>","");
+        // return $this->objectName->get()->load(["user"=>function($usr){
+        //   $usr->where("myHeadId",$this->g_myId);
+        // }]);
+        return $this->objectName->whereHas("user",function (Builder $usr) use($myId){
+          $usr->where("myHeadId",$myId);
+        })->get()->load(["user","timesheetactivity"]);
     }
 
     public function UnApproveActivity($userId){
