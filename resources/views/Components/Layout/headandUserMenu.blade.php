@@ -24,9 +24,12 @@
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ route('show.timesheet') }}">Create </a>
             @if (session()->get("sessionKey")["role"]=='Head')
                 <a class="collapse-item" href="{{ route('show.timesheet.approval') }}">Approval</a>
+            @else
+                <a class="collapse-item" href="{{ route('show.timesheet') }}">Create </a>
+                <a class="collapse-item" href="{{ route('submission.timesheet') }}">Submission </a>
+
             @endif
         </div>
     </div>

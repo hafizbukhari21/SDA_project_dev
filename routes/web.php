@@ -107,6 +107,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             Route::get("request",[web_timesheetController::class,"makeRequest"])->name("make.request.timesheet");
             Route::get("unApprrove",[web_timesheetController::class,"getUnApproveActivity"])->name("show.unApprove.myTimesheet");
             Route::get("/{idActivity}",[web_timesheetController::class,"getMyTimeSheetActivity"])->name("get.timesheet.activity");
+            Route::get("submission",[web_timesheetController::class,"submissionShow"])->name("submission.timesheet");
     
             Route::group(["middleware"=>"SessionControlWeb_Head"],function(){
                 // Route::get('head/')
