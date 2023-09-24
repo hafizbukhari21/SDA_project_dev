@@ -48,14 +48,24 @@ class web_timesheetController extends Controller
         if($this->timeSheet_act_repo->IsDuplicateActivity(session()->get("sessionKey")["id"],$request->activity_date)){
             return response(["message"=>"The date already Recorded"],400);
         }
+        else if($this->checkFromBiggerThanFinish($request->from,$request->finish)){
+            return response(["message"=>"The From time should be smaller than before time"],400);
+        }
         else if($this->CheckMyTimeSheet($request->timeSheet_id)){
-           return $this->timeSheet_act_repo->insert($request);
+            return $this->timeSheet_act_repo->insert($request);
         }
         return response(["message"=>"Forbidden"],403);
     }
 
+    private function checkFromBiggerThanFinish($from,$finish){
+        return $from>$finish?true:false;
+    }
+
     public function updateActivity(Request $request){
         $this->validateInput($request);
+        if($this->checkFromBiggerThanFinish($request->from,$request->finish)){
+            return response(["message"=>"The From time should be smaller than before time"],400);
+        }
         return $this->timeSheet_act_repo->UpdateTimesheet($request);
     }
 
