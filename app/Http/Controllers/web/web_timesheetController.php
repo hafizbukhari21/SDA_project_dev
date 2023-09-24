@@ -32,21 +32,35 @@ class web_timesheetController extends Controller
         return view("Pages.role_officer.timesheet.index",["payload"=>$payload]);
     }
 
-    
+    private function validateInput(Request $req){
+        $req->validate([
+            'title' => 'required',
+            'detail_activity' => 'required',
+            'activity_date' => 'required',
+            'from' => 'required',
+            'finish' => 'required',
+        ]);
+    }
 
     public function addActivity(Request $request){
-        iF($this->CheckMyTimeSheet($request->timeSheet_id)){
+        $this->validateInput($request);
+
+        if($this->timeSheet_act_repo->IsDuplicateActivity(session()->get("sessionKey")["id"],$request->activity_date)){
+            return response(["message"=>"The date already Recorded"],400);
+        }
+        else if($this->CheckMyTimeSheet($request->timeSheet_id)){
            return $this->timeSheet_act_repo->insert($request);
         }
         return response(["message"=>"Forbidden"],403);
     }
 
     public function updateActivity(Request $request){
+        $this->validateInput($request);
         return $this->timeSheet_act_repo->UpdateTimesheet($request);
     }
 
     public function getMyTimesheet($idTimesheet,Request $request){
-        iF($this->CheckMyTimeSheet($idTimesheet)){
+        if($this->CheckMyTimeSheet($idTimesheet)){
             //return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
             return $this->timeSheet_act_repo->GetTimesheetActPagination($request,$idTimesheet);
         }

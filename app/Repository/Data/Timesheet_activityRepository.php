@@ -3,6 +3,7 @@ namespace App\Repository\Data;
 use App\Models\timesheetactivity;
 use App\Repository\GeneralRepository;
 use App\Utils\DatatableFormater;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +23,18 @@ class Timesheet_activityRepository extends GeneralRepository{
         return $timesheet->save();
     }
 
+    
+
+
+    public function IsDuplicateActivity($idUser, $activityDate){
+        
+        $timesheet = $this->objectName->whereHas("timeSheet_id",function (Builder $q) use($idUser){
+            $q->where("idUser",$idUser);
+        })->where("activity_date",$activityDate)->get()->first();
+
+        return $timesheet?true:false;
+    }
+    
     public function Set_ref_submit($timesheet_submit,$timesheet_id){
     
        return $this->objectName

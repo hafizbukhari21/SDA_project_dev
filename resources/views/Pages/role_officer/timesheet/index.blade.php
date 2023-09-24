@@ -11,36 +11,36 @@
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Create Timesheet</h1>
                         </div>
-                        <form class="user row" id="addTimeSheet">
+                        <form class="user row  needs-validation" id="addTimeSheet" novalidate>
                             @csrf
                             <div class="col-lg-8 row">
                                 <div class="form-group col-lg-12 ">
                                     <label for="customRange2" class="form-label">Summary</label><br>
-                                    <input type="text" class="form-control " name="title" id="project_name"placeholder="Title">
+                                    <input type="text" class="form-control " name="title" id="project_name"placeholder="Title" required>
                                 </div>
                                 <div class="form-group col-lg-12">
                                     
-                                    <textarea type="text" class="form-control " rows="3" name="detail_activity" id="project_name"placeholder="Status"></textarea>
+                                    <textarea type="text" class="form-control " rows="3" name="detail_activity" id="project_name"placeholder="Status" required></textarea>
                                 </div>
                                 
                             </div>
                             <div class="col-lg-4 row">
                                 <div class="form-group col-lg-12">
                                     <label for="customRange2" class="form-label">Date</label><br>
-                                    <input type="date" class="form-control " name="activity_date" id="project_name"placeholder="Title">
+                                    <input type="date" class="form-control " name="activity_date" id="project_name"placeholder="Title" required>
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="customRange2" class="form-label">Start</label><br>
-                                    <input type="time" class="form-control " name="from" id="project_name"placeholder="Title">
+                                    <input type="time" class="form-control " name="from" id="project_name"placeholder="Title" required>
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="customRange2" class="form-label">Finish</label><br>
-                                    <input type="time" class="form-control " name="finish" id="project_name"placeholder="Status">
+                                    <input type="time" class="form-control " name="finish" id="project_name"placeholder="Status" required>
                                 </div>
                             </div>
                           
                             <!-- <input type="hidden" name="user_creator_id" value="{{session()->get("sessionKey")["id"]}}"> -->
-                            <input type="hidden" name="timeSheet_id" value="{{$payload->timesheet->id}}">
+                            <input type="hidden" name="timeSheet_id" value="{{$payload->timesheet->id}}" required>
 
                             
                             <div class="col-lg-12 row"  >
@@ -166,10 +166,16 @@
             success: function (response) {
                
                 tableTimesheet.ajax.reload()
-                SweetAlertSimple({
-                    title:"Berhasil Menambahkan Timehseet",
-                    timer:1000
+                Alertify({
+                    message:"Berhasil Menambahkan Timesheet",
+                    duration:5
                 })
+            },error:function(error){
+                console.log(error.responseJSON.message) 
+                AlertifyFailed({
+                message:error.responseJSON.message,
+                duration:5
+            })
             }
         });
     });
@@ -182,10 +188,17 @@
             data: $(this).serialize(),
             success: function (response) {
                 tableTimesheet.ajax.reload()
-                SweetAlertSimple({
-                    title:"Berhasil Mengubah Activity",
-                    timer:1000
+                Alertify({
+                    message:"Berhasil Mengubah Timesheet",
+                    duration:5
                 })
+            },
+            error:function(error){
+                    
+                AlertifyFailed({
+                message:error.responseJSON.message,
+                duration:5
+            })
             }
         });
     });
@@ -203,6 +216,7 @@
             type: "get",
             url: ParseRoute_SingleVar("{{route('get.timesheet.activity',':id')}}",id,":id"),
             success: function (response) {
+                console.log(response)
                 document.querySelector("#upd_id").value = response.id
                 document.querySelector("#upd_title").value = response.title
                 document.querySelector("#upd_detail_activity").value = response.detail_activity

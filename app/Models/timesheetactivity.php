@@ -27,7 +27,7 @@ class timesheetactivity extends Model
     protected $dates = ['deleted_at'];
 
     public function timeSheet_id(){
-        return $this->belongsTo(timesheet::class,"id","timeSheet_id");
+        return $this->belongsTo(timesheet::class,"timeSheet_id","id");
     }
 
 }

@@ -14,7 +14,6 @@ class Timesheet_Repository extends GeneralRepository{
       return $this->objectName->create(["idUser"=>$idUser]);
     }
 
-
     public function myOfficerTimesheet($myId){
         $this->g_myId = $myId;
         return $this->objectName->get()->load(["user"=>function($usr){
