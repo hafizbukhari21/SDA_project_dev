@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+
 
 
 class timesheet extends Model
@@ -24,5 +26,12 @@ class timesheet extends Model
 
     public function timesheetactivity(){
         return $this->hasMany(timesheetactivity::class,"timeSheet_id","id");
+    }
+
+    public static function boot(){
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = Str::uuid();
+        });
     }
 }

@@ -59,6 +59,10 @@ class web_timesheetController extends Controller
         return $this->timeSheet_act_repo->UpdateTimesheet($request);
     }
 
+    public function deleteTimesheet(Request $request){
+        return $this->timeSheet_act_repo->softDeleteUuid($request->uuid);
+    }
+
     public function getMyTimesheet($idTimesheet,Request $request){
         if($this->CheckMyTimeSheet($idTimesheet)){
             //return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
@@ -68,7 +72,7 @@ class web_timesheetController extends Controller
     }
 
     public function getMyTimeSheetActivity($idActivity){
-        return $this->timeSheet_act_repo->get("id",$idActivity)->first();
+        return $this->timeSheet_act_repo->getByUUid($idActivity)->first();
     }
 
     public function getMyOfficer(Request $request){
@@ -89,6 +93,7 @@ class web_timesheetController extends Controller
     public function makeRequest(){
         return $this->timesheet_submit->requestApproval();
     }
+
 
     
     //Validation

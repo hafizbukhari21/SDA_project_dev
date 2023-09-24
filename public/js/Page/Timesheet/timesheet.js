@@ -86,10 +86,10 @@ function ShowTableTimesheet(){
                 }
             },
             {
-                "data":"id",
+                "data":"uuid",
                 render: function (data, type, row, meta) {
                     return `<div class="btn-group ">
-                                <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${data}')" data-toggle="modal" data-target="#">
+                                <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimeSheet('${row.activity_date}','${data}')" data-toggle="modal" data-target="#deleteActivityTimesheetModal">
                                 <i class="fas fa-trash"></i>
                                 </a>
                                 <br>
@@ -102,6 +102,12 @@ function ShowTableTimesheet(){
         ]
     })
 }
+
+function DeleteTimeSheet(activity_date,uuid){
+   $("#deleteActivityDatee").html(activity_date);
+   $("#deleteTimesheetActivityButton").attr("uid", uuid);
+}
+
 
 function ShowTableUnApprove(){
     let table = $('#tableTimesheetApproval').DataTable({

@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                               
-                                <input type="hidden" name="id" id="upd_id" value="">
+                                <input type="hidden" name="uuid" id="upd_uuid" value="">
                                 
                                 
                                 <div class="col-lg-12 row"  >

@@ -117,6 +117,7 @@
 
 @include('Components.Timesheet.Officer.UpdateTimesheetModal')
 @include('Components.Timesheet.Officer.PreviewApprovalModal')
+@include('Components.Timesheet.Officer.DeleteTimesheetModal')
 
 
 
@@ -133,12 +134,14 @@
 
 <script id="myscriptvar">
     ///var url
-    let ShowTableTimesheet_var= `{{route('show.myTimesheet',["idTimesheet"=>$payload->timesheet->id])}}`
-    let ShowTableUnApprove_var= `{{route('show.unApprove.myTimesheet')}}`
-    let buttonSendRequest_var = `{{ route('make.request.timesheet') }}`
+    const ShowTableTimesheet_var= `{{route('show.myTimesheet',["idTimesheet"=>$payload->timesheet->id])}}`
+    const ShowTableUnApprove_var= `{{route('show.unApprove.myTimesheet')}}`
+    const buttonSendRequest_var = `{{ route('make.request.timesheet') }}`
+    const deleteTimesheet_var = "{{route('delete.timesheet')}}"
+    
 </script>
 
-<script src="{{ asset('js/Page/timesheet.js') }}"></script>
+<script src="{{ asset('js/Page/Timesheet/timesheet.js') }}"></script>
 
 
 <script id="myscript">
@@ -180,6 +183,22 @@
         });
     });
 
+    document.querySelector("#deleteTimesheetActivityButton").addEventListener("click",()=>{
+        PreAjax()
+        $.ajax({
+            type: "post",
+            url: deleteTimesheet_var,
+            data: {uuid:$("#deleteTimesheetActivityButton").attr("uid")},
+            success: function (response) {
+                tableTimesheet.ajax.reload()
+                Alertify({
+                    message:"Berhasil Menghapus Timesheet",
+                    duration:5
+                })
+            }
+        });
+    })
+
     $("#updateTimeSheet").submit(function (e) { 
         e.preventDefault();
         $.ajax({
@@ -217,7 +236,7 @@
             url: ParseRoute_SingleVar("{{route('get.timesheet.activity',':id')}}",id,":id"),
             success: function (response) {
                 console.log(response)
-                document.querySelector("#upd_id").value = response.id
+                document.querySelector("#upd_uuid").value = response.uuid
                 document.querySelector("#upd_title").value = response.title
                 document.querySelector("#upd_detail_activity").value = response.detail_activity
                 document.querySelector("#upd_activity_date").value = response.activity_date
@@ -227,17 +246,7 @@
         });
     }
 
-    function DeleteTimeSheet(id){
-            $.ajax({
-                type: "method",
-                url: "url",
-                data: "data",
-                success: function (response) {
-                    
-                }
-            });
-    }
-
+ 
     
       
     $("#tableTimesheet tbody").on("click", "td.dt-control", function () {

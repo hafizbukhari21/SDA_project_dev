@@ -7,6 +7,12 @@ let tableUser = null
 $(document).ready(function () {
     if(select_role.value !== "Officer")  HeadPart.style.display = "none"
 
+    GetHeadDropdown()
+    tableUser = loadTableUser()
+});
+
+
+function GetHeadDropdown(){
     $.ajax({
         type: "get",
         url: getHeadUrl,
@@ -23,9 +29,7 @@ $(document).ready(function () {
             })
         }
     });
-
-    tableUser = loadTableUser()
-});
+}
 
 $("#addUserForm").submit(function (e) { 
     e.preventDefault();
@@ -40,6 +44,7 @@ $("#addUserForm").submit(function (e) {
                 duration:5
             })
             tableUser.ajax.reload()
+            GetHeadDropdown()
           ResetForm("#addUserForm")
         }, error: function (request, status, error) {
             console.log(request)
@@ -132,6 +137,7 @@ $("#updateUserForm").submit(function (e) {
                 duration:5
             })
             tableUser.ajax.reload()
+            GetHeadDropdown()
         },
         error: function (request, status, error) {
             console.log(request)

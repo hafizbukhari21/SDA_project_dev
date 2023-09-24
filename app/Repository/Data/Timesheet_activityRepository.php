@@ -13,7 +13,7 @@ class Timesheet_activityRepository extends GeneralRepository{
     }
 
     public function UpdateTimesheet (Request $request){
-        $timesheet = $this->objectName->find($request->id);
+        $timesheet = $this->objectName->where(["uuid"=>$request->uuid])->get()->first();
         $timesheet->title = $request->title;
         $timesheet->detail_activity = $request->detail_activity;
         $timesheet->activity_date=$request->activity_date;

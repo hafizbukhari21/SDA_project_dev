@@ -47,8 +47,10 @@ class UserRepository {
     }
     public function insert($request){
 
+        $timesheetRepo = null;
         if($request->role !="Officer") $request->merge(["myHeadId" => null]);
         $payload = User::create($request->all()) ;
+
         $timesheetRepo = $this->timesheetRepo->insert($payload->id);
         $userUUid = $this->setUserUID($payload->id);
         return [

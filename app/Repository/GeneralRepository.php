@@ -35,6 +35,13 @@ class GeneralRepository implements GeneralInterface{
         return $objectDelete;
     }
 
+    public function softDeleteUuid ($uuid){
+        $objectDelete = $this->objectName->where(["uuid"=>$uuid])->get()->first();
+        $objectDelete->delete();
+
+        return $objectDelete;
+    }
+
     //SoftDelete
     public function getTrashSoftDelete(){
         return $this->objectName->onlyTrashed()->get();
