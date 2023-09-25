@@ -11,13 +11,13 @@ use App\Models\User;
 use GuzzleHttp\Psr7\Request;
 use App\Repository\Data\Timesheet_Repository;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request as RequestHttp;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
-
-
+use PhpParser\Node\Stmt\Catch_;
 
 class UserRepository {
    
@@ -137,14 +137,16 @@ class UserRepository {
 
         $userData = $this->user->where("email",$email)->get()->load("forget_password")->first();
 
-        
+        try{
+            if($return) {
+                Mail::to($user->email)->send(new forgot_password($userData));
+                return response(["message"=>"success"],200);
+            }
+            return response(["message"=>"something Wrong"],200);
 
-        if($return) {
-            Mail::to($user->email)->send(new forgot_password($userData));
-            return "sukses";
+        }catch(Exception $e){
+            return response(["message"=>$e],500);
         }
-        
-        return "something wrong";
 
     }   
 

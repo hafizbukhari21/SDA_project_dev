@@ -135,7 +135,10 @@
                         title: 'Silahkan Cek email anda',
                         text: "",
                     })
-                }
+                }, error:function(err){
+            console.log(err.responseJSON)
+            
+        }
             });
             
         });
