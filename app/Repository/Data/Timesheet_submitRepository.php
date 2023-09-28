@@ -60,4 +60,8 @@ class Timesheet_submitRepository extends GeneralRepository{
         
         
     }
+
+    public function approvalListTimesheetDetailOfficer($uuid){
+        return $this->getByUUid($uuid)->load(["timesheetactivity","user"])->first();
+    }
 }

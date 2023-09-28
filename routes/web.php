@@ -115,6 +115,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
                 Route::get("head/approval/myOfficer/get",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
                 Route::get("head/approval/myOfficer/get/list/timesheetSubmit/{idOfficer}",[web_timesheetController::class,"getMyOfficer_timesheetSubmit"])->name("get.myofficer.timesheet_submit");
                 Route::view("head/approval","Pages.role_head.timesheet.approval")->name("show.timesheet.approval");
+                Route::get("head/approval/detail/{uuid}",[web_timesheetController::class,"approvalListTimesheetDetailOfficer"])->name("detail.get.myOfficer");
                 
             });
     });

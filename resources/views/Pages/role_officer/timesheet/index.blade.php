@@ -254,6 +254,8 @@
         let row = tableTimesheet.row(tr)
         DatatableExpandable({tr,row,format:format(row.data())})
     })
+
+    
    
 </script>
 @endsection

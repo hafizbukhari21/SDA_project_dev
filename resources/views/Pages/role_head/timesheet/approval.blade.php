@@ -77,6 +77,9 @@
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script src="{{ asset('js/Page/Timesheet/timesheetHead.js') }}"></script>
 
+<script>
+</script>
+
 
 
 
@@ -143,6 +146,21 @@
             ]
         })
     }
+
+
+    function UpdateTimesheetApproval(uuid){
+    $.ajax({
+        type: "get",
+        url: ParseRoute_SingleVar("{{route('detail.get.myOfficer',':uuid')}}",uuid,":uuid"),
+        success: function (response) {
+            $("#titleApprove").html(response.title);
+            $("#statusApprove").html(response.status_submit);
+            $("#submittedDateApprove").html(response.submitDate);
+            $("#attempApprove").html(response.attemp);
+            $("#officerApprove").html(response.user.name);
+        }
+    });
+}
 
    
 

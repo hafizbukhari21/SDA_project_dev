@@ -115,6 +115,10 @@ class web_timesheetController extends Controller
         return false;
     }
 
+    public function approvalListTimesheetDetailOfficer(Request $request){
+        return $this->timesheet_submit->approvalListTimesheetDetailOfficer($request->uuid);
+    }
+
 
     
     

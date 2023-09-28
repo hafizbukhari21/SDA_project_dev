@@ -16,16 +16,16 @@ aria-hidden="true">
                     </a> --}}
 
                    <div>
-                    <h5>Officer: </h5>
+                    <h5 class="mb-3" style="font-weight: bold;" id="officerApprove">Officer: </h5>
                     <div class="row mb-3">
                         <div class="col-lg-6">
-                            <p>Title: </p>
-                            <p>Status: </p>
+                            <p >Title: <span style="font-weight: bold;" id="titleApprove"></span></p>
+                            <p >Status: <span style="font-weight: bold;" id="statusApprove"></span></p>
                            
                         </div>
                         <div class="col-lg-6">
-                            <p>Submited Date: </p>
-                            <p>Attempt: </p>
+                            <p >Submited Date: <span style="font-weight: bold;" id="submittedDateApprove"></span> </p>
+                            <p >Attempt: <span style="font-weight: bold;" id="attempApprove"></span></p>
                         </div>
                         <div class="col-lg-6" id="buttonAction">
                             <button type="button" class="btn btn-success">Approve</button>

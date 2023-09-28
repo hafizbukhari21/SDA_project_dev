@@ -1,6 +1,4 @@
-function UpdateTimesheetApproval(uuid){
-    
-}
+
 
 function format(d) {
     console.log(d)
