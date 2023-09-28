@@ -76,6 +76,9 @@
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script src="{{ asset('js/Page/Timesheet/timesheetHead.js') }}"></script>
+<script src="{{ asset('js/Page/Timesheet/timesheetGeneral.js') }}"></script>
+
+
 
 <script>
 </script>
@@ -198,46 +201,9 @@
         DatatableExpandable({tr,row,format:format(row.data())})
     })
     
-    function format(d) {
-        return `
-                <table class="table">
-                    <thead>
+    
 
-                        <th scope="col" style="width: 50%">Detail Activity</th>
-                        <th scope="col" style="width: 25%">Working Hours</th>
-                        <th scope="col" style="width: 25%">Overtime</th>
-                    <thead>
-                    <tbody>
-                    <tr>
-
-                        <td>${d.detail_activity}</td>
-                        <td>${workingHourCount(d.from,d.finish)}</td>
-                        <td>${overtimeCount(d.finish)}</td>
-                    
-                    </tr>
-                    <tr>
-                    </tbody>
-                </table>                    
-        `
-    }
-
-    function workingHourCount(from,finish){
-        from = moment(from,"HH:mm:ss")
-        finish = moment(finish,"HH:mm:ss")
-        let duration = moment.duration(finish.diff(from))
-        return `${duration.hours()} hours and ${duration.minutes()} minutes`
-
-    }
-
-    function overtimeCount(data ) {
-        const overtimeAfter= "17:30:00"
-        let finish = moment(data,"HH:mm:ss")
-        let overtTimeAfter = moment(overtimeAfter,"HH:mm:ss")
-        let duration = moment.duration(finish.diff(overtTimeAfter))
-        if(duration.hours()<0) return "No Overtime"
-        return `${duration.hours()} hours and ${duration.minutes()} minutes`
-    }
-
+    
     
 
    

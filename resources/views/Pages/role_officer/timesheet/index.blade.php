@@ -132,6 +132,8 @@
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
+
+
 <script id="myscriptvar">
     ///var url
     const ShowTableTimesheet_var= `{{route('show.myTimesheet',["idTimesheet"=>$payload->timesheet->id])}}`
@@ -142,6 +144,8 @@
 </script>
 
 <script src="{{ asset('js/Page/Timesheet/timesheet.js') }}"></script>
+<script src="{{ asset('js/Page/Timesheet/timesheetGeneral.js') }}"></script>
+
 
 
 <script id="myscript">
