@@ -41,11 +41,10 @@ aria-hidden="true">
                                     <th></th>
                                     <th>Title</th>
                                     <th>Status</th>
-                                    <th>Date</th>
+                                    <th>Activity Date</th>
                                     <th>Start</th>
                                     <th>Finish</th>
-                                    <th>Request</th>
-                                    <th>Action</th>
+                                  
                                     
                                     
                                 </tr>
@@ -58,8 +57,7 @@ aria-hidden="true">
                                     <th>Date</th>
                                     <th>Start</th>
                                     <th>Finish</th>
-                                    <th>Request</th>
-                                    <th>Action</th>
+                                  
                                     
                                 </tr>
                             </tfoot>
