@@ -67,10 +67,5 @@ function GeneratedTableTimesheetApproval(url){
 
 
 
-   
-$("#tableTimesheetApprovalOfficer tbody").on("click", "td.dt-control", function () {
-    let tr = $(this).closest('tr')
-    let row = tableTimesheet.row(tr)
-    DatatableExpandable({tr,row,format:format(row.data())})
-})
+
 
