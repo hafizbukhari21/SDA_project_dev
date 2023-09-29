@@ -1,7 +1,5 @@
 
-$(document).ready(function () {
-    GenerateTableTimesheetSubmit()
-});
+
 function GenerateTableTimesheetSubmit () {
     return DatatableFormater_serverSide({
         element:"#tableTimesheetSubmit",

@@ -86,7 +86,9 @@ class web_timesheetController extends Controller
     }
 
     public function RemoveActivityFromSubmit(Request $request){
-        return $this->timeSheet_act_repo->RemoveActivityFromSubmit($request->uuid);
+        
+        $timesheetActivtySubmit_ref_number = $this->timeSheet_act_repo->RemoveActivityFromSubmit($request->uuid);
+        return $this->timesheet_submit->updateTitleSubmit($timesheetActivtySubmit_ref_number);
     }
 
     public function getMyOfficer(Request $request){

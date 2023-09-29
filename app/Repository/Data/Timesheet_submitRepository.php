@@ -38,11 +38,32 @@ class Timesheet_submitRepository extends GeneralRepository{
        
     }
 
+    public  function  updateTitleSubmit($id){
+        $timsesheetId=$this->timesheet_repo->get("idUser",session()->get("sessionKey")["id"])->first()->id;//get session value should be from controller
+        $timesheetActvityTime = $this->timesheet_act_repo->getFirstandLastDateNew($timsesheetId,[
+            ["status","=","new"],
+            ["ref_timeSheetSubmit","=",$id]
+        ]);
+        $timseheetSubmitApproval=$this->objectName->find($id);
+
+        if($timesheetActvityTime)  $timseheetSubmitApproval->title =  "Pengajuan Tanggal ".$timesheetActvityTime[0]." s.d. ".$timesheetActvityTime[1];
+        else   $timseheetSubmitApproval->title =  "Pengajuan Tanggal NA s.d NA";
+
+
+        $timseheetSubmitApproval->save();
+
+        return $timseheetSubmitApproval->title;
+
+    }
+
 
     public function requestApproval(){
     
         $timsesheetId=$this->timesheet_repo->get("idUser",session()->get("sessionKey")["id"])->first()->id;//get session value should be from controller
-        $timesheet_act_new_without_ref=$this->timesheet_act_repo->getFirstandLastDateNew($timsesheetId);
+        $timesheet_act_new_without_ref=$this->timesheet_act_repo->getFirstandLastDateNew($timsesheetId,[
+            ["status","=","new"],
+            ["ref_timeSheetSubmit","=",null]
+        ]);
         $submitApproval = $this->objectName->create([
             "timeSheet_id"=>$timsesheetId,
             "idUser"=>session()->get("sessionKey")["id"],//get session value should be from controller

@@ -72,7 +72,12 @@
 
 <script>
         let tableTimesheetApproval = null
+        let  GenerateTableTimesheetSubmit_table = null
 
+    $(document).ready(function () {
+        GenerateTableTimesheetSubmit_table =  GenerateTableTimesheetSubmit()
+
+    });
 
       function UpdateTimesheetApproval(uuid){
             let url = ParseRoute_SingleVar("{{route('detail.get.myOfficer',':uuid')}}",uuid,":uuid")
@@ -112,11 +117,13 @@ function DeleteActivityFromSubmit(uuid){
         url: removeActivityFromSubmitUrl,
         data: {uuid},
         success: function (response) {
+            console.log(response)
             Alertify({
                     message:"Activity Dikembalikan ",
                     duration:5
                 })
             tableTimesheetApproval.ajax.reload()
+            GenerateTableTimesheetSubmit_table.ajax.reload()
         }, 
         error:function(error){
             console.log(error)
