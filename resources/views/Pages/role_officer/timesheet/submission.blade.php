@@ -63,6 +63,7 @@
 <script>
     const mySubmitListUrl ="{{route('submission.timesheet.get')}}"
     const ShowTableUnApprove_var= `{{route('show.unApprove.myTimesheet')}}`
+    const removeActivityFromSubmitUrl = "{{route('submission.timesheet.delete')}}"
 
 </script>
 <script src="{{ asset('js/Page/Timesheet/timesheetSubmitList.js') }}"></script>
@@ -103,6 +104,29 @@
     DatatableExpandable({tr,row,format:format(row.data())})
 
 })
+
+function DeleteActivityFromSubmit(uuid){
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: removeActivityFromSubmitUrl,
+        data: {uuid},
+        success: function (response) {
+            Alertify({
+                    message:"Activity Dikembalikan ",
+                    duration:5
+                })
+            tableTimesheetApproval.ajax.reload()
+        }, 
+        error:function(error){
+            console.log(error)
+            AlertifyFailed({
+                message:"Format tidak sesuai - General Error",
+                duration:5
+            })
+        }
+    });
+}
 </script>
 
 @endsection

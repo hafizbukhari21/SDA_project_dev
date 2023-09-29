@@ -52,10 +52,25 @@ function GeneratedTableTimesheetApproval(url){
                 {"data":"activity_date"},
                 {"data":"from"},
                 {"data":"finish"},
+                {
+                    "data":"uuid",
+                    render: function (data, type, row, meta) {
+                     return `
+                            <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteActivityFromSubmit('${data}')"  >
+                            Remove
+                            </a>`
+                    }
+                },
             ]
     })
 }
 
-   
 
+
+   
+$("#tableTimesheetApprovalOfficer tbody").on("click", "td.dt-control", function () {
+    let tr = $(this).closest('tr')
+    let row = tableTimesheet.row(tr)
+    DatatableExpandable({tr,row,format:format(row.data())})
+})
 

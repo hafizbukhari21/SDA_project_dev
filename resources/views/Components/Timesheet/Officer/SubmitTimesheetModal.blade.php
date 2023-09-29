@@ -38,6 +38,9 @@ aria-hidden="true">
                                     <th>Activity Date</th>
                                     <th>Start</th>
                                     <th>Finish</th>
+                                    <th>Action</th>
+
+
                                   
                                     
                                     
@@ -51,6 +54,8 @@ aria-hidden="true">
                                     <th>Date</th>
                                     <th>Start</th>
                                     <th>Finish</th>
+                                    <th>Action</th>
+ 
                                   
                                     
                                 </tr>

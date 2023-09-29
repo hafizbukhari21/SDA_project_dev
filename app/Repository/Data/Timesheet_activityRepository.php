@@ -59,6 +59,13 @@ class Timesheet_activityRepository extends GeneralRepository{
 
     }
 
+    public function RemoveActivityFromSubmit($uuid){
+        $activity = $this->objectName->where(["uuid"=>$uuid])->first();
+        $activity->status= "new";
+        $activity->ref_timeSheetSubmit = null;
+        return $activity->save();
+    }
+
 
     public function GetTimesheetActPagination(Request $request,$idTimesheet){
         $query = $this->objectName->

@@ -85,6 +85,10 @@ class web_timesheetController extends Controller
         return $this->timeSheet_act_repo->getByUUid($idActivity)->first();
     }
 
+    public function RemoveActivityFromSubmit(Request $request){
+        return $this->timeSheet_act_repo->RemoveActivityFromSubmit($request->uuid);
+    }
+
     public function getMyOfficer(Request $request){
         return $this->timesheetRepo->myOfficerTimesheet(session()->get("sessionKey")["id"]);
     }
