@@ -7,6 +7,7 @@ use App\Utils\DatatableFormater;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+
 class Timesheet_submitRepository extends GeneralRepository{
 
     public Timesheet_activityRepository $timesheet_act_repo;
@@ -64,4 +65,6 @@ class Timesheet_submitRepository extends GeneralRepository{
     public function approvalListTimesheetDetailOfficer($uuid){
         return $this->getByUUid($uuid)->load(["timesheetactivity","user"])->first();
     }
+
+   
 }

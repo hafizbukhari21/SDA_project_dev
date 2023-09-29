@@ -95,6 +95,11 @@ class web_timesheetController extends Controller
         return $this->timesheet_submit->GetMyOfficerTimesheet($request,$idOfficer);
     }
 
+    public function geMySubmitTimesheet(Request $request){
+        return $this->getMyOfficer_timesheetSubmit($request, session()->get("sessionKey")["id"]);
+    }
+    
+
     //select activity yang belum approve [new,rev]
     public function getUnApproveActivity(){
        return  $this->timesheetRepo->UnApproveActivity(session()->get("sessionKey")["id"]);
@@ -102,6 +107,10 @@ class web_timesheetController extends Controller
 
     public function makeRequest(){
         return $this->timesheet_submit->requestApproval();
+    }
+
+    public function submissionShow(){
+        return view("Pages.role_officer.timesheet.submission");
     }
 
 
