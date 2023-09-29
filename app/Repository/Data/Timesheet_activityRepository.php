@@ -24,6 +24,14 @@ class Timesheet_activityRepository extends GeneralRepository{
         return $timesheet->save();
     }
 
+    public function RemoveActivityFromSubmit_filterWithUUIDSubmitForm($id){
+        return $this->objectName->where(["ref_timeSheetSubmit"=>$id])
+            ->update([
+                'ref_timeSheetSubmit'=>null,
+                'status'=>'new'
+            ]);
+    
+    }
     
 
 

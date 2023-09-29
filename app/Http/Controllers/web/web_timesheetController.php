@@ -42,6 +42,8 @@ class web_timesheetController extends Controller
         ]);
     }
 
+
+
     public function addActivity(Request $request){
         $this->validateInput($request);
 
@@ -89,6 +91,16 @@ class web_timesheetController extends Controller
         
         $timesheetActivtySubmit_ref_number = $this->timeSheet_act_repo->RemoveActivityFromSubmit($request->uuid);
         return $this->timesheet_submit->updateTitleSubmit($timesheetActivtySubmit_ref_number);
+    }
+
+    public function RemoveActivitySubmit(Request $request){
+        //Remove all ref_submit number in activity
+        $timesheetSubmit = $this->timesheet_submit->getByUUid($request->uuid)->first();
+
+        $timesheetActivtySubmit_ref_number = $this->timeSheet_act_repo->RemoveActivityFromSubmit_filterWithUUIDSubmitForm($timesheetSubmit->id);
+        $timesheetSubmit = $this->timesheet_submit->softDeleteUuid($request->uuid);
+
+        return compact("timesheetActivtySubmit_ref_number","timesheetSubmit");
     }
 
     public function getMyOfficer(Request $request){

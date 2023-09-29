@@ -64,6 +64,7 @@
     const mySubmitListUrl ="{{route('submission.timesheet.get')}}"
     const ShowTableUnApprove_var= `{{route('show.unApprove.myTimesheet')}}`
     const removeActivityFromSubmitUrl = "{{route('submission.timesheet.delete')}}"
+    const deletedSubmittedFormUrl = "{{route('submission.timesheet.delete.submittedForm')}}"
 
 </script>
 <script src="{{ asset('js/Page/Timesheet/timesheetSubmitList.js') }}"></script>
@@ -103,12 +104,37 @@
         UpdateTimesheetApproval(uuid)
     }
 
-    $("#tableTimesheetApprovalOfficer tbody").on("click", "td.dt-control", function () {
-    let tr = $(this).closest('tr')
-    let row = tableTimesheetApproval.row(tr)
-    DatatableExpandable({tr,row,format:format(row.data())})
+    $("#tableTimesheetApprovalOfficer tbody").on("click", "td.dt-control", function ()      {
+        let tr = $(this).closest('tr')
+        let row = tableTimesheetApproval.row(tr)
+        DatatableExpandable({tr,row,format:format(row.data())})
+    })
 
-})
+    function DeleteTimesheetApprovalOfficer(uuid){
+        PreAjax()
+        $.ajax({
+            type: "post",
+            url: deletedSubmittedFormUrl,
+            data: {uuid},
+
+            success: function (response) {
+                console.log(response)
+                Alertify({
+                            message:"Berhasil Menghapus Form Submit",
+                            duration:5
+                        })
+                    GenerateTableTimesheetSubmit_table.ajax.reload()
+                }, 
+                error:function(error){
+                    console.log(error)
+                    AlertifyFailed({
+                        message:"Format tidak sesuai - General Error",
+                        duration:5
+                    })
+                }
+            });
+    }
+
 
 function DeleteActivityFromSubmit(uuid){
     PreAjax()
@@ -134,6 +160,7 @@ function DeleteActivityFromSubmit(uuid){
         }
     });
 }
+
 </script>
 
 @endsection
