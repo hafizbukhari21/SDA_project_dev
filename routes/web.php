@@ -110,13 +110,14 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             Route::get("/submission/timesheet",[web_timesheetController::class,"submissionShow"])->name("submission.timesheet");
             Route::get("/submission/timesheet/get",[web_timesheetController::class,"geMySubmitTimesheet"])->name("submission.timesheet.get");
             Route::post("deleted",[web_timesheetController::class,"deleteTimesheet"])->name("delete.timesheet");
+            Route::get("approval/detail/{uuid}",[web_timesheetController::class,"approvalListTimesheetDetailOfficer"])->name("detail.get.myOfficer");
+
     
             Route::group(["middleware"=>"SessionControlWeb_Head"],function(){
                 // Route::get('head/')
                 Route::get("head/approval/myOfficer/get",[web_timesheetController::class,"getMyOfficer"])->name("get.myofficer.timesheet");
                 Route::get("head/approval/myOfficer/get/list/timesheetSubmit/{idOfficer}",[web_timesheetController::class,"getMyOfficer_timesheetSubmit"])->name("get.myofficer.timesheet_submit");
                 Route::view("head/approval","Pages.role_head.timesheet.approval")->name("show.timesheet.approval");
-                Route::get("head/approval/detail/{uuid}",[web_timesheetController::class,"approvalListTimesheetDetailOfficer"])->name("detail.get.myOfficer");
                 
             });
     });

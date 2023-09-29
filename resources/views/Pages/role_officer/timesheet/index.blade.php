@@ -90,7 +90,6 @@
                                         <tr>
                                             <th></th>
                                             <th>Title</th>
-                                        
                                             <th>Status</th>
                                             <th>Date</th>
                                             <th>Start</th>

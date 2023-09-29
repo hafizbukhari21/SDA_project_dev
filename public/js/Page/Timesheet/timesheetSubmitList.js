@@ -18,7 +18,7 @@ function GenerateTableTimesheetSubmit () {
                 "data":"uuid",
                 render: function (data, type, row, meta) {
                  return `
-                        <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheetApproval('${data}')" data-toggle="modal" data-target="#previewApprovalTimesheetHead" >
+                        <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheetApprovalOfficer('${data}')" data-toggle="modal" data-target="#SubmitTimesheetDetailModal" >
                         <i class="fa fa-info-circle"></i>
                         </a>
                         </div>`
@@ -27,3 +27,35 @@ function GenerateTableTimesheetSubmit () {
         ]
     })
 }
+
+
+//Table Detail Submit yang udah diajuin ditamopilkan pada modal
+function GeneratedTableTimesheetApproval(url){
+
+    return  $('#tableTimesheetApprovalOfficer').DataTable({
+            
+            ajax: {
+                url,
+                "dataType": "json",
+                "dataSrc": "timesheetactivity",
+            },
+
+            columns: [
+                {
+                    className: "dt-control",
+                    orderable: true,
+                    data: null,
+                    defaultContent:'<button type="button" class="btn-sm btn-primary">+</button>'
+                },
+                {"data":"title"},
+                {"data":"status"},
+                {"data":"activity_date"},
+                {"data":"from"},
+                {"data":"finish"},
+            ]
+    })
+}
+
+   
+
+
