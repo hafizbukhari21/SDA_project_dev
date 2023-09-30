@@ -32,6 +32,12 @@ class web_timesheetController extends Controller
         return view("Pages.role_officer.timesheet.index",["payload"=>$payload]);
     }
 
+   
+
+
+
+    //Timesheet Act Repo----------------------------------------------------------------------------------------------------------------------------
+
     private function validateInput(Request $req){
         $req->validate([
             'title' => 'required',
@@ -41,8 +47,6 @@ class web_timesheetController extends Controller
             'finish' => 'required',
         ]);
     }
-
-
 
     public function addActivity(Request $request){
         $this->validateInput($request);
@@ -75,6 +79,10 @@ class web_timesheetController extends Controller
         return $this->timeSheet_act_repo->softDeleteUuid($request->uuid);
     }
 
+    public function getMyTimeSheetActivity($idActivity){
+        return $this->timeSheet_act_repo->getByUUid($idActivity)->first();
+    }
+
     public function getMyTimesheet($idTimesheet,Request $request){
         if($this->CheckMyTimeSheet($idTimesheet)){
             //return $this->timeSheet_act_repo->get("timesheet_id",$idTimesheet);
@@ -83,8 +91,41 @@ class web_timesheetController extends Controller
         return response(["message"=>"Forbidden"],403);
     }
 
-    public function getMyTimeSheetActivity($idActivity){
-        return $this->timeSheet_act_repo->getByUUid($idActivity)->first();
+
+
+    //TImesheet Repo ------------------------------------------------------------------------------------------------------------------------------------
+
+    //select activity yang belum approve [new,rev]
+    public function getUnApproveActivity(){
+       return  $this->timesheetRepo->UnApproveActivity(session()->get("sessionKey")["id"]);
+    }
+
+    public function getMyOfficer(Request $request){
+        return $this->timesheetRepo->myOfficerTimesheet(session()->get("sessionKey")["id"]);
+    }
+
+     //Validation
+     private function CheckMyTimeSheet($id){
+        $check = $this->timesheetRepo->get("id",$id)->first();
+        if($check->idUser == session()->get("sessionKey")["id"]){
+            return true;
+        }
+        return false;
+    }
+
+
+
+    //Timesheet Submit ---------------------------------------------------------------------------------------------------------------------------
+
+
+    public function makeRequest(){
+        return $this->timesheet_submit->requestApproval();
+    }
+
+    public function getMyOfficer_timesheetSubmit(Request $request, $idOfficer){
+    
+        // return $this->timesheet_submit->get("idUser",$idOfficer)->load("user");
+        return $this->timesheet_submit->GetMyOfficerTimesheet($request,$idOfficer);
     }
 
     public function RemoveActivityFromSubmit(Request $request){
@@ -92,6 +133,7 @@ class web_timesheetController extends Controller
         $timesheetActivtySubmit_ref_number = $this->timeSheet_act_repo->RemoveActivityFromSubmit($request->uuid);
         return $this->timesheet_submit->updateTitleSubmit($timesheetActivtySubmit_ref_number);
     }
+
 
     public function RemoveActivitySubmit(Request $request){
         //Remove all ref_submit number in activity
@@ -103,48 +145,39 @@ class web_timesheetController extends Controller
         return compact("timesheetActivtySubmit_ref_number","timesheetSubmit");
     }
 
-    public function getMyOfficer(Request $request){
-        return $this->timesheetRepo->myOfficerTimesheet(session()->get("sessionKey")["id"]);
-    }
-
-    public function getMyOfficer_timesheetSubmit(Request $request, $idOfficer){
-    
-        // return $this->timesheet_submit->get("idUser",$idOfficer)->load("user");
-        return $this->timesheet_submit->GetMyOfficerTimesheet($request,$idOfficer);
-    }
-
     public function geMySubmitTimesheet(Request $request){
         return $this->getMyOfficer_timesheetSubmit($request, session()->get("sessionKey")["id"]);
-    }
-    
-
-    //select activity yang belum approve [new,rev]
-    public function getUnApproveActivity(){
-       return  $this->timesheetRepo->UnApproveActivity(session()->get("sessionKey")["id"]);
-    }
-
-    public function makeRequest(){
-        return $this->timesheet_submit->requestApproval();
-    }
-
-    public function submissionShow(){
-        return view("Pages.role_officer.timesheet.submission");
-    }
-
-
-    
-    //Validation
-    private function CheckMyTimeSheet($id){
-        $check = $this->timesheetRepo->get("id",$id)->first();
-        if($check->idUser == session()->get("sessionKey")["id"]){
-            return true;
-        }
-        return false;
     }
 
     public function approvalListTimesheetDetailOfficer(Request $request){
         return $this->timesheet_submit->approvalListTimesheetDetailOfficer($request->uuid);
     }
+
+    //Head Approve Submit
+    public function headApproveTimesheet (Request $request){
+        //Update All Activity To be Successful
+        $timesheetSubmit = $this->timesheet_submit->getByUUid($request->uuid)->first();
+        $timesheetActRepo = $this->timeSheet_act_repo->approveTimesheetActivity($timesheetSubmit->id);
+
+        //Update Timesheet Submit
+        $timesheetSubmitReturn = $this->timesheet_submit->approveSubmit($request->uuid);
+
+        return ["uuid"=>$request->uuid];
+
+    }
+    
+
+    public function submissionShow(){
+        return view("Pages.role_officer.timesheet.submission");
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    
+   
+
+    
 
 
     

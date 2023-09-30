@@ -28,9 +28,8 @@ aria-hidden="true">
                             <p >Attempt: <span style="font-weight: bold;" id="attempApprove"></span></p>
                         </div>
                         <div class="col-lg-6" id="buttonAction">
-                            <button type="button" class="btn btn-success">Approve</button>
-                            <button type="button" class="btn btn-warning">Revision</button>
-                            <button type="button" class="btn btn-danger">Reject</button>
+                            <button type="button" class="btn btn-success" id="apvButton">Approve</button>
+                            <button type="button" class="btn btn-warning" id="revButton">Revision</button>
                         </div>
                     </div>
                    </div>

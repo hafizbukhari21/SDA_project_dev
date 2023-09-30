@@ -87,5 +87,14 @@ class Timesheet_submitRepository extends GeneralRepository{
         return $this->getByUUid($uuid)->load(["timesheetactivity","user"])->first();
     }
 
+    public function approveSubmit($uuid){
+        return $this->objectName->where("uuid",$uuid)
+                    ->update([
+                        "status_submit"=>"apv",
+                        "approvalDate"=>Carbon::now()->toDateString()
+                    ]);
+
+    }
+
    
 }

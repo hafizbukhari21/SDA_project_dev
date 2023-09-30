@@ -78,14 +78,9 @@
 <script src="{{ asset('js/Page/Timesheet/timesheetHead.js') }}"></script>
 <script src="{{ asset('js/Page/Timesheet/timesheetGeneral.js') }}"></script>
 
-
-
 <script>
-    
+    const apvTimesheetUrl = "{{route('apv.timesheet')}}"
 </script>
-
-
-
 
 <script>
 
@@ -93,6 +88,9 @@
     let tableTimesheetSubmit =null
     let tableTimesheetApproval = null
     let firstGenTableTimeSheetSubmit=false
+
+    let apvButton = document.querySelector("#apvButton")
+    let revButton = document.querySelector("#revButton")
 
     $(document).ready(function () {
         $.ajax({
@@ -155,20 +153,11 @@
 
     function UpdateTimesheetApproval(uuid){
             let url = ParseRoute_SingleVar("{{route('detail.get.myOfficer',':uuid')}}",uuid,":uuid")
-        $.ajax({
-            type: "get",
-            url ,
-            success: function (response) {
-                $("#titleApprove").html(response.title);
-                $("#statusApprove").html(response.status_submit);
-                $("#submittedDateApprove").html(response.submitDate);
-                $("#attempApprove").html(response.attemp);
-                $("#officerApprove").html(response.user.name);
-            }
-        });
 
-        if(!tableTimesheetApproval) tableTimesheetApproval = GeneratedTableTimesheetApproval(url)
-        else tableTimesheetApproval.ajax.url(url).load()
+            DoAjaxUpdateTimesheetApproval(url)
+
+            if(!tableTimesheetApproval) tableTimesheetApproval = GeneratedTableTimesheetApproval(url)
+            else tableTimesheetApproval.ajax.url(url).load()
     }
 
     function GeneratedTableTimesheetApproval(url){
@@ -202,7 +191,24 @@
         DatatableExpandable({tr,row,format:format(row.data())})
     })
     
-    
+    apvButton.addEventListener("click",e=>{
+        e.preventDefault()
+        DoAjaxAproveTimesheet(
+            apvTimesheetUrl,
+            $("#apvButton").attr("uuid"),
+            response=>{
+                let url = ParseRoute_SingleVar("{{route('detail.get.myOfficer',':uuid')}}",response.uuid,":uuid")
+                console.log(url)
+                DoAjaxUpdateTimesheetApproval(url)//Update Contain Modal
+                TriggerGeneratedTableApproval()//Update Table SubmitList
+                tableTimesheetApproval.ajax.reload()//Updalte Table Modal
+                Alertify({
+                    message:"Timesheet Berhasil di Approve",
+                    duration:5
+                })
+            }
+        )
+    })
 
     
     
