@@ -11,27 +11,7 @@ class Project_timelineRepository extends GeneralRepository{
         $this->objectName = new project_timeline();
     }
 
-    public function UpdateTimeline_from_and_to_only(Request $req){
-        $timeline = $this->objectName->find($req->id);
-        $timeline->from = $req->from;
-        $timeline->to=$req->to;
-        $timeline->save();
-        return $timeline;
-
-    }
-
-    public function updateTImeLineFull(Request $req){
-        $timeline = $this->objectName->find($req->id);
-        $timeline->from = $req->from;
-        $timeline->to=$req->to;
-        $timeline->notes=$req->notes;
-        $timeline->task_name=$req->task_name;
-        $timeline->idGroup=$req->idGroup;
-        $timeline->save();
-
-        return $timeline;
-    }
-
+   
     public function getDateInterval($idProject){
         $payload = $this->TimelineSorted($idProject);
         $payload_to = $this->TimelineSorted_to($idProject);

@@ -25,12 +25,12 @@ class web_TimelineController extends Controller
     }
 
     public function updateTimeline(Request $req){
-        return $this->timelineRepo->UpdateTimeline_from_and_to_only($req);
+        return $this->timelineRepo->updateById($req);
     }
 
     public function updateTImeLineFull (Request $req){
         if ($req->to < $req->from) return response(["message"=>"To harus lebih kecil dari from"],422);
-        return $this->timelineRepo->updateTImeLineFull($req);
+        return $this->timelineRepo->updateById($req);
     }
 
     public function deleteTimeLine(Request $req){

@@ -29,7 +29,6 @@
                                         
                                        
                                         <th>Title</th>
-                                        <th>Message</th>
                                         <th>Status Submit</th>
                                         <th>Submit Date</th>
                                         <th>Approval Date</th>
@@ -41,7 +40,6 @@
                                     <tr>
                                        
                                         <th>Title</th>
-                                        <th>Message</th>
                                         <th>Status Submit</th>
                                         <th>Submit Date</th>
                                         <th>Approval Date</th>
@@ -133,7 +131,6 @@
             url:ParseRoute_SingleVar("{{route('get.myofficer.timesheet_submit',':id')}}",id,":id"),
             columns:[
                 {"data":"title"},
-                {"data":"message"},
                 {
                     "data":"status_submit",
                     render: function (data,type,row,meta){
@@ -216,15 +213,23 @@
             $("#attempApprove").html(response.attemp);
             $("#officerApprove").html(response.user.name);
 
-            $("#messageApprove").html(response.message);
+            $("#messageApprove").val(response.message);
             $("#messageApprove").attr("uuid", response.uuid);
 
-            if (response.status_submit == "apv") $("#buttonAction").html("")
-            
-            else $("#buttonAction").html(`
-                <button type="button" class="btn btn-success" id="apvButton">Approve</button>
-                <button type="button" class="btn btn-warning" id="revButton">Revision</button>
-            `)
+            if (response.status_submit == "apv") {
+                $("#buttonAction").html("")
+                $("#messageApprove").prop('disabled',true);
+
+            }
+            else
+            {
+                $("#messageApprove").prop('disabled',false);
+                $("#buttonAction").html(`
+                    <button type="button" class="btn btn-success" id="apvButton">Approve</button>
+                    <button type="button" class="btn btn-warning" id="revButton">Revision</button>
+                `)
+            }
+           
 
             $("#apvButton").attr("uuid", response.uuid); 
             $("#revButton").attr("uuid", response.uuid); 
