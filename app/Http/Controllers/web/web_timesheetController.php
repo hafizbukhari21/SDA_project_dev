@@ -172,8 +172,7 @@ class web_timesheetController extends Controller
     
 
     public function submissionShow(){
-       // return view("Pages.role_officer.timesheet.submission");
-       return "h1";
+         return view("Pages.role_officer.timesheet.submission");
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------
