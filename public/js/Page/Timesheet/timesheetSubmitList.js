@@ -30,7 +30,7 @@ function GenerateTableTimesheetSubmit () {
                         <a href="#" class="btn btn-sm btn-warning" id="${data}" title="Show Detail" onClick="UpdateTimesheetApprovalOfficer('${data}')" data-toggle="modal" data-target="#SubmitTimesheetDetailModal" >
                         <i class="fa fa-info-circle"></i>
                         </a>
-                        <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="TimesheetApprovalOfficer('${data}')"  >
+                        <a href="#" class="btn btn-sm btn-danger" id="${data}" title="Show Detail" onClick="DeleteTimesheetApprovalOfficer('${data}')"  >
                         <i class="fas fa-trash"></i>
                         </a>
                         `
