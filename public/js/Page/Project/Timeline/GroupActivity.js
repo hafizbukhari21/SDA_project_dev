@@ -161,7 +161,6 @@ $("#addGroupForm").submit(function (e) {
         url: insertGroup,
         data: $(this).serialize(),
         success: function (response) {
-            console.log(response)
             Alertify({
                 message:"Berhasil Menambahkan Group",
                 duration:5
@@ -170,7 +169,6 @@ $("#addGroupForm").submit(function (e) {
             GetGroupAjax()
         },
         error: function (request, status, error) {
-            console.log(request)
             AlertifyFailed({
                 message:"Format tidak sesuai - General Error",
                 duration:5

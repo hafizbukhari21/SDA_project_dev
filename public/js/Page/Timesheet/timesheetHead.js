@@ -10,7 +10,7 @@ function ShowTableTimesheet(){
                className: "dt-control",
                orderable: true,
                data: null,
-               defaultContent:'<button type="button" class="btn-sm btn-primary">+</button>'
+               defaultContent:'<a type="button" class="btn-sm btn-primary">+</a>'
            },
            {"data":"title"},
            {"data":"status"},

@@ -95,7 +95,6 @@
             type: "get",
             url: "{{route('get.myofficer.timesheet')}}",
             success: function (response) {
-                console.log(response)
                 MappingSelectOption({
                         default:"Select Officer",
                         element:document.querySelector("#selectOfficer"),
@@ -179,7 +178,7 @@
                         className: "dt-control",
                         orderable: true,
                         data: null,
-                        defaultContent:'<button type="button" class="btn-sm btn-primary">+</button>'
+                        defaultContent:'<a type="button" class="btn-sm btn-primary">+</a>'
                     },
                     {"data":"title"},
                     {
@@ -206,12 +205,12 @@
         type: "get",
         url ,
         success:  function (response) {
-            console.log(response)
             $("#titleApprove").html(response.title);
             $("#statusApprove").html(convertSubmitStatus(response.status_submit).badgeH5);
             $("#submittedDateApprove").html(response.submitDate);
             $("#attempApprove").html(response.attemp);
             $("#officerApprove").html(response.user.name);
+            $("#daysApprove").html(response.timesheetactivity.length)
 
             $("#messageApprove").val(response.message);
             $("#messageApprove").attr("uuid", response.uuid);
@@ -252,7 +251,6 @@
             $("#apvButton").attr("uuid"),
             response=>{
                 let url = ParseRoute_SingleVar("{{route('detail.get.myOfficer',':uuid')}}",response.uuid,":uuid")
-                console.log(url)
                 DoAjaxUpdateTimesheetApproval(url)//Update Contain Modal
                 TriggerGeneratedTableApproval()//Update Table SubmitList
                 tableTimesheetApproval.ajax.reload()//Updalte Table Modal
