@@ -61,5 +61,32 @@ function ShowTableTimesheet(){
     });
 }
 
+function updateMessageApprove(e,messageInput){
+    e.preventDefault()
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: updateMessageUrl,
+        data: {
+            uuid:messageInput.getAttribute("uuid"),
+            message:messageInput.value
+        },
+        success: function (response) {
+            console.log(response)
+            Alertify({
+                message:"Timesheet Berhasil di Approve",
+                duration:5
+            })
+        },
+        error: function (request, status, error) {
+            console.log(request)
+            AlertifyFailed({
+                message:"Format tidak sesuai - General Error",
+                duration:5
+            })
+        }
+    });
+}
+
 
 

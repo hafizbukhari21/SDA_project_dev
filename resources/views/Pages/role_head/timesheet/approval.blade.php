@@ -75,13 +75,12 @@
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="{{ asset('js/Page/Timesheet/timesheetHead.js') }}"></script>
-<script src="{{ asset('js/Page/Timesheet/timesheetGeneral.js') }}"></script>
-
 <script>
     const apvTimesheetUrl = "{{route('apv.timesheet')}}"
+    const updateMessageUrl = "{{route('apv.timesheet.message.updage')}}"
 </script>
-
+<script src="{{ asset('js/Page/Timesheet/timesheetHead.js') }}"></script>
+<script src="{{ asset('js/Page/Timesheet/timesheetGeneral.js') }}"></script>
 <script>
 
     let selectOfficer = document.querySelector("#selectOfficer")
@@ -91,6 +90,7 @@
 
     let apvButton = document.querySelector("#apvButton")
     let revButton = document.querySelector("#revButton")
+    let messageInput = document.querySelector("#messageApprove")
 
     $(document).ready(function () {
         $.ajax({
@@ -108,6 +108,8 @@
         });
 
     });
+
+    
 
 
     selectOfficer.addEventListener("change",()=>{
@@ -213,6 +215,10 @@
             $("#submittedDateApprove").html(response.submitDate);
             $("#attempApprove").html(response.attemp);
             $("#officerApprove").html(response.user.name);
+
+            $("#messageApprove").html(response.message);
+            $("#messageApprove").attr("uuid", response.uuid);
+
             if (response.status_submit == "apv") $("#buttonAction").html("")
             
             else $("#buttonAction").html(`
@@ -255,7 +261,7 @@
     
     
     
-
+    messageInput.addEventListener("change",e=>updateMessageApprove(e,messageInput))
     
     
 

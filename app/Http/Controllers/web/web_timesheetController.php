@@ -165,6 +165,10 @@ class web_timesheetController extends Controller
         return ["uuid"=>$request->uuid];
 
     }
+
+    public function updateMessageSubmit (Request $request){
+        return $this->timesheet_submit->updateByUuid($request);
+    }
     
 
     public function submissionShow(){

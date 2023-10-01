@@ -26,6 +26,10 @@ class GeneralRepository implements GeneralInterface{
          return $this->objectName->create($req->all());
     }
 
+    public function updateByUuid(Request $request){
+        return $this->objectName->where(["uuid"=>$request->uuid])->update($request->all());
+    }
+
     //SoftDelete
     public function delete($req){
 
