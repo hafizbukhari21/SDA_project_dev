@@ -211,6 +211,7 @@
             $("#attempApprove").html(response.attemp);
             $("#officerApprove").html(response.user.name);
             $("#daysApprove").html(response.timesheetactivity.length)
+            $("#approvedDateApprove").html(response.approvalDate)
 
             $("#messageApprove").val(response.message);
             $("#messageApprove").attr("uuid", response.uuid);
