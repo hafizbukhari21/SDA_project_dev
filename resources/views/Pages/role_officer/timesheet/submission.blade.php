@@ -18,7 +18,6 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
-                                <th>Message</th>
                                 <th>Status Submit</th>
                                 <th>Submit Date</th>
                                 <th>Approval Date</th>
@@ -31,7 +30,6 @@
                         <tfoot>
                             <tr>
                                 <th>Title</th>
-                                <th>Message</th>
                                 <th>Status Submit</th>
                                 <th>Submit Date</th>
                                 <th>Approval Date</th>

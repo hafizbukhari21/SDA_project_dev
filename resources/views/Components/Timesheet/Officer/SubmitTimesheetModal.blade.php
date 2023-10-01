@@ -17,15 +17,18 @@ aria-hidden="true">
                     <h5 class="mb-3" style="font-weight: bold;" id="officerApprove">Officer: </h5>
                     <div class="row mb-3">
                         <div class="col-lg-6">
-                            <p >Title: <span style="font-weight: bold;" id="titleApprove"></span></p>
-                            <p >Status: <span style="font-weight: bold;" id="statusApprove"></span></p>
+                            <p ><span style="font-weight: bold;" id="titleApprove"></span></p>
+                            <p ><span style="font-weight: bold;" id="statusApprove"></span></p>
+                            <p> <label for="">Leaving Message</label><textarea  id="messageApprove" class="form-control " autocomplete="off" name="idProjectJalin" id="seachProjectName" disabled></textarea></p>
                            
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
                             <p >Submited Date: <span style="font-weight: bold;" id="submittedDateApprove"></span> </p>
+                            <p >Approved Date: <span style="font-weight: bold;" id="approvedDateApprove"></span> </p>
+                        </div>
+                        <div class="col-lg-3">
                             <p >Attempt: <span style="font-weight: bold;" id="attempApprove"></span></p>
                         </div>
-                       
                     </div>
                    </div>
                     <div class="table-responsive">
