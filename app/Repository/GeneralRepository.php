@@ -30,6 +30,10 @@ class GeneralRepository implements GeneralInterface{
         return $this->objectName->where(["uuid"=>$request->uuid])->update($request->all());
     }
 
+    public function updateById(Request $request){
+        return $this->objectName->where(["id"=>$request->uuid])->update($request->all());
+    }
+
     //SoftDelete
     public function delete($req){
 
