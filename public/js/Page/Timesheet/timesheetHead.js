@@ -42,28 +42,9 @@ function ShowTableTimesheet(){
    })
 }
 
-function DoAjaxUpdateTimesheetApproval (url){
-    $.ajax({
-        type: "get",
-        url ,
-        success: function (response) {
-            console.log(response)
-            $("#titleApprove").html(response.title);
-            $("#statusApprove").html(response.status_submit);
-            $("#submittedDateApprove").html(response.submitDate);
-            $("#attempApprove").html(response.attemp);
-            $("#officerApprove").html(response.user.name);
-            if (response.status_submit == "apv") $("#buttonAction").css("display", "none");
-            else $("#buttonAction").css("display", "inline");
 
-            $("#apvButton").attr("uuid", response.uuid); 
-            $("#revButton").attr("uuid", response.uuid); 
 
-        }
-    });
-}
-
-function DoAjaxAproveTimesheet(url,uuid,success){
+ function DoAjaxAproveTimesheet(url,uuid,success){
     PreAjax()
     $.ajax({
         type: "post",

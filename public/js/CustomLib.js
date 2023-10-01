@@ -57,6 +57,37 @@ function ProtectThis(){
 
 }
 
+
+function convertSubmitStatus(str){
+    switch(str){
+        case "new":
+            return {
+                badge:`<span class="badge badge-primary">New</span>`,
+                badgeH5:`<h5><span class="badge badge-primary">New</span></h5>`,
+                label:"New"
+            }
+        case "apv":
+            return {
+                badge:`<span class="badge badge-success">Approve</span>`,
+                badgeH5:`<h5><span class="badge badge-success">Approve</span></h5>`,
+                label:"Approve"
+            }
+        case "rev":
+            return {
+                badge:`<span class="badge badge-warning">Revisi</span>`,
+                badgeH5:`<h5><span class="badge badge-warning">Revisi</span></h5>`,
+                label:"Revisi"
+            }
+        default :
+            return {
+                badge:`<span class="badge badge-secondary">Unknown</span>`,
+                badgeH5:`<h5><span class="badge badge-secondary">Unknown</span></h5>`,
+                label:"Unknown"
+            }
+    }
+    
+}
+
 // function getWeekNumberInMonth(date) {
 //     const givenDate = new Date(date);
 //     const firstDayOfMonth = new Date(givenDate.getFullYear(), givenDate.getMonth(), 1);

@@ -88,7 +88,7 @@
             success: function (response) {
                 console.log(response)
                 $("#titleApprove").html(response.title);
-                $("#statusApprove").html(response.status_submit);
+                $("#statusApprove").html(convertSubmitStatus(response.status_submit).badgeH5);
                 $("#submittedDateApprove").html(response.submitDate);
                 $("#attempApprove").html(response.attemp);
                 $("#officerApprove").html(response.user.name);

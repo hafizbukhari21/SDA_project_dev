@@ -132,7 +132,13 @@
             columns:[
                 {"data":"title"},
                 {"data":"message"},
-                {"data":"status_submit"},
+                {
+                    "data":"status_submit",
+                    render: function (data,type,row,meta){
+                        return convertSubmitStatus(data).badge
+                    }
+
+                },
                 {"data":"submitDate"},
                 {"data":"approvalDate"},
                 {"data":"attemp"},
@@ -177,7 +183,12 @@
                         defaultContent:'<button type="button" class="btn-sm btn-primary">+</button>'
                     },
                     {"data":"title"},
-                    {"data":"status"},
+                    {
+                        "data":"status",
+                        render: function (data,type,row,meta){
+                            return convertSubmitStatus(data).badge
+                        }
+                    },
                     {"data":"activity_date"},
                     {"data":"from"},
                     {"data":"finish"},
@@ -190,8 +201,40 @@
         let row = tableTimesheetApproval.row(tr)
         DatatableExpandable({tr,row,format:format(row.data())})
     })
-    
-    apvButton.addEventListener("click",e=>{
+
+    function  DoAjaxUpdateTimesheetApproval (url){
+    $.ajax({
+        type: "get",
+        url ,
+        success:  function (response) {
+            console.log(response)
+            $("#titleApprove").html(response.title);
+            $("#statusApprove").html(convertSubmitStatus(response.status_submit).badgeH5);
+            $("#submittedDateApprove").html(response.submitDate);
+            $("#attempApprove").html(response.attemp);
+            $("#officerApprove").html(response.user.name);
+            if (response.status_submit == "apv") $("#buttonAction").html("")
+            
+            else $("#buttonAction").html(`
+                <button type="button" class="btn btn-success" id="apvButton">Approve</button>
+                <button type="button" class="btn btn-warning" id="revButton">Revision</button>
+            `)
+
+            $("#apvButton").attr("uuid", response.uuid); 
+            $("#revButton").attr("uuid", response.uuid); 
+
+            apvButton = document.querySelector("#apvButton")
+            revButton = document.querySelector("#revButton")
+            
+            apvButton.addEventListener("click",e=>apvButtonFunction_trigger(e))    
+            revButton.addEventListener("click",e=>rejButtonFunction_trigger(e))  
+        }
+    });
+    }
+
+   
+
+    function apvButtonFunction_trigger(e){
         e.preventDefault()
         DoAjaxAproveTimesheet(
             apvTimesheetUrl,
@@ -208,7 +251,10 @@
                 })
             }
         )
-    })
+    }
+    
+    
+    
 
     
     
