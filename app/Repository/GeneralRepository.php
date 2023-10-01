@@ -3,6 +3,7 @@
 namespace App\Repository;
 use App\Interfaces\GeneralInterface;
 use App\Models;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -27,12 +28,23 @@ class GeneralRepository implements GeneralInterface{
     }
 
     public function updateByUuid(Request $request){
-        return $this->objectName->where(["uuid"=>$request->uuid])->update($request->all());
+        $target =  $this->objectName->where(["uuid"=>$request->uuid]);
+        if($request->has("_token"))
+            return $target->update($request->except(["_token"]));
+
+        return $target->update($request->all());
+
     }
 
     public function updateById(Request $request){
-        return $this->objectName->where(["id"=>$request->uuid])->update($request->all());
+        $target = $this->objectName->where(["id"=>$request->id]);
+        if($request->has("_token"))
+            return $target->update($request->except(["_token"]));
+
+        return $target->update($request->all());
     }
+
+    
 
     //SoftDelete
     public function delete($req){

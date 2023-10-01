@@ -137,31 +137,5 @@ class ProjectRepository extends GeneralRepository{
     }
 
 
-    public function updateProject(Request $req){
-        $project =  $this->objectName->find($req->id);
-        $project->project_name = $req->project_name;
-        $project->user_creator_id = $req->user_creator_id;
-        $project->category_id = $req->category_id;
-        $project->status = $req->status;
-        $project->time = $req->time;
-        $project->pic_am = $req->pic_am;
-        $project->urgensi = $req->urgensi;
-        if($project->save()){
-            return $project;
-        }
-
-        return null;
-
-
-    }
-
-    
-
-    
-
-
-
-
-
 
 }

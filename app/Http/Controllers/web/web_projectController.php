@@ -55,7 +55,7 @@ class web_projectController extends Controller
 
     public function setUpdateProject(Request $req){
         if (session()->get("sessionKey")["role"]=="Officer") $req->merge(["user_creator_id" => session()->get("sessionKey")["id"]]);//Role Officer 
-        return $this->projectRepo->updateProject($req);
+        return $this->projectRepo->updateById($req);
     }
 
     public function searchProjectLikeName(Request $req){
