@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->command('backup:run --only-db')->daily()->at("05:48")
+        $schedule->command('backup:run --only-db')->daily()->at("23:59")
         ->onSuccess(function(){
             Log::info("DB Backup Success");
         })->onFailure(function(){
