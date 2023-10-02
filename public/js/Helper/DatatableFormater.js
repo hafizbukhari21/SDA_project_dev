@@ -12,6 +12,9 @@ function DatatableFormater_serverSide(data){
             url: data.url,
             "dataType": "json",
             "dataSrc": data.dataSrc,
+            error: function (xhr, error, code) {
+                console.log(xhr, code);
+            }
         },
 
             columns: data.columns
