@@ -10,6 +10,7 @@ buttonSendRequest.addEventListener("click",e=>{
         success: function (response) {
             console.log(response)
             tableTimesheet.ajax.reload()
+            $("#previewApprovalTimesheet").modal("hide")
             SweetAlertSimple({
                 title:"Request Sent",
                 timer:1000

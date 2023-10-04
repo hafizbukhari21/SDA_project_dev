@@ -166,6 +166,17 @@ class web_timesheetController extends Controller
 
     }
 
+    //Head Revisi Submit
+    public function headRevisiSubmti(Request $request){
+        $timesheetSubmit = $this->timesheet_submit->getByUUid($request->uuid)->first();
+        $timesheetActRepo = $this->timeSheet_act_repo->revTimesheetActivity($timesheetSubmit->id);
+
+        //Update Timesheet Submit
+        $timesheetSubmitReturn = $this->timesheet_submit->revisiSubmit($request->uuid);
+
+        return ["uuid"=>$request->uuid];
+    }
+
     public function updateMessageSubmit (Request $request){
         return $this->timesheet_submit->updateByUuid($request);
     }

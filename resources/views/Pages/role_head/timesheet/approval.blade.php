@@ -75,6 +75,7 @@
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script>
     const apvTimesheetUrl = "{{route('apv.timesheet')}}"
+    const revTimesheetUrl = "{{route('rev.timesheet')}}"
     const updateMessageUrl = "{{route('apv.timesheet.message.updage')}}"
 </script>
 <script src="{{ asset('js/Page/Timesheet/timesheetHead.js') }}"></script>
@@ -238,7 +239,7 @@
             revButton = document.querySelector("#revButton")
             
             apvButton.addEventListener("click",e=>apvButtonFunction_trigger(e))    
-            revButton.addEventListener("click",e=>rejButtonFunction_trigger(e))  
+            revButton.addEventListener("click",e=>revButtonFunction_trigger(e))  
         }
     });
     }
@@ -257,6 +258,24 @@
                 tableTimesheetApproval.ajax.reload()//Updalte Table Modal
                 Alertify({
                     message:"Timesheet Berhasil di Approve",
+                    duration:5
+                })
+            }
+        )
+    }
+
+    function revButtonFunction_trigger(e){
+        e.preventDefault()
+        DoAjaxAproveTimesheet(
+            revTimesheetUrl,
+            $("#revButton").attr("uuid"),
+            response=>{
+                let url = ParseRoute_SingleVar("{{route('detail.get.myOfficer',':uuid')}}",response.uuid,":uuid")
+                DoAjaxUpdateTimesheetApproval(url)//Update Contain Modal
+                TriggerGeneratedTableApproval()//Update Table SubmitList
+                tableTimesheetApproval.ajax.reload()//Updalte Table Modal
+                Alertify({
+                    message:"Timesheet Berhasil Dikembalikan untuk Direvisi",
                     duration:5
                 })
             }

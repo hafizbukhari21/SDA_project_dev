@@ -119,7 +119,7 @@ class Timesheet_activityRepository extends GeneralRepository{
     public function revTimesheetActivity($ref_timeSheetSubmit){
         return $this->objectName
                     ->where(["ref_timeSheetSubmit"=>$ref_timeSheetSubmit])
-                    ->update(["status"=>"apv"]);
+                    ->update(["status"=>"rev"]);
     }
 
 

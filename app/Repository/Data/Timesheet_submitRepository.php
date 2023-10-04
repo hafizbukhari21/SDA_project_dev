@@ -96,5 +96,16 @@ class Timesheet_submitRepository extends GeneralRepository{
 
     }
 
+    public function revisiSubmit($uuid){
+        return $this->objectName->where("uuid",$uuid)
+                    ->update([
+                        "status_submit"=>"rev",
+                 
+                    ]);
+
+    }
+
+    
+
    
 }
