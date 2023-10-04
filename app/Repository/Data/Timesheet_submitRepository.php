@@ -105,6 +105,16 @@ class Timesheet_submitRepository extends GeneralRepository{
 
     }
 
+    public function reNewSubmit($uuid){
+        $timesheetSubmitAttemp = (int)$this->getByUUid($uuid)->first()->attemp;
+        return $this->objectName->where("uuid",$uuid)
+                    ->update([
+                        "status_submit"=>"new",
+                        "attemp"=>$timesheetSubmitAttemp+1
+                    ]);
+
+    }
+
     
 
    

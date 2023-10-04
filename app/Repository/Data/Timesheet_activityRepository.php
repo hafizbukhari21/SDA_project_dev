@@ -122,6 +122,12 @@ class Timesheet_activityRepository extends GeneralRepository{
                     ->update(["status"=>"rev"]);
     }
 
+    public function reNewTimesheetActivity($ref_timeSheetSubmit){
+        return $this->objectName
+                    ->where(["ref_timeSheetSubmit"=>$ref_timeSheetSubmit])
+                    ->update(["status"=>"new"]);
+    }
+
 
 
 

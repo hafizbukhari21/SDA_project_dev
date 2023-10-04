@@ -177,6 +177,18 @@ class web_timesheetController extends Controller
         return ["uuid"=>$request->uuid];
     }
 
+    //Officer Resubmti Timesheet
+    public function officerResubmitTimehseet(Request $request){
+        $timesheetSubmit = $this->timesheet_submit->getByUUid($request->uuid)->first();
+        $timesheetActRepo = $this->timeSheet_act_repo->reNewTimesheetActivity($timesheetSubmit->id);
+
+        //Update Timesheet Submit
+        $timesheetSubmitReturn = $this->timesheet_submit->reNewSubmit($request->uuid);
+
+        return 1;
+
+    }
+
     public function updateMessageSubmit (Request $request){
         return $this->timesheet_submit->updateByUuid($request);
     }

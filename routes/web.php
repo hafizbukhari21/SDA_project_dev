@@ -111,6 +111,8 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             Route::get("/submission/timesheet/get",[web_timesheetController::class,"geMySubmitTimesheet"])->name("submission.timesheet.get");
             Route::post("/submission/timesheet/activity/delete",[web_timesheetController::class,"RemoveActivityFromSubmit"])->name("submission.timesheet.delete");
             Route::post("/submission/timesheet/sumbitted/delete",[web_timesheetController::class,"RemoveActivitySubmit"])->name("submission.timesheet.delete.submittedForm");
+            Route::post("/submission/timesheet/resubmitted",[web_timesheetController::class,"officerResubmitTimehseet"])->name("resubmit.timesheet");
+
             Route::post("deleted",[web_timesheetController::class,"deleteTimesheet"])->name("delete.timesheet");
             Route::get("approval/detail/{uuid}",[web_timesheetController::class,"approvalListTimesheetDetailOfficer"])->name("detail.get.myOfficer");
 

@@ -63,6 +63,7 @@
     const ShowTableUnApprove_var= `{{route('show.unApprove.myTimesheet')}}`
     const removeActivityFromSubmitUrl = "{{route('submission.timesheet.delete')}}"
     const deletedSubmittedFormUrl = "{{route('submission.timesheet.delete.submittedForm')}}"
+    const resubmitTimesheetUrl = "{{route('resubmit.timesheet')}}"
 
 </script>
 <script src="{{ asset('js/Page/Timesheet/timesheetSubmitList.js') }}"></script>
@@ -72,10 +73,10 @@
 <script>
         let tableTimesheetApproval = null
         let  GenerateTableTimesheetSubmit_table = null
+        let resubmitButton = null
 
     $(document).ready(function () {
         GenerateTableTimesheetSubmit_table =  GenerateTableTimesheetSubmit()
-
     });
 
       function UpdateTimesheetApproval(uuid){
@@ -85,11 +86,28 @@
             url ,
             success: function (response) {
                 $("#titleApprove").html(response.title);
+
                 $("#statusApprove").html(convertSubmitStatus(response.status_submit).badgeH5);
+                if(response.status_submit=='rev'){
+                    $("#buttonAction").html(`
+                        <button type="button" class="btn btn-success" id="resubmitButton">Re-Submit</button>
+                    `)
+                }
+                   
+                else
+                    $("#buttonAction").html("")
+
+                resubmitButton = document.querySelector("#resubmitButton")
+                $("#resubmitButton").attr("uuid", response.uuid);
+                
+                resubmitButton.addEventListener("click",()=>reSubmitTimesheet($("#resubmitButton").attr("uuid")))
+
+                $("#resubmitButton").attr("uuid", response.uuid); 
                 $("#submittedDateApprove").html(response.submitDate);
                 $("#attempApprove").html(response.attemp);
                 $("#officerApprove").html(response.user.name);
                 $("#messageApprove").val(response.message)
+                
             }
         });
         $('#tableTimesheetApprovalOfficerDetail').DataTable()
@@ -97,6 +115,24 @@
         if(!tableTimesheetApproval) tableTimesheetApproval = GeneratedTableTimesheetApproval(url)
         else tableTimesheetApproval.ajax.url(url).load()
     }
+
+    function reSubmitTimesheet(uuid){
+    PreAjax()
+    $.ajax({
+        type: "post",
+        url: resubmitTimesheetUrl,
+        data: {uuid},
+        success: function (response) {
+            console.log(response)
+            $("#SubmitTimesheetDetailModal").modal("hide")
+            Alertify({
+                    message:"Berhasil Mengirim ulang timesheet",
+                    duration:5
+                })
+            GenerateTableTimesheetSubmit_table.ajax.reload()
+        }
+    });
+}
 
     function UpdateTimesheetApprovalOfficer(uuid){
         UpdateTimesheetApproval(uuid)

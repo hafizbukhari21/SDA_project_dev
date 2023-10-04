@@ -29,6 +29,9 @@ aria-hidden="true">
                         <div class="col-lg-3">
                             <p >Attempt: <span style="font-weight: bold;" id="attempApprove"></span></p>
                         </div>
+                        
+                    </div>
+                    <div id="buttonAction" class="mb-3">
                     </div>
                    </div>
                     <div class="table-responsive">
