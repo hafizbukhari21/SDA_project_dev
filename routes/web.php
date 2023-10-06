@@ -54,6 +54,9 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
                 Route::post("detail",[authController::class,"getUserByid"])->name("superuser.user.detail");
                 Route::post("delete/inactive",[userController::class,"deleteInactiveUser"])->name("superuser.user.deleteInactive");
             });
+            Route::prefix("manage")->group(function(){
+                Route::view("project","Pages.role_superUser.createProjectList")->name("superuser.project.view");
+            });
         });
     });
 

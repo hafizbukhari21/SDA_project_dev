@@ -23,7 +23,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Components:</h6>
             <a class="collapse-item" href=""> Project Timeline Category</a>
-            <a class="collapse-item" href=""> Project Category</a>
+            <a class="collapse-item" href="{{ route('superuser.project.view') }}"> Project Category</a>
         </div>
     </div>
 </li>
