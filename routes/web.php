@@ -58,6 +58,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             Route::prefix("manage")->group(function(){
                 Route::view("project","Pages.role_superUser.createProjectList")->name("superuser.project.view");
                 Route::post("project/category/insert",[web_SuperUser_ManageResource::class,"createProjectCategory"])->name("superuser.create.project.category");
+                Route::post("project/category/delete",[web_SuperUser_ManageResource::class,"softDeleteCategory"])->name("superuser.delete.project.category");
                 Route::get("project/category",[web_SuperUser_ManageResource::class,"getAllProjectCategory"])->name("superuser.get.project.category");
 
             });

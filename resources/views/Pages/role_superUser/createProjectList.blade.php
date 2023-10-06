@@ -16,7 +16,7 @@
                             <div class="col-lg-12 row">
                                 <div class="form-group col-lg-12 ">
                                     <label for="customRange2" class="form-label">Project Category</label><br>
-                                    <input type="text" class="form-control " name="name" id="project_name"placeholder="Project Category" required>
+                                    <input type="text" class="form-control " name="category_name" id="project_name"placeholder="Project Category" required>
                                 </div>
                             </div>
                             <div class="col-lg-12 row"  >
@@ -89,6 +89,7 @@
 
 <script id="myscriptvar">
     const createProjectCategory_url = "{{route('superuser.create.project.category')}}"
+    const deleteProjectCategory_url = "{{route('superuser.delete.project.category')}}"
     const getAllProjectCategory_url = "{{route('superuser.get.project.category')}}"
 </script>
 

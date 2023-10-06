@@ -13,6 +13,8 @@ class category_project extends Model
     protected $fillable = ["category_name"];
     protected $dates = ['deleted_at'];
 
+    public $timestamps = false;
+
     public function projects(){
         #param object,fk,pk
         return $this->hasMany(project::class,'category_id',"id");

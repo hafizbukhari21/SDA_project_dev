@@ -15,10 +15,26 @@ class web_SuperUser_ManageResource extends Controller
 
 
     public function createProjectCategory(Request $request){
+        $this->validateProjectCategory($request);
         return $this->cagoryProjectRepo->insert($request);
     }
 
     public function getAllProjectCategory(){
         return $this->cagoryProjectRepo->getAll();
     }
+    private function validateProjectCategory(Request $request){
+        $request->validate([
+            'category_name' => 'required',
+        ]);
+    }
+
+    public function softDeleteCategory(Request $request){
+        return $this->cagoryProjectRepo->delete($request);
+    }
+
+    public function updateCategory(Request $request){
+        return $this->cagoryProjectRepo->updateById($request);
+    }
+
+    
 }

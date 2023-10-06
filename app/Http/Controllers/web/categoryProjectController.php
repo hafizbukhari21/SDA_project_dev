@@ -16,4 +16,6 @@ class categoryProjectController extends Controller
     public function returnCategoryProject_all(){
         return $this->cateRepo->getAll();
     }
+
+   
 }
