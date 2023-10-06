@@ -8,6 +8,7 @@ use App\Http\Controllers\web\authWebController;
 use App\Http\Controllers\web\categoryProjectController;
 use App\Http\Controllers\web\notificationController;
 use App\Http\Controllers\web\web_projectController;
+use App\Http\Controllers\web\web_SuperUser_ManageResource;
 use App\Http\Controllers\web\web_TimelineController;
 use App\Http\Controllers\web\web_timesheetController;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,9 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
             });
             Route::prefix("manage")->group(function(){
                 Route::view("project","Pages.role_superUser.createProjectList")->name("superuser.project.view");
+                Route::post("project/category/insert",[web_SuperUser_ManageResource::class,"createProjectCategory"])->name("superuser.create.project.category");
+                Route::get("project/category",[web_SuperUser_ManageResource::class,"getAllProjectCategory"])->name("superuser.get.project.category");
+
             });
         });
     });

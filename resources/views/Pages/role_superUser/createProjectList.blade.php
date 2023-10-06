@@ -11,7 +11,7 @@
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Project List</h1>
                         </div>
-                        <form class="user row needs-validation" id="addUserForm" novalidate>
+                        <form class="user row needs-validation" id="addCategoryProject" novalidate>
                             @csrf
                             <div class="col-lg-12 row">
                                 <div class="form-group col-lg-12 ">
@@ -44,7 +44,7 @@
                               
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-bordered " id="tableUser" width="100%" cellspacing="0">
+                                <table class="table table-bordered " id="tableCategoryProject" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Category Name</th>
@@ -86,12 +86,19 @@
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="{{ asset('js/Page/SuperUser/projectCategory_SuperUser.js') }}"></script>
+
 <script id="myscriptvar">
- </script>
+    const createProjectCategory_url = "{{route('superuser.create.project.category')}}"
+    const getAllProjectCategory_url = "{{route('superuser.get.project.category')}}"
+</script>
 
+
+    
+<script>
+
+</script>
  
-
+<script src="{{ asset('js/Page/SuperUser/projectCategory_SuperUser.js') }}"></script>
 
 
 
