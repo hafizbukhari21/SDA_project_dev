@@ -256,9 +256,10 @@ $("#updateTask").submit(function (e) {
                             message:"Berhasil Update timeline",
                             duration:5
                         })
-            GetDataFromTimeline()                
+            GetDataFromTimeline()        
+            
             //Add Dataset Vis Js after adding task 
-            items.update(MappingTimeLine(response,editableTable))
+            items.updateOnly(MappingTimeLine(response.data,editableTable))
             GetGroupAjax()
             $("#updateTimeline").modal("hide")
         },
@@ -286,8 +287,10 @@ $("#addTaskForm").submit(function (e) {
                             duration:5
                         })
                 GetDataFromTimeline()                
+
+
                 //Add Dataset Vis Js after adding task 
-                items.add(MappingTimeLine(response))
+                items.add(MappingTimeLine(response.timeline,editableTable))
                 GetGroupAjax()
             },
             error:function(error){
