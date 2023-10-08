@@ -47,11 +47,11 @@ class web_projectController extends Controller
 
     public function setProject(Request $req){
         Logging::logInfo("Created Project.project_name = ".$req->project_name );
-        $this->validateRequest($req);
 
         if (session()->get("sessionKey")["role"]=="Officer") $req->merge(["user_creator_id" => session()->get("sessionKey")["id"]]);//Role Officer
         if ($this->projectRepo->get("idProjectJalin",$req->idProjectJalin)->first()) return response(["message"=>"ID QAMS Sudah digunakan"],412);//Cek idQAMS udah dipake belum
 
+        $this->validateRequest($req);
 
         $project =  $this->projectRepo->insert($req);
         $statusUUid = $this->projectRepo->setProjectUID($project->id);
