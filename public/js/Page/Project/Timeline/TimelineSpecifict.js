@@ -251,15 +251,15 @@ $("#updateTask").submit(function (e) {
         url: updateTaskAll,
         data: $(this).serialize(),
         success: function (response) {
-            console.log(response)
             Alertify({
                             message:"Berhasil Update timeline",
                             duration:5
                         })
             GetDataFromTimeline()        
             
-            //Add Dataset Vis Js after adding task 
-            items.updateOnly(MappingTimeLine(response.data,editableTable))
+            //Add Dataset Vis Js after adding task inclluded timeline
+            items.update(MappingTimeLine(response.data,editableTable))
+
             GetGroupAjax()
             $("#updateTimeline").modal("hide")
         },
@@ -281,7 +281,6 @@ $("#addTaskForm").submit(function (e) {
             url:addNewTask,
             data: $(this).serialize(),
             success: function (response) {
-                console.log(response)
                 Alertify({
                             message:"Berhasil Menambahkan timeline",
                             duration:5

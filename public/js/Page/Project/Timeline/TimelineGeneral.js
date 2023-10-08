@@ -62,11 +62,11 @@ function TimelineDataParser(response,editableTable){
 
 function MappingTimeLine(e,editableTable){
     return {
-            id:e.id, 
+            id:parseInt(e.id), 
             content:CustomContentTooltip(e), 
             start: moment.utc(e.from).local().format('YYYY-MM-DD') , 
             end:moment.utc(e.to).local().format('YYYY-MM-DD'), 
-            group:e.id,
+            group:parseInt(e.id),
             //style: 'background-color: #00ff00;',
             tooltip: editableTable?
                 tooltipTemplate({
