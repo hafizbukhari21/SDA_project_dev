@@ -86,12 +86,12 @@
             url ,
             success: function (response) {
                 $("#titleApprove").html(response.title);
-                console.log(response)
-
                 $("#submittedDateApprove").html(response.submitDate);
                 $("#attempApprove").html(response.attemp);
                 $("#officerApprove").html(response.user.name);
                 $("#messageApprove").val(response.message)
+                $("#approvedDateApprove").html(response.approvalDate);
+
                 
 
                 $("#statusApprove").html(convertSubmitStatus(response.status_submit).badgeH5);
