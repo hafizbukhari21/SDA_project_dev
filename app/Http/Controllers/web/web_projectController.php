@@ -43,13 +43,37 @@ class web_projectController extends Controller
     }
 
     public function setProject(Request $req){
+        $this->validateRequest($req);
+
         if (session()->get("sessionKey")["role"]=="Officer") $req->merge(["user_creator_id" => session()->get("sessionKey")["id"]]);//Role Officer
+        if ($this->projectRepo->get("idProjectJalin",$req->idProjectJalin)->first()) return response(["message"=>"ID QAMS Sudah digunakan"],412);//Cek idQAMS udah dipake belum
+
+
         $project =  $this->projectRepo->insert($req);
         $statusUUid = $this->projectRepo->setProjectUID($project->id);
         return $project;
     }
 
+    public function validateRequest(Request $request){
+        $request->validate([
+            'project_name' => 'required',
+            'idProjectJalin' => 'required',
+            'pic_am'=>'required',
+            'user_creator_id'=>'required',
+            'category_id'=>'required',
+            'time'=>'required',
+            'urgensi'=>'required',
+        ]);
+    }
+    
+
+
     public function deleteProject (Request $req){
+        //Reset idProjectjalin or id qams first when project deleted
+        $project = $this->projectRepo->get("id",$req->id)->first();
+        $project->idProjectJalin = "";
+        $project->save();
+
         return $this->projectRepo->delete($req);
     }
 
@@ -76,7 +100,6 @@ class web_projectController extends Controller
     
 
     
-
 
     
 

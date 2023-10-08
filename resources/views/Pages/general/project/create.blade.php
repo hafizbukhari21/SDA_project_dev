@@ -157,6 +157,12 @@
                   ResetForm("#addProjectForm")
                   $("#status_update").trumbowyg('html', "")
                   document.querySelector("#previewUrgensi").innerHTML = 0
+                }, error:function(error){
+                    console.log(error)
+                    AlertifyFailed({
+                    message:error.responseJSON.message,
+                    duration:5
+                })
                 }
                 
             });
