@@ -4,7 +4,10 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Repository\Data\ProjectRepository;
+use App\Utils\Logging;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class web_projectController extends Controller
 {
@@ -43,6 +46,7 @@ class web_projectController extends Controller
     }
 
     public function setProject(Request $req){
+        Logging::logInfo("Created Project.project_name = ".$req->project_name );
         $this->validateRequest($req);
 
         if (session()->get("sessionKey")["role"]=="Officer") $req->merge(["user_creator_id" => session()->get("sessionKey")["id"]]);//Role Officer
@@ -73,6 +77,9 @@ class web_projectController extends Controller
         $project = $this->projectRepo->get("id",$req->id)->first();
         $project->idProjectJalin = "";
         $project->save();
+
+        Logging::logWarn("Deleted Project.project_name = ".$project->project_name );
+
 
         return $this->projectRepo->delete($req);
     }
