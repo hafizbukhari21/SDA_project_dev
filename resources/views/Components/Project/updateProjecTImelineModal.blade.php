@@ -16,6 +16,10 @@ aria-hidden="true">
                         <input type="text" class="form-control " name="task_name" id="timeline_name_update" placeholder="Project Name">
                 </div>
                 <div class="form-group ">
+                    <label for="">PIC AM</label>
+                        <input type="text" class="form-control " name="pic_am" id="timeline_pic_am_update" placeholder="PIC AM">
+                </div>
+                <div class="form-group ">
                     <label for="">Task Notes</label>
                     <textarea type="text" class="form-control " name="notes" id="timeline_notes_update"placeholder="Notes"></textarea>
                 </div>

@@ -1,3 +1,7 @@
+//Standard Format date
+const format ={
+    date:"YYYY-MM-DD"
+}
 function MappingSelectOption(input){
     let string = `<option  disabled  >${input.default}</option>`
     input.data.forEach(e => {

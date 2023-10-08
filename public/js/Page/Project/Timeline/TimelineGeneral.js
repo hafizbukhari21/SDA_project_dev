@@ -1,9 +1,15 @@
 //Template tooltip node
 function tooltipTemplate(param){
-    return `<div class="card" style="width: 18rem;">
+    return `<div class="card" style="width: 25rem;">
           <div class="card-body">
-            <h5 class="card-title text-dark">${param.task_name}</h5>
-            <p class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format('DD-MM-YYYY')} - ${moment.utc(param.end).local().format('DD-MM-YYYY')}</p>
+            <h5 style="display:inline;" class="card-title text-dark">${param.task_name}</h5>
+            <p>
+            <span class="card-text">PIC AM - ${param.pic_am}</span><br/>
+            <span class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format(format.date)} - ${moment.utc(param.end).local().format(format.date)}</span>
+            </p>
+            <p>
+              ${param.notes}
+            </p>
           </div>
           <div class="card-footer d-flex flex-row-reverse">
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateTimeline" onclick="ShowUpdateTask(${param.id})">Update Task</button>
@@ -12,10 +18,16 @@ function tooltipTemplate(param){
 }
 
 function tooltipTemplate_readonly(param){
-  return `<div class="card" style="width: 18rem;">
+  return `<div class="card" style="width: 25rem;">
         <div class="card-body">
-          <h5 class="card-title text-dark">${param.task_name}</h5>
-          <p class="card-text">Waktu Ekseuksi ${moment.utc(param.start).local().format('DD-MM-YYYY')} - ${moment.utc(param.end).local().format('DD-MM-YYYY')}</p>
+          <h5 style="display:inline;" class="card-title text-dark">${param.task_name}</h5>
+          <p>
+          <span class="card-text">PIC AM - ${param.pic_am}</span><br/>
+          <span class="card-text">Waktu Eksekusi ${moment.utc(param.start).local().format(format.date)} - ${moment.utc(param.end).local().format(format.date)}</span>
+          </p>
+          <p>
+            ${param.notes}
+          </p>
         </div>
        
       </div>`
@@ -73,13 +85,18 @@ function MappingTimeLine(e,editableTable){
                     task_name:e.task_name,
                     start:e.from,
                     end:e.to,
-                    id:e.id
+                    id:e.id,
+                    pic_am:e.pic_am,
+                    notes:e.notes
+
                 }):
                 tooltipTemplate_readonly({
                   task_name:e.task_name,
                   start:e.from,
                   end:e.to,
-                  id:e.id
+                  id:e.id,
+                  pic_am:e.pic_am,
+                  notes:e.notes
               }),
             type:e.from===e.to?"box":""
 

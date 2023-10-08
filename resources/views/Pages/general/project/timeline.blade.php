@@ -262,6 +262,7 @@ function ShowUpdateTask(idTimeline){
         url: ParseRoute_SingleVar("{{route('detail.timeline',':idTimeline')}}",idTimeline,":idTimeline"),
         success: function (response) {
             $("#timeline_name_update").val(response.task_name);
+            $("#timeline_pic_am_update").val(response.pic_am);
             $("#timeline_notes_update").val(response.notes);
             $("#timeline_group_update").val(response.idGroup)
             $("#timeline_from_update").val(moment(response.from).format("YYYY-MM-DD"))
