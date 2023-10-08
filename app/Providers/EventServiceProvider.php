@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\project;
+use App\Models\project_timeline;
 use App\Observers\projectObserver;
+use App\Observers\projectTimelineObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -29,6 +31,7 @@ class EventServiceProvider extends ServiceProvider
     {
         //
         project::observe(projectObserver::class);
+        project_timeline::observe(projectTimelineObserver::class);
     }
 
     /**
