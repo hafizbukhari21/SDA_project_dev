@@ -36,6 +36,10 @@
                             </div>
                         </div>
                         <div class="form-group ">
+                            <label for="">PIC AM</label>
+                            <input class="form-control " name="pic_am" id="pic_am"placeholder="Notes" required>
+                        </div>
+                        <div class="form-group ">
                             <label for="">Notes</label>
                             <textarea type="text" class="form-control " name="notes" id="project_name"placeholder="Notes" required></textarea>
                         </div>

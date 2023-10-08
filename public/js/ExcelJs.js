@@ -95,10 +95,15 @@ function ShowData(workSheetTimeline,activityTimeline){
     currentDateRow++
 
     e.projects.forEach(eAct=>{
+      //Set Task Name
       let actvityCell = workSheetTimeline.getCell("B"+currentDateRow)
       let setNo = workSheetTimeline.getCell("A"+currentDateRow)
       setNo.value = No
       actvityCell.value =eAct.task_name
+
+      //Set PIC AM
+      let actvityCell_picAm = workSheetTimeline.getCell("C"+currentDateRow)
+      actvityCell_picAm.value =eAct.pic_am
 
       ColoringAndLabelingWeek(workSheetTimeline,eAct.from,eAct.to,currentDateRow)
       currentDateRow++
@@ -256,6 +261,13 @@ function SubTitleProject(workSheetTimeline,dateHeaderWidth){
   ActivityTitle.alignment = alignText;
   ActivityTitle.fill =  fillText
   ActivityTitle.font = fontText ;
+
+  let PIC_AMTitle =  workSheetTimeline.getCell('C2')
+  workSheetTimeline.mergeCells('C2','C3')
+  PIC_AMTitle.value = "PIC AM"
+  PIC_AMTitle.alignment = alignText;
+  PIC_AMTitle.fill =  fillText
+  PIC_AMTitle.font = fontText ;
 
   LineTwoDateHelper(workSheetTimeline,dateHeaderWidth)
 }
