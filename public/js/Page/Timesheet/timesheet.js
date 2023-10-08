@@ -1,6 +1,5 @@
 
 
-
 let buttonSendRequest = document.querySelector("#sendRequestButton")
 buttonSendRequest.addEventListener("click",e=>{
     e.preventDefault();

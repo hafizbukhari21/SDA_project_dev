@@ -24,7 +24,8 @@ function DatatableFormater_serverSide(data){
 
 
 
-function DatatableExpandable(data){  
+function DatatableExpandable(data){ 
+
     if (data.row.child.isShown()) {
         data.row.child.hide()
         data.tr.removeClass("shown")

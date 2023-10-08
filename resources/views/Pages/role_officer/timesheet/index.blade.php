@@ -255,7 +255,7 @@
     $("#tableTimesheet tbody").on("click", "td.dt-control", function () {
         let tr = $(this).closest('tr')
         let row = tableTimesheet.row(tr)
-        DatatableExpandable({tr,row,format:format(row.data())})
+        DatatableExpandable({tr,row,format:formatMessage(row.data())})
     })
 
     

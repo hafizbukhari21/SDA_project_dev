@@ -141,7 +141,7 @@
     $("#tableTimesheetApprovalOfficer tbody").on("click", "td.dt-control", function ()      {
         let tr = $(this).closest('tr')
         let row = tableTimesheetApproval.row(tr)
-        DatatableExpandable({tr,row,format:format(row.data())})
+        DatatableExpandable({tr,row,format:formatMessage(row.data())})
     })
 
     function DeleteTimesheetApprovalOfficer(uuid){

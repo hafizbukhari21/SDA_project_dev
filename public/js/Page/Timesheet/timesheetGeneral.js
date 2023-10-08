@@ -1,5 +1,5 @@
 //format nested Timesheet activity
-function format(d) {
+function formatMessage(d) {
     return `
             <table class="table">
                 <thead>
@@ -21,6 +21,8 @@ function format(d) {
             </table>                    
     `
 }
+
+
 
 function workingHourCount(from,finish){
     from = moment(from,"HH:mm:ss")
