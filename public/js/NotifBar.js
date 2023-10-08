@@ -73,13 +73,15 @@ function GetNotifDetail(notifUUid){
             let duration = moment.duration(to.diff(currentDate))
             totduration = duration.days()
 
+     
+
             console.log({totduration})
 
 
 
             if(response.group =="timeline"){
                 //Check if the date +1 or +2 from curren date summon button dissmiss
-                if(totduration>0 ){
+                if(totduration<0 ){
                     buttondissmiss.style.display="inline" 
                     buttondissmiss.setAttribute("notif-uid",response.uuid)
                 }  
@@ -87,7 +89,7 @@ function GetNotifDetail(notifUUid){
             }
             else buttondissmiss.style.display="inline" 
 
-          
+          //Tgl 7 = -1
 
             
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Repository\Data\Group_timelineRepository;
+use App\Repository\Data\Notification_ReadRepository;
 use App\Repository\Data\Project_timelineRepository;
 use App\Repository\Data\ProjectRepository;
 use App\Repository\Data\NotificationRepository;
@@ -17,23 +18,39 @@ class web_TimelineController extends Controller
     public ProjectRepository $projectRepo;
     public NotificationRepository $notifRepo;
 
-    public function __construct(Project_timelineRepository $project_timelineRepository, Group_timelineRepository $group_timelineRepository, ProjectRepository $projectRepository, NotificationRepository $notificationRepository ){
+    public Notification_ReadRepository $notifRepoRead;
+
+    public function __construct(Project_timelineRepository $project_timelineRepository, Group_timelineRepository $group_timelineRepository, ProjectRepository $projectRepository, NotificationRepository $notificationRepository, Notification_ReadRepository $notification_ReadRepository ){
         $this->timelineRepo = $project_timelineRepository;
         $this->group_timeline_repo = $group_timelineRepository;
         $this->projectRepo = $projectRepository;
         $this->notifRepo = $notificationRepository;
+        $this->notifRepoRead = $notification_ReadRepository;
     }
 
     public function updateTimeline(Request $req){
+        $this->deleteNotifEveryUpdateTimeline($req);
         return $this->timelineRepo->updateById($req);
     }
 
+ 
+
     public function updateTImeLineFull (Request $req){
+        $this->deleteNotifEveryUpdateTimeline($req);
         if ($req->to < $req->from) return response(["message"=>"To harus lebih kecil dari from"],422);
 
         $this->timelineRepo->updateById($req);
         return response(["data"=>$req->all()]);
 
+    }
+
+    private function deleteNotifEveryUpdateTimeline(Request $request){
+        //GetTimeline Id di notifRepo first
+        $notifRepo = $this->notifRepo->get("timelineId",$request->id)->first();
+        //Search Notif Read which to deleted
+        $notif_read = $this->notifRepoRead->deleteWhere("id_notif",$notifRepo->id);
+        
+        return compact("notif_read");
     }
 
     public function deleteTimeLine(Request $req){

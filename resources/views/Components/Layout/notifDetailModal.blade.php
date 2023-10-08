@@ -12,7 +12,7 @@
                     <h3 id="modalNotifTitleProject">Title Project</h5>
                     <h5 id="modalNotifTaskName">Task Project</h5>
                     <label id="modalNotifDate" for="">XXX s.d. XXX</label>
-                    <p id="modalNotifTaskDetail"> Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail Ceritanya task detail </p>
+                    <p id="modalNotifTaskDetail">Loading ...</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" id="modalNotifDismissButton" type="button" data-dismiss="modal">Dismiss</button>

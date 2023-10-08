@@ -45,6 +45,9 @@ class GeneralRepository implements GeneralInterface{
     }
 
     
+    public function deleteWhere($var,$value){
+        return $this->objectName->where($var,$value)->delete();
+    }
 
     //SoftDelete
     public function delete($req){
