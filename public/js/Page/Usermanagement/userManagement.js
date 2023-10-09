@@ -171,11 +171,13 @@ document.querySelector("#deleteUSerModalButton").addEventListener("click",e=>{
         url: deleteUserUrl,
         data: {id:idUSer},
         success: function (response) {
+
             Alertify({
                 message:"Berhasil Delete User",
                 duration:5
             })
             tableUser.ajax.reload()
+            $('#deleteUserModal').modal('hide');
         }
     });
 })
