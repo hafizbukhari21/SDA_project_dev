@@ -136,6 +136,11 @@
                         text: "",
                     })
                 }, error:function(err){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: "Pastikan email anda masukan benar",
+                    })
             console.log(err.responseJSON)
             
         }

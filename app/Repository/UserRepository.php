@@ -111,7 +111,11 @@ class UserRepository {
         $currentTime = Carbon::now();
         $email = $req->email;
 
-        $user = $this->user->where("email",$email)->first();
+        
+
+        $user = $this->user->where("email",$email)->get()->first();
+
+        if(!$user->email) return response(["message"=>$user],412);
 
         //Check if ever forget password
         $forget_pass_data = $this->forget_password->whereHas("user",
