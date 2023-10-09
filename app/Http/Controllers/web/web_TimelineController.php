@@ -120,4 +120,12 @@ class web_TimelineController extends Controller
             "projectAttr"=>$this->projectRepo->get("id",$idProject)->first()
         ];
     }
+
+
+
+    //Testing Repository
+
+    public function GetActivitySchedular(){
+        return $this->timelineRepo->GetActivitySchedular();
+    }
 }

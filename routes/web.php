@@ -29,6 +29,9 @@ Route::get('/', function () {
     return view('Pages.auth.login');
 });
 
+Route::get("/GetActivitySchedular",[web_TimelineController::class,"GetActivitySchedular"]);
+Route::view("/testnotifmail","Mail.notifActivity");
+
 // Route::view('/auth/register', 'Pages.auth.register');
 
 
