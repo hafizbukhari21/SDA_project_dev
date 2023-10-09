@@ -22,13 +22,12 @@
     <div id="itemManagement" class="collapse timelineDropdown" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Components:</h6>
-            <a class="collapse-item" href=""> Project Timeline Category</a>
             <a class="collapse-item" href="{{ route('superuser.project.view') }}"> Project Category</a>
         </div>
     </div>
 </li>
 
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#garbage"
         aria-expanded="true" aria-controls="garbage">
         <i class="fas fa-fw fa-cog"></i>
@@ -43,4 +42,4 @@
 
         </div>
     </div>
-</li>
+</li> --}}

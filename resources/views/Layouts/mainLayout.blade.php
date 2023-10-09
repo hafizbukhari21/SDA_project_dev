@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <meta name='robots' content='noindex, follow' />
-    <title>SDA - Jalin</title>
+    <title>PM Planner</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('js/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
