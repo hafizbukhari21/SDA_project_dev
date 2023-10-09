@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" id="modalNotifDismissButton" type="button" data-dismiss="modal">Dismiss</button>
-                    <button class="btn btn-primary" href="">View Project</button>
+                    <a class="btn btn-primary" id="viewProjectButton"  href="">View Project</a>
                 </div>
             </form>
             </div>

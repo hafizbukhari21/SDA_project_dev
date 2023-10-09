@@ -65,6 +65,7 @@ function GetNotifDetail(notifUUid){
             document.querySelector("#modalNotifTaskName").innerHTML = "Task - "+response.timeline.task_name
             document.querySelector("#modalNotifDate").innerHTML = `${moment(response.timeline.from).format("MMM-DD, YYYY")} s.d. ${moment(response.timeline.to).format("MMM-DD, YYYY")}`
             document.querySelector("#modalNotifTaskDetail").innerHTML = response.timeline.notes
+            $("#viewProjectButton").attr("href", `/project/detail/${response.timeline.project.id}`);
            
             let date = new Date
             let to = moment(response.timeline.to,"YYYY-MM-DD")
