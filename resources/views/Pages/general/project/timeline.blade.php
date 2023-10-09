@@ -21,11 +21,15 @@
 
                         </div> --}}
 
-                        <span class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                            >
+                        <button class="btn dropdown-toggle text-primary" id="btnSelectProjectDropDown" data-bs-toggle="dropdown" aria-expanded="false">
                             Select Project
-                        </span>
-                        <div class="row">
+                        </button>
+                
+
+                        {{-- <button class="nav-link dropdown-toggle" href="#" id="navbarDropdown">
+                            Select Project
+                    </button> --}}
+                        <div class="row" id="selectProject">
                             <div class="form-group col-xl-4" style="width: 50%">
                                 <input type="text" class="form-control " autocomplete="off" name="idProjectJalin" id="seachProjectName"placeholder="Seach by name..." required>
                                 <div style="position: absolute;z-index:2; width: 100%;" id="projectAutoComplete">

@@ -1,6 +1,24 @@
 let inputText = document.querySelector("#seachProjectName")
 let output = document.querySelector("#projectAutoComplete")
 
+let selectProject = document.querySelector("#selectProject")
+selectProject.style.display="none"
+
+let btnSelectProjectDropDown = document.querySelector("#btnSelectProjectDropDown")
+let btnSelecttemp=false
+
+btnSelectProjectDropDown.addEventListener("click",e=>{
+    e.preventDefault()
+    if(!btnSelecttemp){
+        btnSelecttemp=true
+        selectProject.style.display="block"
+    }
+    else{
+        btnSelecttemp=false
+        selectProject.style.display="none" 
+    }
+})
+
 
 $(document).ready(function () {
     output.innerHTML = string
