@@ -118,8 +118,7 @@ class ProjectRepository extends GeneralRepository{
     }
 
     public function searchProjectLikeName(Request $req){
-        if($this->checkVariable_isValid($req->project_name)) return $this->objectName->where("project_name","like","%".$req->project_name."%")->get();
-        else return [];
+        return $this->objectName->where("project_name","like","%".$req->project_name."%")->take(10)->get();
 
     }
 

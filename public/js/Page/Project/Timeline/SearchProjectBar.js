@@ -12,6 +12,18 @@ inputText.addEventListener("input",()=>{
     
 })
 
+inputText.addEventListener("focus", ()=>{
+    PreAjax()
+    doingAjax()
+})
+
+inputText.addEventListener("focusout", ()=>{
+output.innerHTML= ""
+})
+
+
+
+
 function doingAjax(){
     $.ajax({
         type: "post",
