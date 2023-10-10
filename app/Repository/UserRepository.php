@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\Catch_;
 
+
 class UserRepository {
    
     public User $user;
@@ -135,7 +136,7 @@ class UserRepository {
         //if Exist just updatate
         else{
            $forget_pass_data->expiredTime = $currentTime->addMinutes(20)->toDateTimeString();
-           $forget_pass_data->hash = hash("md5", $user->uuid);
+           $forget_pass_data->hash = hash("md5", Str::Uuid());
            $return = $forget_pass_data->save();
         }
 
@@ -158,7 +159,9 @@ class UserRepository {
     public function processForgetPasswod($hash){
         $forget_password= $this->forget_password->where("hash",$hash)->first();
         $currentDateTime = Carbon::now()->toDateTimeString();
-        if($forget_password->expiredTime<$currentDateTime) return "expired";
+        
+        if(!$forget_password) return "Not Found";
+        else if($forget_password->expiredTime<$currentDateTime) return "expired";
         else return view("Pages.auth.forgetPasswordForm");
     }
 
