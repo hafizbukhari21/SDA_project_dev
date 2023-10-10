@@ -36,7 +36,9 @@ inputText.addEventListener("focus", ()=>{
 })
 
 inputText.addEventListener("focusout", ()=>{
-output.innerHTML= ""
+    document.addEventListener("click",e=>{
+        if(selectProject != e.target) output.innerHTML = ""
+    })
 })
 
 

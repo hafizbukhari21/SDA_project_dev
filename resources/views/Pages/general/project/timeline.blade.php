@@ -7,7 +7,7 @@
     <div class="row">
             <div class="col-md-12">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="groupSearch">
                         {{-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                             role="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
