@@ -2,6 +2,7 @@
 
 namespace App\Repository\Data;
 use App\Models\project_timeline;
+use App\Models\User;
 use App\Repository\GeneralRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,6 +36,18 @@ class Project_timelineRepository extends GeneralRepository{
     public function GetActivitySchedular() {
         $currentDate = Carbon::now()->format("Y-m-d");
         return $this->objectName->where("to",$currentDate)
-            ->get()->load(["project","project.user_creator","project.user_creator.myHead"]);
+            ->get()->load(["project","project.user_creator","project.user_creator.myHead"])
+            ->map(function ($payload){
+                $myheadData = User::find($payload->project->user_creator->myHeadId);
+                return [
+                    "emailOfficer"=> $payload->project->user_creator->email,
+                    "emailhead"=>$myheadData->email,
+                    "taskName"=>$payload->task_name,
+                    "projectName"=>$payload->project->project_name,
+                    "deadline"=>$payload->to,
+                    "officerName"=>$payload->project->user_creator->name,
+                    "headName"=>$myheadData->name
+                ];
+            });
     }
 }

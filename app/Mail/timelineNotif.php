@@ -36,7 +36,7 @@ class timelineNotif extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Timeline Notif',
+            subject: 'Deadline Task Project - '.$this->projectName ,
         );
     }
 
@@ -46,7 +46,13 @@ class timelineNotif extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'Mail.notifActivity',
+            with:[
+                "userName"=>$this->userName,
+                "projectName"=>$this->projectName,
+                "taskName"=>$this->taskName,
+                "toDate"=>$this->toDate
+            ]
         );
     }
 

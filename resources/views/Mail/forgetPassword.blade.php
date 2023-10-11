@@ -437,14 +437,13 @@
   <![endif]-->
   </head>
   <body>
-    <span class="preheader">Use this link to reset your password. The link is only valid for 24 hours.</span>
+    <span class="preheader">Use this link to reset your password</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
         <td align="center">
           <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
             <tr>
               <td class="email-masthead">
-                <a href="https://example.com" class="f-fallback email-masthead_name">
                
               </a>
               </td>

@@ -164,14 +164,14 @@
                   <tbody><tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <div style="font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:400;line-height:24px;text-align:left;color:#434245;">
-                        <p style="margin: 0;">Hi, Jenny</p>
+                        <p style="margin: 0;">Hi, {{$userName}}</p>
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <div style="font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:400;line-height:24px;text-align:left;color:#434245;">
-                        <p style="margin: 0;">Notifikasi Mengenai Project</p>
+                        <p style="margin: 0;">Notifikasi Mengenai Project - {{$projectName}}</p>
                       </div>
                     </td>
                   </tr>
@@ -220,14 +220,14 @@
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <div style="font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:bold;line-height:24px;text-align:left;color:#7A0B1F;">
                         <p class="date" style="margin: 0; margin-bottom: 5px; font-size: 16px;">ALERT</p>
-                        <h2 style="margin: 0; font-size: 24px; font-weight: bold; line-height: 24px;">Deadline Project</h2>
+                        <h2 style="margin: 0; font-size: 24px; font-weight: bold; line-height: 24px;">Deadline Task {{$taskName}}</h2>
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <div style="font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:400;line-height:24px;text-align:left;color:#7A0B1F;">
-                        <p style="margin: 0;">Project Nama Project - Task Nama Task Sudah deadline pada tanggal 2000-20-20 </p>
+                        <p style="margin: 0;">Project {{$projectName}} - Task {{$taskName}} Sudah deadline pada tanggal {{$toDate}} </p>
                       </div>
                     </td>
                   </tr>
@@ -236,7 +236,7 @@
                       <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
                         <tbody><tr>
                           <td align="center" bgcolor="#7A0B1F" role="presentation" style="border:none;border-radius:30px;cursor:auto;mso-padding-alt:10px 25px;background:#7A0B1F;" valign="middle">
-                            <a href="https://google.com" style="display: inline-block; background: #7A0B1F; color: #FFCDB0; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; line-height: 30px; margin: 0; text-decoration: none; text-transform: uppercase; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 30px;" target="_blank"> Login </a>
+                            <a href="{{env('APP_URL')}}" style="display: inline-block; background: #7A0B1F; color: #FFCDB0; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; line-height: 30px; margin: 0; text-decoration: none; text-transform: uppercase; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 30px;" target="_blank"> Login </a>
                           </td>
                         </tr>
                       </tbody></table>

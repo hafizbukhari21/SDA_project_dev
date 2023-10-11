@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Mail\timelineNotif;
 use App\Repository\Data\Project_timelineRepository;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class SendNotifActivityTimelineProject{
 
@@ -16,10 +18,18 @@ class SendNotifActivityTimelineProject{
     public function SendEmailTo(){
         Log::info("start - Sending Email");
        try{ 
-        $notifSending_s = $this->timelineRepo->GetActivitySchedular();
-        foreach($notifSending_s as $notifSending){
-            
-        }
+            $notifSending_s = $this->timelineRepo->GetActivitySchedular();
+
+            foreach($notifSending_s as $notifSending){
+                Mail::to($notifSending["emailOfficer"])->send(new timelineNotif(
+                    $notifSending["officerName"],$notifSending["projectName"],$notifSending["taskName"],$notifSending["deadline"]));
+
+                Mail::to($notifSending["emailhead"])->send(new timelineNotif(
+                    $notifSending["headName"],$notifSending["projectName"],$notifSending["taskName"],$notifSending["deadline"]));
+
+                Log::info("sending to Officer = ".$notifSending["officerName"]." - Email ".$notifSending["emailOfficer"]." | Head = ".$notifSending["headName"]." - Email ".$notifSending["emailhead"]);
+            }
+
        }catch(Exception $e){
             Log::error($e->getMessage());
        }
