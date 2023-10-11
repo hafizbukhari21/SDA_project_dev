@@ -21,6 +21,27 @@ class Kernel extends ConsoleKernel
         })->onFailure(function(){
             Log::error("DB Backup Failed");
         });
+
+        $schedule->command('app:send-task-timeline-email')->daily()->at("00:30")
+        ->onSuccess(function(){
+            Log::info("Berhasil Menjalankan schedular Mailer Reminder Task Project");
+        })->onFailure(function(){
+            Log::error("Gagal Menjalankan schedular Mailer Reminder Task Project");
+        });
+
+        $schedule->command('app:send-task-timeline-email')->daily()->at("09:30")
+        ->onSuccess(function(){
+            Log::info("Berhasil Menjalankan schedular Mailer Reminder Task Project");
+        })->onFailure(function(){
+            Log::error("Gagal Menjalankan schedular Mailer Reminder Task Project");
+        });
+
+        $schedule->command('app:send-task-timeline-email')->daily()->at("15:30")
+        ->onSuccess(function(){
+            Log::info("Berhasil Menjalankan schedular Mailer Reminder Task Project");
+        })->onFailure(function(){
+            Log::error("Gagal Menjalankan schedular Mailer Reminder Task Project");
+        });
     }
 
     /**
