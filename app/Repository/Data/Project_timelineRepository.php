@@ -3,6 +3,7 @@
 namespace App\Repository\Data;
 use App\Models\project_timeline;
 use App\Repository\GeneralRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class Project_timelineRepository extends GeneralRepository{
@@ -28,5 +29,12 @@ class Project_timelineRepository extends GeneralRepository{
     public function TimelineSorted_to($idProject){
         return $this->objectName->where(["project_id"=>$idProject])->orderby("to")->get();
 
+    }
+
+    //for Mailer 
+    public function GetActivitySchedular() {
+        $currentDate = Carbon::now()->format("Y-m-d");
+        return $this->objectName->where("to",$currentDate)
+            ->get()->load(["project","project.user_creator","project.user_creator.myHead"]);
     }
 }
