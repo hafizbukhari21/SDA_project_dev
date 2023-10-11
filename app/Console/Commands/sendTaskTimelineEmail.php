@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Repository\Data\Project_timelineRepository;
+use App\Services\SendNotifActivityTimelineProject;
 use Illuminate\Console\Command;
 
 class sendTaskTimelineEmail extends Command
@@ -12,6 +14,14 @@ class sendTaskTimelineEmail extends Command
      * @var string
      */
     protected $signature = 'app:send-task-timeline-email';
+
+    public SendNotifActivityTimelineProject $SendNotif;
+
+    public function __construct(SendNotifActivityTimelineProject $sendNotifActivityTimelineProject){
+
+        parent::__construct($sendNotifActivityTimelineProject);
+        $this->SendNotif = $sendNotifActivityTimelineProject;
+    }
 
     /**
      * The console command description.
@@ -25,6 +35,6 @@ class sendTaskTimelineEmail extends Command
      */
     public function handle()
     {
-        
+        $this->SendNotif->SendEmailTo();
     }
 }
