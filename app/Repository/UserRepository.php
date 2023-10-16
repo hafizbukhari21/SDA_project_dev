@@ -178,7 +178,22 @@ class UserRepository {
         return $user?false:true;//if user has been deleted return false
     }
 
-    
+
+    public function getUpdatePassword($idUser,RequestHttp $request){
+        
+
+        $user = $this->user->find($idUser);
+        $user->password = $request->newPassword;
+        $res=$user->save();
+        if($res>0){
+            Log::info("user id User =".$idUser." Update Password");
+            return $res;
+        }
+
+        return null;
+    }
+
+
     
 
 

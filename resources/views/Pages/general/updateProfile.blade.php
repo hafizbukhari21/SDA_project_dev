@@ -45,20 +45,16 @@
                         <div class="">
                             <h1 class="h4 text-gray-900 mb-4">Password</h1>
                         </div>
-                        <form class="user row needs-validation" id="addCategoryProject" novalidate>
+                        <form class="user row needs-validation" id="updateUserPassword" novalidate>
                             @csrf
                             <div class="col-lg-6 row">
-                                <div class="form-group col-lg-12 ">
-                                    <label for="customRange2" class="form-label">Old Password</label><br>
-                                    <input type="password" class="form-control " name="oldPassword" id="password"placeholder="Password" required>
-                                </div>
                                 <div class="form-group col-lg-12 ">
                                     <label for="customRange2" class="form-label">New Password</label><br>
                                     <input type="password" class="form-control " name="newPassword" id="newPassword"placeholder="New Password" required>
                                 </div>
 
                                 <div class="form-group col-lg-12 ">
-                                    <input type="password" class="form-control " name="re" id="reNewPassword"placeholder="Re-type New Password" required>
+                                    <input type="password" class="form-control " id="reNewPassword"placeholder="Re-type New Password" required>
                                 </div>
                             </div>
                            
@@ -90,7 +86,7 @@
 <script src="//cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
 <script id="myscriptvar">
-
+    const urlDoUpdate = "{{route('userprofile.updatePassword')}}"
 </script>
 
 
@@ -99,7 +95,7 @@
 
 </script>
  
-<script src="{{ asset('js/Page/SuperUser/projectCategory_SuperUser.js') }}"></script>
+<script src="{{ asset('js/UpdatePassword.js') }}"></script>
 
 
 

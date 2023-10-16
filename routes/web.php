@@ -148,7 +148,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
     Route::get("profile",[userController::class,"triggerUserProfile"])->name("userprofile");
-
+    Route::post("profile/doUpdate",[authWebController::class,"getUpdatePassword"])->name("userprofile.updatePassword");
     });
 
 

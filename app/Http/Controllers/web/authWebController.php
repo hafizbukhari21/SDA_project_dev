@@ -71,6 +71,18 @@ class authWebController extends Controller
         return $this->authRepo->doResetPassword($request);
     }
 
+
+       //Update Password
+
+       public function getUpdatePassword(Request $request){
+        $request->validate([
+            'newPassword' => 'required',
+        ]);
+        $idUser = session()->get("sessionKey")["id"];
+        return $this->authRepo->getUpdatePassword($idUser,$request);
+
+    }
+
     
 
     
