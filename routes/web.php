@@ -147,6 +147,7 @@ Route::group(['middleware'=>'SessionControlWeb'],function(){
         Route::post("read",[notificationController::class,"setHasBeenRead"])->name("notifbar.read");
     });
     Route::view('dashboard', 'Pages.general.dashboard')->name("dashboard");
+    Route::get("profile",[userController::class,"triggerUserProfile"])->name("userprofile");
 
     });
 

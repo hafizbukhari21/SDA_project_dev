@@ -79,6 +79,10 @@ class userController extends Controller
         return $this->userRepository->getAllMyOfficer();
     }
 
+    public function triggerUserProfile(){
+        return view("Pages.general.updateProfile",[]);
+    }
+
     
 
 
