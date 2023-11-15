@@ -136,7 +136,6 @@ function IsTimeline(nb,userUid){
         </div>
         <div>
             <div class="small text-gray-500">Deadline. ${moment(data.nb.timeline.to).format("MMM-DD, YYYY")}</div>
-            <span style="font-size:13px; font-weight:200">${data.nb.timeline.project.project_name}</span><br/>
             <span style="font-size:10px; font-weight:100">Task - ${data.nb.timeline.task_name}</span><br/>
         </div>
         </a>`
