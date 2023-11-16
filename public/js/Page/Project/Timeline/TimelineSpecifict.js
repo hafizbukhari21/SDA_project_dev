@@ -310,8 +310,13 @@ timeline_from.addEventListener("change",()=>timeline_to.min=timeline_from.value)
 timeline_to.addEventListener("change",()=>timeline_from.max=timeline_to.value)
 
 
+
 //NewTaskButton
 const newTaskButton = document.querySelector("#newTaskButton")
 newTaskButton.addEventListener("click",()=>ResetForm("#addTaskForm"))
+newTaskButton.addEventListener("click",()=>{
+    timeline_to.min=timeline_from.value
+    timeline_from.max=timeline_to.value
+})
 
 
