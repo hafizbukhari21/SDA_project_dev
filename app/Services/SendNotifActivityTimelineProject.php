@@ -17,15 +17,19 @@ class SendNotifActivityTimelineProject{
 
     public function SendEmailTo(){
         Log::info("start - Sending Email");
+        $notifSending_s = $this->timelineRepo->GetActivitySchedular();
        try{ 
-            $notifSending_s = $this->timelineRepo->GetActivitySchedular();
 
             foreach($notifSending_s as $notifSending){
                 Mail::to($notifSending["emailOfficer"])->send(new timelineNotif(
                     $notifSending["officerName"],$notifSending["projectName"],$notifSending["taskName"],$notifSending["deadline"]));
+                    Log::info("Email Sent to Officer");
+                if($notifSending["emailhead"]){
+                    Mail::to($notifSending["emailhead"])->send(new timelineNotif(
+                        $notifSending["headName"],$notifSending["projectName"],$notifSending["taskName"],$notifSending["deadline"]));
+                    Log::info("Email Sent to Head");
 
-                Mail::to($notifSending["emailhead"])->send(new timelineNotif(
-                    $notifSending["headName"],$notifSending["projectName"],$notifSending["taskName"],$notifSending["deadline"]));
+                }
 
                 Log::info("sending to Officer = ".$notifSending["officerName"]." - Email ".$notifSending["emailOfficer"]." | Head = ".$notifSending["headName"]." - Email ".$notifSending["emailhead"]);
             }

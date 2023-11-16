@@ -35,7 +35,9 @@ class Project_timelineRepository extends GeneralRepository{
     //for Mailer 
     public function GetActivitySchedular() {
         $currentDate = Carbon::now()->format("Y-m-d");
+        
         return $this->objectName->where("to",$currentDate)
+            ->whereHas("project.user_creator")
             ->get()->load(["project","project.user_creator","project.user_creator.myHead"])
             ->map(function ($payload){
                 $myheadData = User::find($payload->project->user_creator->myHeadId);
@@ -49,5 +51,11 @@ class Project_timelineRepository extends GeneralRepository{
                     "headName"=>$myheadData->name
                 ];
             });
+
+       
+
+        
+        
+        
     }
 }
